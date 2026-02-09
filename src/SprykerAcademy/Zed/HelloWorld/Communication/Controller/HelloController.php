@@ -13,10 +13,13 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 
 class HelloController extends AbstractController
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function indexAction(): array
     {
-        // TODO
-
-        return [];
+        return $this->viewResponse([
+            'helloWorldText' => 'Hello World!',
+        ]);
     }
 }
