@@ -111,3 +111,6 @@ docker
 
 # Generated icon sprite
 /frontend/assets/global/default/icons/sprite.svg
+
+# Ollama data
+data/tmp/ollama_data/
