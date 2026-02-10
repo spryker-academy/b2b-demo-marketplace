@@ -391,7 +391,6 @@
     "symfony/twig-bundle": "^6.4.24",
     "symfony/validator": "^6.4.30",
     "symfony/web-profiler-bundle": "*"
-
   },
   "autoload": {
     "psr-4": {
