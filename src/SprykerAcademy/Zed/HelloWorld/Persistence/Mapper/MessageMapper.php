@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerAcademy\Zed\HelloWorld\Persistence\Mapper;
 
 use Generated\Shared\Transfer\MessageTransfer;
@@ -15,7 +20,7 @@ class MessageMapper
      */
     public function mapEntityToMessageTransfer(
         PyzMessage $messageEntity,
-        MessageTransfer $messageTransfer,
+        MessageTransfer $messageTransfer = new MessageTransfer(),
     ): MessageTransfer {
         return $messageTransfer->fromArray($messageEntity->toArray(), true);
     }
@@ -28,7 +33,7 @@ class MessageMapper
      */
     public function mapMessageTransferToEntity(
         MessageTransfer $messageTransfer,
-        PyzMessage $messageEntity,
+        PyzMessage $messageEntity = new PyzMessage(),
     ): PyzMessage {
         $messageEntity->fromArray($messageTransfer->modifiedToArray());
         $messageEntity->setNew($messageTransfer->getIdMessage() === null);

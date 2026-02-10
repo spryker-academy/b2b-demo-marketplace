@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerAcademy\Zed\HelloWorld\Persistence;
 
 use Generated\Shared\Transfer\MessageTransfer;
@@ -15,11 +20,13 @@ class HelloWorldEntityManager extends AbstractEntityManager implements HelloWorl
     {
         $messageEntity = new PyzMessage();
 
-        // TODO: Use MessageMapper through factory to map $messageTransfer to $messageEntity
+        $messageEntity->fromArray($messageTransfer->modifiedToArray());
 
         $messageEntity->save();
 
-        // TODO: Use MessageMapper through factory to map $messageEntity to $messageTransfer and return it
-        return new MessageTransfer(); // TODO: To be replaced with the $messageTransfer from the MessageMapper
+        return $this->getFactory()->createMessageMapper()->mapEntityToMessageTransfer(
+            $messageEntity,
+            new MessageTransfer(),
+        );
     }
 }

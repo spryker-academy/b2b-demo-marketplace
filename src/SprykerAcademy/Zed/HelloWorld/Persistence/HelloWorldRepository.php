@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerAcademy\Zed\HelloWorld\Persistence;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
@@ -13,14 +18,17 @@ class HelloWorldRepository extends AbstractRepository implements HelloWorldRepos
 {
     public function findMessage(MessageCriteriaTransfer $messageCriteria): ?MessageTransfer
     {
+        $query = $this->getFactory()->createMessageQuery();
         $messageEntity = null;
-        // TODO: Get MessageQuery through factory and query one message and assign to $messageEntity
-        // access factory: $this->getFactory() (see @method annotation)
-        // example query: $query->filterByName('some-name')->findOne()
+        if ($messageCriteria->getIdMessage()) {
+            $messageEntity = $query->findOneByIdMessage($messageCriteria->getIdMessage());
+        } elseif ($messageCriteria->getMessage()) {
+            $messageEntity = $query->findOneByMessage($messageCriteria->getMessage());
+        }
+        if (!$messageEntity) {
+            return null;
+        }
 
-        // TODO: Return null if there is no message
-
-        // TODO: Use MessageMapper through factory to map $messageEntity to $messageTransfer and return it
-        return null; // TODO: To be replaced with the $messageTransfer from the MessageMapper
+        return $this->getFactory()->createMessageMapper()->mapEntityToMessageTransfer($messageEntity, new MessageTransfer());
     }
 }

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerAcademy\Zed\HelloWorld\Communication\Controller;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
@@ -12,12 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class MessageController extends AbstractController
 {
-    public function addAction(Request $request)
+    public function addAction(Request $request): array
     {
-        $messageName = $request->query->get('name', 'Oskar');
-
-        $messageCriteriaTransfer = null;
-        // TODO: Instantiate MessageCriteriaTransfer and set the message name
+        $message = $request->query->get('message', 'Oskar');
+        $messageCriteriaTransfer = new MessageCriteriaTransfer();
+        $messageCriteriaTransfer->setMessage($message);
 
         $messageResponseTransfer = $this->getFacade()
             ->findMessage($messageCriteriaTransfer);
@@ -25,9 +29,10 @@ class MessageController extends AbstractController
         $messageTransfer = $messageResponseTransfer->getMessage();
 
         if (!$messageTransfer) {
-            // TODO: If there isn't a message with that name already,
-            // create a MessageTransfer and set the right message name
-            // and persist it with the help of the method `$this->getFacade()->createMessage()`
+            $messageTransfer = new MessageTransfer();
+            $messageTransfer->setMessage($message);
+
+            $messageTransfer = $this->getFacade()->createMessage($messageTransfer);
         }
 
         return $this->viewResponse([

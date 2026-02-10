@@ -7,5 +7,14 @@
         <property name="idMessage" type="int"/>
         <property name="message" type="string"/>
     </transfer>
+    <transfer name="MessageCriteria">
+        <property name="idMessage" type="int"/>
+        <property name="message" type="string"/>
+    </transfer>
+
+    <transfer name="MessageResponse">
+        <property name="message" type="Message"/>
+        <property name="isSuccessful" type="bool"/>
+    </transfer>
 
 </transfers>
