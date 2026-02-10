@@ -9,13 +9,11 @@ class MessageWriter
 {
     protected HelloWorldEntityManagerInterface $helloWorldEntityManager;
 
-    public function __construct(HelloWorldEntityManagerInterface $helloWorldEntityManager)
-    {
-        $this->helloWorldEntityManager = $helloWorldEntityManager;
-    }
+
+    // TODO: Make MessageEntityManager available through the constructor
 
     public function create(MessageTransfer $messageTransfer): MessageTransfer
     {
-        return $this->helloWorldEntityManager->createMessage($messageTransfer);
+        // TODO: Use the helloWorldEntityManager to create an antelope
     }
 }

@@ -2,8 +2,6 @@
 
 namespace SprykerAcademy\Zed\HelloWorld\Communication\Controller;
 
-use Generated\Shared\Transfer\MessageCriteriaTransfer;
-use Generated\Shared\Transfer\MessageTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,15 +12,14 @@ class MessageController extends AbstractController
 {
     public function addAction(Request $request)
     {
-        $messageName = $request->query->get('name', 'Oskar');
+        $message = $request->query->get('message', 'Hello World');
 
         $messageCriteriaTransfer = null;
-        // TODO: Instantiate MessageCriteriaTransfer and set the message name
+        // TODO: Instantiate MessageCriteriaTransfer and set the message
+// Use the facade with the method $this->getFacadde() and calle findMessage() with the message criteria transfer
+        //Assign the return value to 
+        $messageTransfer = null;
 
-        $messageResponseTransfer = $this->getFacade()
-            ->findMessage($messageCriteriaTransfer);
-
-        $messageTransfer = $messageResponseTransfer->getMessage();
 
         if (!$messageTransfer) {
             // TODO: If there isn't a message with that name already,

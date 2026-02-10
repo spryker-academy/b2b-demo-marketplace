@@ -2,9 +2,9 @@
 
 namespace SprykerAcademy\Zed\HelloWorld\Business;
 
+use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerAcademy\Zed\HelloWorld\Business\Reader\MessageReader;
 use SprykerAcademy\Zed\HelloWorld\Business\Writer\MessageWriter;
-use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \SprykerAcademy\Zed\HelloWorld\Persistence\HelloWorldEntityManagerInterface getEntityManager()
@@ -14,15 +14,13 @@ class HelloWorldBusinessFactory extends AbstractBusinessFactory
 {
     public function createMessageWriter(): MessageWriter
     {
-        return new MessageWriter(
-            $this->getEntityManager()
-        );
+        // TODO: Instantiate the MessageWriter with the right dependency
+        // Hint: You can access the MessageEntityManager through $this->getEntityManager()
     }
 
     public function createMessageReader(): MessageReader
     {
-        return new MessageReader(
-            $this->getRepository()
-        );
+        // TODO: Instantiate the MessageReader with the right dependency
+        // Hint: You can access the MessageEntityRepository through $this->getRepository()
     }
 }
