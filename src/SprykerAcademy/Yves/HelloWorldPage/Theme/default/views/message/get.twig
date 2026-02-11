@@ -1,0 +1,13 @@
+{% extends template('page-blank') %}
+
+{% define data = {
+    message: _view.message
+} %}
+
+{% block body %}
+    {% if data.message is not null %}
+        My message is: {{ data.message.message }}
+    {% else %}
+        No message found :(
+    {% endif %}
+{% endblock %}

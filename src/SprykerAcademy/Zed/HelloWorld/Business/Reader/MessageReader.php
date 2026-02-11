@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerAcademy\Zed\HelloWorld\Business\Reader;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
@@ -9,8 +14,6 @@ use SprykerAcademy\Zed\HelloWorld\Persistence\HelloWorldRepositoryInterface;
 class MessageReader
 {
     protected HelloWorldRepositoryInterface $helloWorldRepository;
-
-    // TODO: Make HelloWorldRepository available through the constructor
 
     public function findMessage(MessageCriteriaTransfer $messageCriteria): MessageResponseTransfer
     {

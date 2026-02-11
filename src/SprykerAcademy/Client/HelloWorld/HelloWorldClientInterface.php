@@ -5,27 +5,13 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerAcademy\Zed\HelloWorld\Business;
+namespace SprykerAcademy\Client\HelloWorld;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
 use Generated\Shared\Transfer\MessageResponseTransfer;
-use Generated\Shared\Transfer\MessageTransfer;
 
-interface HelloWorldFacadeInterface
+interface HelloWorldClientInterface
 {
-    /**
-     * Specification:
-     * - Creates and persists message
-     * - Returns message with assigned ID
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\MessageTransfer $messageTransfer
-     *
-     * @return \Generated\Shared\Transfer\MessageTransfer
-     */
-    public function createMessage(MessageTransfer $messageTransfer): MessageTransfer;
-
     /**
      * Specification:
      * - Finds message by defined criteria
