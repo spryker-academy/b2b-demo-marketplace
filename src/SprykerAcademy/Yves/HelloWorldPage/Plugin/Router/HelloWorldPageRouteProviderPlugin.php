@@ -7,7 +7,7 @@ use Spryker\Yves\Router\Route\RouteCollection;
 
 class HelloWorldPageRouteProviderPlugin extends AbstractRouteProviderPlugin
 {
-    public const ROUTE_NAME_HELLO_WORLD_MESSAGE_NAME = 'hello-world/message/_name_';
+    public const string ROUTE_NAME_HELLO_WORLD_MESSAGE_NAME = 'hello-world/message/_idMessage_';
 
     public function addRoutes(RouteCollection $routeCollection): RouteCollection
     {
@@ -20,7 +20,7 @@ class HelloWorldPageRouteProviderPlugin extends AbstractRouteProviderPlugin
     {
         // TODO: Replace the placeholders for module and controller name with the right naming
         // based on src/SprykerAcademy/Yves/HelloWorldPage/Controller/MessageController.php::getAction()
-        $route = $this->buildRoute('hello-world/message/{name}', '<module-name>', '<controller-name>', 'getAction');
+        $route = $this->buildRoute('hello-world/message/{idMessage}', 'HelloWorldPage', 'Message', 'getAction');
         $route = $route->setMethods(['GET']);
         $routeCollection->add(static::ROUTE_NAME_HELLO_WORLD_MESSAGE_NAME, $route);
 

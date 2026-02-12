@@ -15,9 +15,7 @@ class HelloWorldFactory extends AbstractFactory
 {
     public function createHelloWorldStub(): HelloWorldStub
     {
-        // TODO: Instantiate the HelloWorldStub with the right dependency
-        // Hint: You can see the needed parameter(s) for the constructor either through your IDE
-        // or by looking into the parent class of HelloWorldStub
+        return new HelloWorldStub($this->getZedRequestClient());
     }
 
     public function getZedRequestClient(): ZedRequestClientInterface

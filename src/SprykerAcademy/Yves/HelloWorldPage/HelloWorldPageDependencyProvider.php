@@ -7,7 +7,7 @@ use Spryker\Yves\Kernel\Container;
 
 class HelloWorldPageDependencyProvider extends AbstractBundleDependencyProvider
 {
-    public const CLIENT_HELLO_WORLD = 'CLIENT_HELLO_WORLD';
+    public const string CLIENT_HELLO_WORLD = 'CLIENT_HELLO_WORLD';
 
     public function provideDependencies(Container $container): Container
     {
@@ -18,7 +18,7 @@ class HelloWorldPageDependencyProvider extends AbstractBundleDependencyProvider
 
     protected function addHelloWorldClient(Container $container): Container
     {
-        // TODO: Make the HelloWorldClient available
-        // Hint: It works exactly like shown in `src/SprykerAcademy/Client/HelloWorld/HelloWorldDependencyProvider.php`
+        $container->set(static::CLIENT_HELLO_WORLD, fn() => $container->getLocator()->helloWorld()->client());
+        return $container;
     }
 }

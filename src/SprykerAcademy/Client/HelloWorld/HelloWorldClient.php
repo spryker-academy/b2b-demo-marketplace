@@ -20,9 +20,10 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class HelloWorldClient extends AbstractClient implements HelloWorldClientInterface
 {
+
+
     public function findMessage(MessageCriteriaTransfer $messageCriteria): MessageResponseTransfer
     {
-        // TODO: Use the factory to create a HelloWorldStub and use it to find a message
-        // Hint: You can access the HelloWorldFactory through $this->getFactory()
+        return $this->getFactory()->createHelloWorldStub()->findMessage($messageCriteria);
     }
 }

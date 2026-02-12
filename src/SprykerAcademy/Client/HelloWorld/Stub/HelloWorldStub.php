@@ -28,12 +28,10 @@ class HelloWorldStub
 
     public function findMessage(MessageCriteriaTransfer $messageCriteria): MessageResponseTransfer
     {
-        /** @var \Generated\Shared\Transfer\MessageResponseTransfer $messageResponseTransfer */
+        /** @var MessageResponseTransfer $messageResponseTransfer */
 
-        // TODO: Fill in the right path for '/module-name/controller-name/action-name'
-        // Hint: We want to call the src/SprykerAcademy/Zed/HelloWorld/Communication/Controller/GatewayController.php::findMessageAction()
 
-        $messageResponseTransfer = $this->zedRequestClient->call('/module-name/controller-name/action-name', $messageCriteria);
+        $messageResponseTransfer = $this->zedRequestClient->call('/hello-world/gateway/find-message', $messageCriteria);
 
         return $messageResponseTransfer;
     }

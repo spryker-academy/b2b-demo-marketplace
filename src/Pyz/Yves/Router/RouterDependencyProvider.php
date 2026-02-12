@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pyz\Yves\Router;
 
@@ -24,6 +24,7 @@ use Spryker\Yves\Router\Plugin\RouterEnhancer\LanguagePrefixRouterEnhancerPlugin
 use Spryker\Yves\Router\Plugin\RouterEnhancer\StorePrefixRouterEnhancerPlugin;
 use Spryker\Yves\Router\RouterDependencyProvider as SprykerRouterDependencyProvider;
 use Spryker\Yves\Sitemap\Plugin\Router\SitemapRouteProviderPlugin;
+use SprykerAcademy\Yves\HelloWorldPage\Plugin\Router\HelloWorldPageRouteProviderPlugin;
 use SprykerFeature\Yves\SelfServicePortal\Plugin\Router\SelfServicePortalPageRouteProviderPlugin;
 use SprykerShop\Yves\AgentPage\Plugin\Router\AgentPageRouteProviderPlugin;
 use SprykerShop\Yves\AgentWidget\Plugin\Router\AgentWidgetRouteProviderPlugin;
@@ -114,6 +115,7 @@ class RouterDependencyProvider extends SprykerRouterDependencyProvider
     protected function getRouteProvider(): array
     {
         return [
+            new  HelloWorldPageRouteProviderPlugin(),
             new ErrorPageRouteProviderPlugin(),
             new HomePageRouteProviderPlugin(),
             new CheckoutPageRouteProviderPlugin(),

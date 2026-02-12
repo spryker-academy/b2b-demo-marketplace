@@ -3,6 +3,8 @@
 namespace SprykerAcademy\Yves\HelloWorldPage\Controller;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
+use Spryker\Yves\Kernel\View\View;
+use SprykerAcademy\Client\HelloWorld\HelloWorldClientInterface;
 use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
 
 /**
@@ -10,12 +12,19 @@ use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
  */
 class MessageController extends AbstractController
 {
-    public function getAction(string $name)
+    public function __construct(protected ?HelloWorldClientInterface $helloWorldClient = null)
     {
-        $messageCriteriaTransfer = null;
+        $this->helloWorldClient = $helloWorldClient ?? $this->getFactory()->getHelloWorldClient();
+    }
+
+    public function getAction(int $idMessage): View
+    {
+        $messageCriteriaTransfer = new MessageCriteriaTransfer();
+        $messageCriteriaTransfer->setIdMessage($idMessage);
+
         // TODO: Instantiate MessageCriteriaTransfer and set the message name
 
-        $messageResponseTransfer = null;
+        $messageResponseTransfer = $this->helloWorldClient->findMessage($messageCriteriaTransfer);
         // TODO: Use the HelloWorldClient which is accessible by using `$this->getFactory()`
         // to find a message by a MessageCriteriaTransfer
 

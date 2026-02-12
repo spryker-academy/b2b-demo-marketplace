@@ -195,7 +195,7 @@ services:
             username: 'root'
             password: 'secret'
         endpoints:
-            localhost:3306:
+            localhost:"3308:3306":
                 protocol: tcp
     broker:
         engine: rabbitmq
