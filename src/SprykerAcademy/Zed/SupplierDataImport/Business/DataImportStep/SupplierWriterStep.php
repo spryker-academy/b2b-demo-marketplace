@@ -22,9 +22,12 @@ readonly class SupplierWriterStep implements DataImportStepInterface
         // Hint-3: `findOneOrCreate()` can be used to query one from the database or create a fresh entity
         $supplierEntity = null;
 
-        // TODO-2: Assign the description, status, email, phone and fk_merchant from the dataset to the entity by using the setters
+        // TODO-2: Assign the description, status, email and phone from the dataset to the entity by using the setters
 
         // TODO-3: Save the entity ONLY if it's new or modified
-        // Hint: Take a look at `src/Orm/Zed/Supplier/Persistence/Base/PyzSupplier.php` for the right methods
+
+        // TODO-4: Handle the many-to-many relationship with merchants
+        // Hint-1: The merchant IDs are in $dataSet[SupplierDataSetInterface::COLUMN_MERCHANT_IDS] as a comma-separated string
+        // Hint-2: Use PyzMerchantToSupplierQuery to manage the relations
     }
 }

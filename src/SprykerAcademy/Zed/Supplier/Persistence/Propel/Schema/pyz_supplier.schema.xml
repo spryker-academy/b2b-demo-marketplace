@@ -3,21 +3,28 @@
 
     <table name="pyz_supplier" idMethod="native" allowPkInsert="true" phpName="PyzSupplier">
         <column name="id_supplier" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
-        <column name="fk_merchant" required="true" type="INTEGER"/>
         <column name="name" required="true" type="VARCHAR"/>
         <column name="description" required="true" type="LONGVARCHAR"/>
         <column name="status" required="true" type="VARCHAR"/>
         <column name="email" required="true" type="VARCHAR"/>
         <column name="phone" required="true" type="VARCHAR"/>
 
-        <foreign-key foreignTable="spy_merchant" name="pyz_supplier-fk_merchant">
-            <reference local="fk_merchant" foreign="id_merchant"/>
-        </foreign-key>
-
         <unique name="pyz_supplier-name">
             <unique-column name="name"/>
         </unique>
         <id-method-parameter value="pyz_supplier_pk_seq"/>
+    </table>
+
+    <table name="pyz_merchant_to_supplier" idMethod="native" allowPkInsert="true" phpName="PyzMerchantToSupplier">
+        <column name="fk_merchant" required="true" type="INTEGER" primaryKey="true"/>
+        <column name="fk_supplier" required="true" type="INTEGER" primaryKey="true"/>
+
+        <foreign-key foreignTable="spy_merchant" name="pyz_merchant_to_supplier-fk_merchant">
+            <reference local="fk_merchant" foreign="id_merchant"/>
+        </foreign-key>
+        <foreign-key foreignTable="pyz_supplier" name="pyz_merchant_to_supplier-fk_supplier">
+            <reference local="fk_supplier" foreign="id_supplier"/>
+        </foreign-key>
     </table>
 
 </database>
