@@ -16,36 +16,34 @@ use SprykerAcademy\Zed\SupplierDataImport\SupplierDataImportConfig;
 
 /**
  * @method \SprykerAcademy\Zed\SupplierDataImport\Business\SupplierDataImportFacadeInterface getFacade()
- * @method \SprykerAcademy\Zed\SupplierDataImport\SupplierDataImportConfig getConfig()
  */
-class SupplierDataImportPlugin extends AbstractPlugin implements DataImportPluginInterface
+class SupplierLocationDataImportPlugin extends AbstractPlugin implements DataImportPluginInterface
 {
     /**
-     * {@inheritDoc}
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
+          * {@inheritDoc}
+                 *
+* @api
+ *
+    * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
      *
      * @return \Generated\Shared\Transfer\DataImporterReportTransfer
      */
     #[Override]
-    public function import(
-        ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
-    ): DataImporterReportTransfer {
-        return $this->getFacade()->importSupplier($dataImporterConfigurationTransfer);
+    public function import(?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null): DataImporterReportTransfer
+    {
+        return $this->getFacade()->importSupplierLocation($dataImporterConfigurationTransfer);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @api
-     *
-     * @return string
+          * {@inheritDoc}
+                 *
+* @api
+ *
+    * @return string
      */
     #[Override]
     public function getImportType(): string
     {
-        return SupplierDataImportConfig::IMPORT_TYPE_SUPPLIER;
+        return SupplierDataImportConfig::IMPORT_TYPE_SUPPLIER_LOCATION;
     }
 }

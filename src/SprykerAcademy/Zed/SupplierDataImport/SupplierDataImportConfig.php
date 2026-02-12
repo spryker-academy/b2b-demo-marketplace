@@ -1,10 +1,17 @@
 <?php
 
-namespace Pyz\Zed\SupplierDataImport;
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+namespace SprykerAcademy\Zed\SupplierDataImport;
 
 use Spryker\Zed\DataImport\DataImportConfig;
 
 class SupplierDataImportConfig extends DataImportConfig
 {
-    public const IMPORT_TYPE_ANTELOPE = 'supplier';
+    public const string IMPORT_TYPE_SUPPLIER = 'supplier';
+
+    public const string IMPORT_TYPE_SUPPLIER_LOCATION = 'supplier-location';
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\SupplierLocation\Persistence" package="src.Orm.Zed.SupplierLocation.Persistence">
+
+    <table name="pyz_supplier_location" idMethod="native" allowPkInsert="true" phpName="PyzSupplierLocation">
+        <column name="id_supplier_location" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_supplier" required="true" type="INTEGER"/>
+        <column name="city" required="true" type="VARCHAR"/>
+        <column name="country" required="true" type="VARCHAR"/>
+        <column name="address" required="true" type="VARCHAR"/>
+        <column name="zip_code" required="true" type="VARCHAR"/>
+        <column name="is_default" required="true" type="BOOLEAN" defaultValue="false"/>
+
+        <foreign-key foreignTable="pyz_supplier" name="pyz_supplier_location-fk_supplier">
+            <reference local="fk_supplier" foreign="id_supplier"/>
+        </foreign-key>
+
+        <id-method-parameter value="pyz_supplier_location_pk_seq"/>
+    </table>
+
+</database>

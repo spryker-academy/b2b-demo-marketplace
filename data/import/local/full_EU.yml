@@ -416,3 +416,9 @@ actions:
   - data_entity: supplier-location
     source: data/import/common/common/supplier_location.csv
     source: data/import/common/common/ssp_model_product_list.csv
+
+#9. Supplier import
+  - data_entity: supplier
+    source: data/import/common/common/supplier.csv
+  - data_entity: supplier-location
+    source: data/import/common/common/supplier_location.csv

@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pyz\Zed\DataImport;
 
@@ -130,6 +130,8 @@ use Spryker\Zed\StockDataImport\Communication\Plugin\StockDataImportPlugin;
 use Spryker\Zed\StockDataImport\Communication\Plugin\StockStoreDataImportPlugin;
 use Spryker\Zed\StoreContextDataImport\Communication\Plugin\DataImport\StoreContextDataImportPlugin;
 use Spryker\Zed\StoreDataImport\Communication\Plugin\DataImport\StoreDataImportPlugin;
+use SprykerAcademy\Zed\SupplierDataImport\Communication\Plugin\DataImport\SupplierDataImportPlugin;
+use SprykerAcademy\Zed\SupplierDataImport\Communication\Plugin\DataImport\SupplierLocationDataImportPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\DataImport\ProductClassDataImportPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\DataImport\ProductShipmentTypeDataImportPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\DataImport\ProductToProductClassDataImportPlugin;
@@ -222,6 +224,76 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
+    protected function addAvailabilityFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_AVAILABILITY, function (Container $container) {
+            return $container->getLocator()->availability()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCategoryFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_CATEGORY, function (Container $container) {
+            return $container->getLocator()->category()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addProductBundleFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_PRODUCT_BUNDLE, function (Container $container) {
+            return $container->getLocator()->productBundle()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addProductRelationFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_PRODUCT_RELATION, function (Container $container) {
+            return $container->getLocator()->productRelation()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addProductSearchFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_PRODUCT_SEARCH, function (Container $container) {
+            return $container->getLocator()->productSearch()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     protected function addCurrencyFacade(Container $container): Container
     {
         $container->set(static::FACADE_CURRENCY, function (Container $container) {
@@ -278,76 +350,6 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addAvailabilityFacade(Container $container): Container
-    {
-        $container->set(static::FACADE_AVAILABILITY, function (Container $container) {
-            return $container->getLocator()->availability()->facade();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addCategoryFacade(Container $container): Container
-    {
-        $container->set(static::FACADE_CATEGORY, function (Container $container) {
-            return $container->getLocator()->category()->facade();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addProductBundleFacade(Container $container): Container
-    {
-        $container->set(static::FACADE_PRODUCT_BUNDLE, function (Container $container) {
-            return $container->getLocator()->productBundle()->facade();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addProductSearchFacade(Container $container): Container
-    {
-        $container->set(static::FACADE_PRODUCT_SEARCH, function (Container $container) {
-            return $container->getLocator()->productSearch()->facade();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addProductRelationFacade(Container $container): Container
-    {
-        $container->set(static::FACADE_PRODUCT_RELATION, function (Container $container) {
-            return $container->getLocator()->productRelation()->facade();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addMerchantUserFacade(Container $container): Container
     {
         $container->set(static::FACADE_MERCHANT_USER, function (Container $container) {
@@ -363,6 +365,8 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
     protected function getDataImporterPlugins(): array
     {
         return [
+            new SupplierDataImportPlugin(),
+            new SupplierLocationDataImportPlugin(),
             new StoreDataImportPlugin(),
             new CountryStoreDataImportPlugin(),
             new CurrencyStoreDataImportPlugin(),
