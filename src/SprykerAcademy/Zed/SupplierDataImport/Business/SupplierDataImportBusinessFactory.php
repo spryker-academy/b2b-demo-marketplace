@@ -1,10 +1,10 @@
 <?php
 
-namespace SprykerAcademy\Zed\SupplierDataImport\Business;
+namespace Pyz\Zed\SupplierDataImport\Business;
 
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
-use SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep\DescriptionToLowercaseStep;
-use SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep\SupplierWriterStep;
+use Pyz\Zed\SupplierDataImport\Business\DataImportStep\SupplierWriterStep;
+use Pyz\Zed\SupplierDataImport\Business\DataImportStep\ColorToLowercaseStep;
 use Spryker\Zed\DataImport\Business\DataImportBusinessFactory;
 use Spryker\Zed\DataImport\Business\Model\DataImporterInterface;
 
@@ -20,7 +20,7 @@ class SupplierDataImportBusinessFactory extends DataImportBusinessFactory
         $dataImporter = $this->getCsvDataImporterFromConfig($dataImporterConfigurationTransfer);
 
         $dataSetStepBroker = $this->createTransactionAwareDataSetStepBroker();
-        $dataSetStepBroker->addStep($this->createDescriptionToLowercaseStep());
+        $dataSetStepBroker->addStep($this->createColorToLowercaseStep());
         $dataSetStepBroker->addStep($this->createSupplierWriterStep());
 
         $dataImporter->addDataSetStepBroker($dataSetStepBroker);
@@ -29,15 +29,15 @@ class SupplierDataImportBusinessFactory extends DataImportBusinessFactory
     }
 
     /**
-     * @return \SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep\DescriptionToLowercaseStep
+     * @return \Pyz\Zed\SupplierDataImport\Business\DataImportStep\ColorToLowercaseStep
      */
-    public function createDescriptionToLowercaseStep(): DescriptionToLowercaseStep
+    public function createColorToLowercaseStep(): ColorToLowercaseStep
     {
-        return new DescriptionToLowercaseStep();
+        return new ColorToLowercaseStep();
     }
 
     /**
-     * @return \SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep\SupplierWriterStep
+     * @return \Pyz\Zed\SupplierDataImport\Business\DataImportStep\SupplierWriterStep
      */
     public function createSupplierWriterStep(): SupplierWriterStep
     {

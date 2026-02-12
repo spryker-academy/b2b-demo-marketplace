@@ -1,6 +1,6 @@
 <?php
 
-namespace SprykerAcademy\Zed\SupplierDataImport\Business;
+namespace Pyz\Zed\SupplierDataImport\Business;
 
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
 use Generated\Shared\Transfer\DataImporterReportTransfer;
