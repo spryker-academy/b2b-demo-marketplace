@@ -1,5 +1,5 @@
 supplier_name,city,country,address,zip_code,is_default
 "Supplier A","Berlin","Germany","Alexanderplatz 1","10178",1
 "Supplier A","Munich","Germany","Marienplatz 1","80331",0
-"Supplier B","Hamburg","Germany","Reeperbahn 1","20359",1
-"Supplier C","Cologne","Germany","Domkloster 4","50667",1
+"Supplier A","Hamburg","Germany","Reeperbahn 1","20359",1
+"Supplier A","Cologne","Germany","Domkloster 4","50667",1

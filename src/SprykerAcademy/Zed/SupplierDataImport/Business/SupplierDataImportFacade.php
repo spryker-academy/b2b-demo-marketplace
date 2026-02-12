@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerAcademy\Zed\SupplierDataImport\Business;
 
-use Override;
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
 use Generated\Shared\Transfer\DataImporterReportTransfer;
+use Override;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -26,7 +31,7 @@ class SupplierDataImportFacade extends AbstractFacade implements SupplierDataImp
         ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
     ): DataImporterReportTransfer {
         // TODO: Use the factory to get the SupplierDataImport, call the `import()`-method and return its result
-        return null;
+        return new DataImporterReportTransfer();
     }
 
     /**
@@ -42,7 +47,8 @@ class SupplierDataImportFacade extends AbstractFacade implements SupplierDataImp
     public function importSupplierLocation(
         ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
     ): DataImporterReportTransfer {
-        // TODO: Use the factory to get the SupplierLocationDataImport, call the `import()`-method and return its result
-        return null;
+        return $this->getFactory()->getSupplierLocationDataImport($dataImporterConfigurationTransfer)->import(
+            $dataImporterConfigurationTransfer,
+        );
     }
 }

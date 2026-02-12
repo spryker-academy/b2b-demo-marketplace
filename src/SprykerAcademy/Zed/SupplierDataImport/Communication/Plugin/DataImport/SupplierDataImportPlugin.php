@@ -1,13 +1,18 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerAcademy\Zed\SupplierDataImport\Communication\Plugin\DataImport;
 
-use Override;
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
 use Generated\Shared\Transfer\DataImporterReportTransfer;
-use SprykerAcademy\Zed\SupplierDataImport\SupplierDataImportConfig;
+use Override;
 use Spryker\Zed\DataImport\Dependency\Plugin\DataImportPluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use SprykerAcademy\Zed\SupplierDataImport\SupplierDataImportConfig;
 
 /**
  * @method \SprykerAcademy\Zed\SupplierDataImport\Business\SupplierDataImportFacadeInterface getFacade()

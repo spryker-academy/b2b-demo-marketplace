@@ -1,13 +1,37 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep;
 
+use Orm\Zed\Supplier\Persistence\PyzSupplierQuery;
+use Orm\Zed\SupplierLocation\Persistence\PyzSupplierLocationQuery;
 use Override;
+use Spryker\Zed\DataImport\Business\Exception\EntityNotFoundException;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\DataImportStepInterface;
 use Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface;
+use SprykerAcademy\Zed\SupplierDataImport\Business\DataSet\SupplierLocationDataSetInterface;
 
-readonly class SupplierLocationWriterStep implements DataImportStepInterface
+class SupplierLocationWriterStep implements DataImportStepInterface
 {
+    /**
+     * @var array<string, int>
+     */
+    protected static array $supplierCache = [];
+
+    /**
+     * @param \Orm\Zed\Supplier\Persistence\PyzSupplierQuery $supplierQuery
+     * @param \Orm\Zed\SupplierLocation\Persistence\PyzSupplierLocationQuery $supplierLocationQuery
+     */
+    public function __construct(
+        protected PyzSupplierQuery $supplierQuery,
+        protected PyzSupplierLocationQuery $supplierLocationQuery
+    ) {
+    }
+
     /**
      * @param \Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface $dataSet
      *
@@ -16,19 +40,54 @@ readonly class SupplierLocationWriterStep implements DataImportStepInterface
     #[Override]
     public function execute(DataSetInterface $dataSet): void
     {
-        // TODO-1: Find or create an instance of supplier location entity by joining with the supplier table
-        // Hint-1: Use PyzSupplierLocationQuery::create()
-        // Hint-2: Use usePyzSupplierQuery() to join and filter by the supplier name from the dataset
-        // Hint-3: Filter by address from the dataset
-        // Hint-4: Use findOneOrCreate()
-        $supplierLocationEntity = null;
+        $supplierName = $dataSet[SupplierLocationDataSetInterface::COLUMN_SUPPLIER_NAME];
+        $address = $dataSet[SupplierLocationDataSetInterface::COLUMN_ADDRESS];
+        $city = $dataSet[SupplierLocationDataSetInterface::COLUMN_CITY];
+        $country = $dataSet[SupplierLocationDataSetInterface::COLUMN_COUNTRY];
+        $zipCode = $dataSet[SupplierLocationDataSetInterface::COLUMN_ZIP_CODE];
+        $isDefault = $dataSet[SupplierLocationDataSetInterface::COLUMN_IS_DEFAULT] ?? false;
 
-        // TODO-2: If the entity is new, you must find the supplier ID and set it
-        // Hint: Since findOneOrCreate() won't automatically set the foreign key from a joined filter,
-        // you need to ensure fk_supplier is set for new entities.
+        $supplierId = $this->getSupplierId($supplierName);
 
-        // TODO-3: Assign city, country, zip_code and is_default from the dataset to the entity
+        $supplierLocationEntity = $this->supplierLocationQuery
+            ->filterByFkSupplier($supplierId)
+            ->filterByAddress($address)
+            ->findOneOrCreate();
 
-        // TODO-4: Save the entity ONLY if it's new or modified
+        $supplierLocationEntity->setCity($city);
+        $supplierLocationEntity->setCountry($country);
+        $supplierLocationEntity->setZipCode($zipCode);
+        $supplierLocationEntity->setIsDefault($isDefault);
+
+        if ($supplierLocationEntity->isNew() || $supplierLocationEntity->isModified()) {
+            $supplierLocationEntity->save();
+        }
+    }
+
+    /**
+     * @param string $supplierName
+     *
+     * @throws \Spryker\Zed\DataImport\Business\Exception\EntityNotFoundException
+     *
+     * @return int
+     */
+    protected function getSupplierId(string $supplierName): int
+    {
+        if (isset(static::$supplierCache[$supplierName])) {
+            return static::$supplierCache[$supplierName];
+        }
+
+        $supplierEntity = $this->supplierQuery
+            ->clear()
+            ->filterByName($supplierName)
+            ->findOne();
+
+        if (!$supplierEntity) {
+            throw new EntityNotFoundException(sprintf('Supplier with name "%s" not found.', $supplierName));
+        }
+
+        static::$supplierCache[$supplierName] = $supplierEntity->getIdSupplier();
+
+        return static::$supplierCache[$supplierName];
     }
 }
