@@ -16,11 +16,16 @@ readonly class SupplierLocationWriterStep implements DataImportStepInterface
     #[Override]
     public function execute(DataSetInterface $dataSet): void
     {
-        // TODO-1: Find the supplier entity by name (from the dataset)
-        // Hint: Use PyzSupplierQuery and filter by $dataSet[SupplierLocationDataSetInterface::COLUMN_SUPPLIER_NAME]
+        // TODO-1: Find or create an instance of supplier location entity by joining with the supplier table
+        // Hint-1: Use PyzSupplierLocationQuery::create()
+        // Hint-2: Use usePyzSupplierQuery() to join and filter by the supplier name from the dataset
+        // Hint-3: Filter by address from the dataset
+        // Hint-4: Use findOneOrCreate()
+        $supplierLocationEntity = null;
 
-        // TODO-2: Find or create an instance of supplier location entity
-        // Hint: Filter by fk_supplier and address
+        // TODO-2: If the entity is new, you must find the supplier ID and set it
+        // Hint: Since findOneOrCreate() won't automatically set the foreign key from a joined filter,
+        // you need to ensure fk_supplier is set for new entities.
 
         // TODO-3: Assign city, country, zip_code and is_default from the dataset to the entity
 
