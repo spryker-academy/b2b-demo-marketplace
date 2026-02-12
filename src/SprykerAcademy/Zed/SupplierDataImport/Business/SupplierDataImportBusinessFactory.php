@@ -28,10 +28,10 @@ class SupplierDataImportBusinessFactory extends DataImportBusinessFactory
         $dataImporter = $this->getCsvDataImporterFromConfig($dataImporterConfigurationTransfer);
 
         $dataSetStepBroker = $this->createTransactionAwareDataSetStepBroker();
+        $dataSetStepBroker->addStep($this->createDescriptionToLowercaseStep());
+        $dataSetStepBroker->addStep($this->createSupplierWriterStep());
 
-        // TODO: Add the DescriptionToLowercaseStep to the $dataSetStepBroker
-        // TODO: Add the SupplierWriterStep to the $dataSetStepBroker
-        // TODO: Add the $dataSetStepBroker to the $dataImporter
+        $dataImporter->addDataSetStepBroker($dataSetStepBroker);
 
         return $dataImporter;
     }

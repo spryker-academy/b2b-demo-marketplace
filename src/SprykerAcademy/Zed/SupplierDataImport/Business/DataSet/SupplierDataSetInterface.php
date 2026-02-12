@@ -9,7 +9,7 @@ namespace SprykerAcademy\Zed\SupplierDataImport\Business\DataSet;
 
 interface SupplierDataSetInterface
 {
-    public const string COLUMN_NAME = 'supplier_name';
+    public const string COLUMN_NAME = 'name';
 
     public const string COLUMN_DESCRIPTION = 'description';
 

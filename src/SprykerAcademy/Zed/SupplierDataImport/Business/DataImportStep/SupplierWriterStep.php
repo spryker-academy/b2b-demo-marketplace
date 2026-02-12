@@ -7,9 +7,14 @@
 
 namespace SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep;
 
+use Orm\Zed\Supplier\Persistence\Map\PyzMerchantToSupplierTableMap;
+use Orm\Zed\Supplier\Persistence\PyzMerchantToSupplier;
+use Orm\Zed\Supplier\Persistence\PyzMerchantToSupplierQuery;
+use Orm\Zed\Supplier\Persistence\PyzSupplierQuery;
 use Override;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\DataImportStepInterface;
 use Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface;
+use SprykerAcademy\Zed\SupplierDataImport\Business\DataSet\SupplierDataSetInterface;
 
 readonly class SupplierWriterStep implements DataImportStepInterface
 {
@@ -21,18 +26,59 @@ readonly class SupplierWriterStep implements DataImportStepInterface
     #[Override]
     public function execute(DataSetInterface $dataSet): void
     {
-        // TODO-1: Find or create an instance of supplier entity
-        // Hint-1: PyzSupplierQuery has a static method `create()`
-        // Hint-2: Filter by name by calling 'filterByName()' method
-        // Hint-3: `findOneOrCreate()` can be used to query one from the database or create a fresh entity
-        $supplierEntity = null;
+        $name = $dataSet[SupplierDataSetInterface::COLUMN_NAME];
+        $description = $dataSet[SupplierDataSetInterface::COLUMN_DESCRIPTION];
+        $status = $dataSet[SupplierDataSetInterface::COLUMN_STATUS] ?? 'active';
+        $email = $dataSet[SupplierDataSetInterface::COLUMN_EMAIL] ?? null;
+        $phone = $dataSet[SupplierDataSetInterface::COLUMN_PHONE] ?? null;
+        $merchantIds = $dataSet[SupplierDataSetInterface::COLUMN_MERCHANT_IDS] ?? '';
 
-        // TODO-2: Assign the description, status, email and phone from the dataset to the entity by using the setters
+        $supplierEntity = PyzSupplierQuery::create()
+            ->filterByName($name)
+            ->findOneOrCreate();
 
-        // TODO-3: Save the entity ONLY if it's new or modified
+        $supplierEntity->setDescription($description);
+        $supplierEntity->setStatus($status);
+        $supplierEntity->setEmail($email);
+        $supplierEntity->setPhone($phone);
 
-        // TODO-4: Handle the many-to-many relationship with merchants
-        // Hint-1: The merchant IDs are in $dataSet[SupplierDataSetInterface::COLUMN_MERCHANT_IDS] as a comma-separated string
-        // Hint-2: Use PyzMerchantToSupplierQuery to manage the relations
+        if ($supplierEntity->isNew() || $supplierEntity->isModified()) {
+            $supplierEntity->save();
+        }
+
+        $this->handleMerchantRelations($supplierEntity->getIdSupplier(), $merchantIds);
+    }
+
+    /**
+     * @param int $idSupplier
+     * @param string $merchantIds
+     *
+     * @return void
+     */
+    protected function handleMerchantRelations(int $idSupplier, string $merchantIds): void
+    {
+        $merchantIdList = array_filter(array_map('intval', array_map('trim', explode(',', $merchantIds))));
+
+        if (empty($merchantIdList)) {
+            return;
+        }
+
+        // 1. Find existing relations for this supplier in one query
+        $existingMerchantIds = PyzMerchantToSupplierQuery::create()
+            ->filterByFkSupplier($idSupplier)
+            ->select([PyzMerchantToSupplierTableMap::COL_FK_MERCHANT])
+            ->find()
+            ->toArray();
+
+        // 2. Filter out IDs that already have a relation
+        $newMerchantIds = array_diff($merchantIdList, $existingMerchantIds);
+
+        // 3. Create only the missing relations
+        foreach ($newMerchantIds as $idMerchant) {
+            $relationEntity = new PyzMerchantToSupplier();
+            $relationEntity->setFkSupplier($idSupplier);
+            $relationEntity->setFkMerchant($idMerchant);
+            $relationEntity->save();
+        }
     }
 }

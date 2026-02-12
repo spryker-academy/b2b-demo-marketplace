@@ -30,8 +30,9 @@ class SupplierDataImportFacade extends AbstractFacade implements SupplierDataImp
     public function importSupplier(
         ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
     ): DataImporterReportTransfer {
-        // TODO: Use the factory to get the SupplierDataImport, call the `import()`-method and return its result
-        return new DataImporterReportTransfer();
+        return $this->getFactory()
+            ->getSupplierDataImport($dataImporterConfigurationTransfer)
+            ->import($dataImporterConfigurationTransfer);
     }
 
     /**
@@ -47,8 +48,8 @@ class SupplierDataImportFacade extends AbstractFacade implements SupplierDataImp
     public function importSupplierLocation(
         ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
     ): DataImporterReportTransfer {
-        return $this->getFactory()->getSupplierLocationDataImport($dataImporterConfigurationTransfer)->import(
-            $dataImporterConfigurationTransfer,
-        );
+        return $this->getFactory()
+            ->getSupplierLocationDataImport($dataImporterConfigurationTransfer)
+            ->import($dataImporterConfigurationTransfer);
     }
 }
