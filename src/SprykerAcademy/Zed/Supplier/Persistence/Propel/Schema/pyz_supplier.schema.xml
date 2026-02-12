@@ -3,15 +3,15 @@
 
     <table name="pyz_supplier" idMethod="native" allowPkInsert="true" phpName="PyzSupplier">
         <column name="id_supplier" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
-        <column name="name" required="true" type="VARCHAR"/>
-        <column name="description" required="true" type="VARCHAR"/>
+        <column name="name" required="true" type="VARCHAR" size="255"/>
+        <column name="description" required="true" type="LONGVARCHAR"/>
+        <column name="status" required="true" type="VARCHAR" size="50" default="active"/>
+        <column name="email" type="VARCHAR" size="255"/>
+        <column name="phone" type="VARCHAR" size="50"/>
         <unique name="pyz_supplier-name">
             <unique-column name="name"/>
         </unique>
         <id-method-parameter value="pyz_supplier_pk_seq"/>
-
-        <!-- TODO: Add the event-behavior -->
-
     </table>
 
 </database>
