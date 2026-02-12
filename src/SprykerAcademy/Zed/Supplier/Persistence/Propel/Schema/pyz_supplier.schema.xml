@@ -3,11 +3,17 @@
 
     <table name="pyz_supplier" idMethod="native" allowPkInsert="true" phpName="PyzSupplier">
         <column name="id_supplier" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_merchant" required="true" type="INTEGER"/>
         <column name="name" required="true" type="VARCHAR"/>
         <column name="description" required="true" type="LONGVARCHAR"/>
         <column name="status" required="true" type="VARCHAR"/>
         <column name="email" required="true" type="VARCHAR"/>
         <column name="phone" required="true" type="VARCHAR"/>
+
+        <foreign-key foreignTable="spy_merchant" name="pyz_supplier-fk_merchant">
+            <reference local="fk_merchant" foreign="id_merchant"/>
+        </foreign-key>
+
         <unique name="pyz_supplier-name">
             <unique-column name="name"/>
         </unique>

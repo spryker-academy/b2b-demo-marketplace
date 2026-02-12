@@ -26,10 +26,23 @@ class SupplierDataImportFacade extends AbstractFacade implements SupplierDataImp
         ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
     ): DataImporterReportTransfer {
         // TODO: Use the factory to get the SupplierDataImport, call the `import()`-method and return its result
-        // Hint-1: You can access the SupplierDataImportBusinessFactory through $this->getFactory()
-        // Hint-2: Do not forget to pass the DataImporterConfigurationTransfer to BOTH methods
-        return $this->getFactory()
-            ->getSupplierDataImport($dataImporterConfigurationTransfer)
-            ->import($dataImporterConfigurationTransfer);
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
+     *
+     * @return \Generated\Shared\Transfer\DataImporterReportTransfer
+     */
+    #[Override]
+    public function importSupplierLocation(
+        ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
+    ): DataImporterReportTransfer {
+        // TODO: Use the factory to get the SupplierLocationDataImport, call the `import()`-method and return its result
+        return null;
     }
 }

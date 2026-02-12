@@ -9,4 +9,5 @@ interface SupplierDataSetInterface
     public const string COLUMN_STATUS = 'status';
     public const string COLUMN_EMAIL = 'email';
     public const string COLUMN_PHONE = 'phone';
+    public const string COLUMN_FK_MERCHANT = 'fk_merchant';
 }
