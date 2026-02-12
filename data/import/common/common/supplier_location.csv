@@ -1,0 +1,7 @@
+id_supplier_location,id_supplier,city,country,address,zip_code,is_default
+1,1,New York,USA,123 Broadway Ave,10001,1
+2,1,Los Angeles,USA,456 Sunset Blvd,90028,0
+3,2,Berlin,Germany,789 Alexanderplatz,10178,1
+4,2,Munich,Germany,321 Marienplatz,80331,0
+5,3,San Francisco,USA,555 Market St,94105,1
+6,4,London,UK,999 Oxford St,W1D 2HF,1
