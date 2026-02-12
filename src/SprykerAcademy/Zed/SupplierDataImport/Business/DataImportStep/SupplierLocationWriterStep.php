@@ -17,7 +17,7 @@ readonly class SupplierLocationWriterStep implements DataImportStepInterface
     public function execute(DataSetInterface $dataSet): void
     {
         // TODO-1: Find the supplier entity by name (from the dataset)
-        // Hint: Use PyzSupplierQuery
+        // Hint: Use PyzSupplierQuery and filter by $dataSet[SupplierLocationDataSetInterface::COLUMN_SUPPLIER_NAME]
 
         // TODO-2: Find or create an instance of supplier location entity
         // Hint: Filter by fk_supplier and address
