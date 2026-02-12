@@ -1,10 +1,15 @@
 <?php
 
-namespace Pyz\Zed\Supplier\Persistence;
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+namespace SprykerAcademy\Zed\Supplier\Persistence;
 
 use Orm\Zed\Supplier\Persistence\PyzSupplierQuery;
-use Pyz\Zed\Supplier\Persistence\Propel\Mapper\SupplierMapper;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
+use SprykerAcademy\Zed\Supplier\Persistence\Propel\Mapper\SupplierMapper;
 
 class SupplierPersistenceFactory extends AbstractPersistenceFactory
 {
@@ -17,7 +22,7 @@ class SupplierPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \Pyz\Zed\Supplier\Persistence\Propel\Mapper\SupplierMapper
+     * @return \SprykerAcademy\Zed\Supplier\Persistence\Propel\Mapper\SupplierMapper
      */
     public function createSupplierMapper(): SupplierMapper
     {

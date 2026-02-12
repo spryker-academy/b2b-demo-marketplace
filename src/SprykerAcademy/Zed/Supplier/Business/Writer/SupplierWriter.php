@@ -1,20 +1,22 @@
 <?php
 
-namespace Pyz\Zed\Supplier\Business\Writer;
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+namespace SprykerAcademy\Zed\Supplier\Business\Writer;
 
 use Generated\Shared\Transfer\SupplierTransfer;
-use Pyz\Zed\Supplier\Persistence\SupplierEntityManagerInterface;
+use SprykerAcademy\Zed\Supplier\Persistence\SupplierEntityManagerInterface;
 
-class SupplierWriter
+readonly class SupplierWriter
 {
-    protected SupplierEntityManagerInterface $supplierEntityManager;
-
     /**
-     * @param \Pyz\Zed\Supplier\Persistence\SupplierEntityManagerInterface $supplierEntityManager
+     * @param \SprykerAcademy\Zed\Supplier\Persistence\SupplierEntityManagerInterface $supplierEntityManager
      */
-    public function __construct(SupplierEntityManagerInterface $supplierEntityManager)
+    public function __construct(protected SupplierEntityManagerInterface $supplierEntityManager)
     {
-        $this->supplierEntityManager = $supplierEntityManager;
     }
 
     /**

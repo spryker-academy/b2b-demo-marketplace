@@ -1,0 +1,14 @@
+{% extends '@Gui/Layout/layout.twig' %}
+
+{% block content %}
+
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'Create Supplier' } %}
+        {% block widget_content %}
+            {{ form_start(supplierForm) }}
+                {{ form_widget(supplierForm) }}
+                <input type="submit" class="btn btn-primary" value="Save" />
+            {{ form_end(supplierForm) }}
+        {% endblock %}
+    {% endembed %}
+
+{% endblock %}

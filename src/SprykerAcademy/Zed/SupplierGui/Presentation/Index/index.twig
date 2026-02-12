@@ -1,0 +1,11 @@
+{% extends '@Gui/Layout/layout.twig' %}
+
+{% block content %}
+
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'Suppliers' } %}
+        {% block widget_content %}
+            {{ supplierTable | raw }}
+        {% endblock %}
+    {% endembed %}
+
+{% endblock %}

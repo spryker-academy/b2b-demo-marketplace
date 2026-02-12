@@ -1,6 +1,11 @@
 <?php
 
-namespace Pyz\Zed\Supplier\Persistence\Propel\Mapper;
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+namespace SprykerAcademy\Zed\Supplier\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\SupplierTransfer;
 use Orm\Zed\Supplier\Persistence\PyzSupplier;

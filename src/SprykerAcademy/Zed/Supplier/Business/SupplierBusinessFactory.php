@@ -1,19 +1,24 @@
 <?php
 
-namespace Pyz\Zed\Supplier\Business;
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
 
-use Pyz\Zed\Supplier\Business\Reader\SupplierReader;
-use Pyz\Zed\Supplier\Business\Writer\SupplierWriter;
+namespace SprykerAcademy\Zed\Supplier\Business;
+
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use SprykerAcademy\Zed\Supplier\Business\Reader\SupplierReader;
+use SprykerAcademy\Zed\Supplier\Business\Writer\SupplierWriter;
 
 /**
- * @method \Pyz\Zed\Supplier\Persistence\SupplierEntityManagerInterface getEntityManager()
- * @method \Pyz\Zed\Supplier\Persistence\SupplierRepositoryInterface getRepository()
+ * @method \SprykerAcademy\Zed\Supplier\Persistence\SupplierEntityManagerInterface getEntityManager()
+ * @method \SprykerAcademy\Zed\Supplier\Persistence\SupplierRepositoryInterface getRepository()
  */
 class SupplierBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \Pyz\Zed\Supplier\Business\Writer\SupplierWriter
+     * @return \SprykerAcademy\Zed\Supplier\Business\Writer\SupplierWriter
      */
     public function createSupplierWriter(): SupplierWriter
     {
@@ -23,7 +28,7 @@ class SupplierBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Pyz\Zed\Supplier\Business\Reader\SupplierReader
+     * @return \SprykerAcademy\Zed\Supplier\Business\Reader\SupplierReader
      */
     public function createSupplierReader(): SupplierReader
     {

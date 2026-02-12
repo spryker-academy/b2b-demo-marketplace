@@ -1,15 +1,21 @@
 <?php
 
-namespace Pyz\Zed\Supplier\Business;
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+namespace SprykerAcademy\Zed\Supplier\Business;
 
 use Generated\Shared\Transfer\SupplierCriteriaTransfer;
 use Generated\Shared\Transfer\SupplierTransfer;
+use Override;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \Pyz\Zed\Supplier\Business\SupplierBusinessFactory getFactory()
- * @method \Pyz\Zed\Supplier\Persistence\SupplierRepositoryInterface getRepository()
- * @method \Pyz\Zed\Supplier\Persistence\SupplierEntityManagerInterface getEntityManager()
+ * @method \SprykerAcademy\Zed\Supplier\Business\SupplierBusinessFactory getFactory()
+ * @method \SprykerAcademy\Zed\Supplier\Persistence\SupplierRepositoryInterface getRepository()
+ * @method \SprykerAcademy\Zed\Supplier\Persistence\SupplierEntityManagerInterface getEntityManager()
  */
 class SupplierFacade extends AbstractFacade implements SupplierFacadeInterface
 {
@@ -22,6 +28,7 @@ class SupplierFacade extends AbstractFacade implements SupplierFacadeInterface
      *
      * @return \Generated\Shared\Transfer\SupplierTransfer
      */
+    #[Override]
     public function createSupplier(SupplierTransfer $supplierTransfer): SupplierTransfer
     {
         return $this->getFactory()
@@ -38,6 +45,7 @@ class SupplierFacade extends AbstractFacade implements SupplierFacadeInterface
      *
      * @return array<\Generated\Shared\Transfer\SupplierTransfer>
      */
+    #[Override]
     public function getSuppliers(SupplierCriteriaTransfer $supplierCriteriaTransfer): array
     {
         return $this->getFactory()

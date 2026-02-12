@@ -1,20 +1,22 @@
 <?php
 
-namespace Pyz\Zed\Supplier\Business\Reader;
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+namespace SprykerAcademy\Zed\Supplier\Business\Reader;
 
 use Generated\Shared\Transfer\SupplierCriteriaTransfer;
-use Pyz\Zed\Supplier\Persistence\SupplierRepositoryInterface;
+use SprykerAcademy\Zed\Supplier\Persistence\SupplierRepositoryInterface;
 
-class SupplierReader
+readonly class SupplierReader
 {
-    protected SupplierRepositoryInterface $supplierRepository;
-
     /**
-     * @param \Pyz\Zed\Supplier\Persistence\SupplierRepositoryInterface $supplierRepository
+     * @param \SprykerAcademy\Zed\Supplier\Persistence\SupplierRepositoryInterface $supplierRepository
      */
-    public function __construct(SupplierRepositoryInterface $supplierRepository)
+    public function __construct(protected SupplierRepositoryInterface $supplierRepository)
     {
-        $this->supplierRepository = $supplierRepository;
     }
 
     /**
