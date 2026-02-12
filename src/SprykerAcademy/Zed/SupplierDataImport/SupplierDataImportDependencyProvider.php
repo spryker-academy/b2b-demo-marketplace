@@ -1,6 +1,6 @@
 <?php
 
-namespace Pyz\Zed\SupplierDataImport;
+namespace SprykerAcademy\Zed\SupplierDataImport;
 
 use Spryker\Zed\DataImport\DataImportDependencyProvider;
 

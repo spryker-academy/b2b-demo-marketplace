@@ -1,10 +1,10 @@
 <?php
 
-namespace Pyz\Zed\SupplierDataImport\Business\DataImportStep;
+namespace SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep;
 
 use Orm\Zed\Supplier\Persistence\PyzSupplierQuery;
-use Pyz\Shared\SupplierSearch\SupplierSearchConfig;
-use Pyz\Zed\SupplierDataImport\Business\DataSet\SupplierDataSetInterface;
+use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
+use SprykerAcademy\Zed\SupplierDataImport\Business\DataSet\SupplierDataSetInterface;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\DataImportStepInterface;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\PublishAwareStep;
 use Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface;
@@ -22,7 +22,10 @@ class SupplierWriterStep extends PublishAwareStep implements DataImportStepInter
             ->filterByName($dataSet[SupplierDataSetInterface::COLUMN_NAME])
             ->findOneOrCreate();
 
-        $supplierEntity->setDescription($dataSet[SupplierDataSetInterface::COLUMN_COLOR]);
+        $supplierEntity->setDescription($dataSet[SupplierDataSetInterface::COLUMN_DESCRIPTION]);
+        $supplierEntity->setStatus($dataSet[SupplierDataSetInterface::COLUMN_STATUS] ?? 'active');
+        $supplierEntity->setEmail($dataSet[SupplierDataSetInterface::COLUMN_EMAIL] ?? null);
+        $supplierEntity->setPhone($dataSet[SupplierDataSetInterface::COLUMN_PHONE] ?? null);
 
         if ($supplierEntity->isNew() || $supplierEntity->isModified()) {
             $supplierEntity->save();

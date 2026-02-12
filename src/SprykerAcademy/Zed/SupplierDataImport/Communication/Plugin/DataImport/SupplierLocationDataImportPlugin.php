@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \SprykerAcademy\Zed\SupplierDataImport\Business\SupplierDataImportFacadeInterface getFacade()
  */
-class SupplierDataImportPlugin extends AbstractPlugin implements DataImportPluginInterface
+class SupplierLocationDataImportPlugin extends AbstractPlugin implements DataImportPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
@@ -20,7 +20,7 @@ class SupplierDataImportPlugin extends AbstractPlugin implements DataImportPlugi
      */
     public function import(?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null): DataImporterReportTransfer
     {
-        return $this->getFacade()->importSupplier($dataImporterConfigurationTransfer);
+        return $this->getFacade()->importSupplierLocation($dataImporterConfigurationTransfer);
     }
 
     /**
@@ -28,6 +28,6 @@ class SupplierDataImportPlugin extends AbstractPlugin implements DataImportPlugi
      */
     public function getImportType(): string
     {
-        return SupplierDataImportConfig::IMPORT_TYPE_SUPPLIER;
+        return SupplierDataImportConfig::IMPORT_TYPE_SUPPLIER_LOCATION;
     }
 }
