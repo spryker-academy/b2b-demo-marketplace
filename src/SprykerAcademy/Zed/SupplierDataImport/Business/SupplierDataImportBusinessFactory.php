@@ -23,16 +23,27 @@ class SupplierDataImportBusinessFactory extends DataImportBusinessFactory
 
         // TODO-3: Add the DescriptionToLowercaseStep to the $dataSetStepBroker
         // Hint: The DataSetStepBroker-class implements the interface `vendor/spryker/data-import/src/Spryker/Zed/DataImport/Business/Model/DataImportStep/DataImportStepAwareInterface.php`
+        $dataSetStepBroker->addStep($this->createDescriptionToLowercaseStep());
 
         // TODO-4: Add the WriterStep to the $dataSetStepBroker
+        $dataSetStepBroker->addStep($this->createSupplierWriterStep());
 
         // TODO-5: Add the $dataSetStepBroker to the $dataImporter
         // Hint: The DataImporter-class implements the interface `vendor/spryker/data-import/src/Spryker/Zed/DataImport/Business/Model/DataSet/DataSetStepBrokerAwareInterface.php`
+        $dataImporter->addDataSetStepBroker($dataSetStepBroker);
 
         return $dataImporter;
     }
 
     // TODO-1: Create the method createDescriptionToLowercaseStep that returns an instance of DescriptionToLowercaseStep
+    public function createDescriptionToLowercaseStep(): DescriptionToLowercaseStep
+    {
+        return new DescriptionToLowercaseStep();
+    }
 
     // TODO-2: Create the method createSupplierWriterStep that returns an instance of SupplierWriterStep
+    public function createSupplierWriterStep(): SupplierWriterStep
+    {
+        return new SupplierWriterStep();
+    }
 }
