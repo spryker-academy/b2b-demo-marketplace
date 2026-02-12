@@ -7,13 +7,29 @@
         <property name="idSupplier" type="int" />
         <property name="name" type="string" />
         <property name="description" type="string" />
+        <property name="status" type="string" />
+        <property name="email" type="string" />
+        <property name="phone" type="string" />
+        <property name="supplierLocations" singular="supplierLocation" type="SupplierLocation[]"/>
     </transfer>
 
     <transfer name="SupplierCriteria">
         <property name="idsSupplier" singular="idSupplier" type="array"/>
-        <property name="idSupplier"  type="int"/>
-        <property name="name"  type="string"/>
-        <property name="description"  type="string"/>
+        <property name="idSupplier" type="int"/>
+        <property name="name" type="string"/>
+        <property name="description" type="string"/>
+        <property name="status" type="string"/>
+    </transfer>
+
+    <transfer name="SupplierCollection">
+        <property name="suppliers" singular="supplier" type="Supplier[]"/>
+        <property name="pagination" type="Pagination"/>
+    </transfer>
+
+    <transfer name="SupplierResponse">
+        <property name="supplier" type="Supplier"/>
+        <property name="isSuccessful" type="bool"/>
+        <property name="errors" singular="error" type="string[]"/>
     </transfer>
 
 </transfers>
