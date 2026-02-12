@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\Supplier\Persistence" package="src.Orm.Zed.Supplier.Persistence">
+
+    <table name="pyz_supplier" idMethod="native" allowPkInsert="true" phpName="PyzSupplier">
+        <column name="id_supplier" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="name" required="true" type="VARCHAR"/>
+        <column name="description" required="true" type="LONGVARCHAR"/>
+        <column name="status" required="true" type="VARCHAR"/>
+        <column name="email" required="true" type="VARCHAR"/>
+        <column name="phone" required="true" type="VARCHAR"/>
+        <unique name="pyz_supplier-name">
+            <unique-column name="name"/>
+        </unique>
+        <id-method-parameter value="pyz_supplier_pk_seq"/>
+    </table>
+
+</database>
