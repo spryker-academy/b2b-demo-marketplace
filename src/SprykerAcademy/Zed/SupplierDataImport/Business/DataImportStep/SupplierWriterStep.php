@@ -59,7 +59,7 @@ readonly class SupplierWriterStep implements DataImportStepInterface
     {
         $merchantIdList = array_filter(array_map('intval', array_map('trim', explode(',', $merchantIds))));
 
-        if (empty($merchantIdList)) {
+        if (!$merchantIdList) {
             return;
         }
 
