@@ -192,6 +192,8 @@ use Spryker\Zed\StoreStorage\Communication\Plugin\Publisher\StorePublisherTrigge
 use Spryker\Zed\TaxApp\Communication\Plugin\Publisher\Store\RefreshTaxAppStoreRelationPublisherPlugin;
 use Spryker\Zed\TaxProductStorage\Communication\Plugin\Publisher\TaxProductPublisherTriggerPlugin;
 use Spryker\Zed\TaxStorage\Communication\Plugin\Publisher\TaxSetPublisherTriggerPlugin;
+use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
+use SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher\SupplierWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetToCompanyBusinessUnitWritePublisherPlugin as SearchSspAssetToCompanyBusinessUnitWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetToModelWritePublisherPlugin as SearchSspAssetToModelWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetWritePublisherPlugin as SearchSspAssetWritePublisherPlugin;
@@ -257,6 +259,7 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             $this->getServicePointSearchPlugins(),
             $this->getProductOfferServicePointStoragePlugins(),
             $this->getProductOfferShipmentTypeStoragePlugins(),
+            $this->getSupplierSearchPlugins(),
         );
     }
 
@@ -863,6 +866,18 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             new ProductOfferStoreProductOfferShipmentTypeWritePublisherPlugin(),
             new ShipmentTypeProductOfferShipmentTypeWritePublisherPlugin(),
             new ShipmentTypeStoreProductOfferShipmentTypeWritePublisherPlugin(),
+        ];
+    }
+
+    /**
+     * @return array<string, list<\Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface>>
+     */
+    protected function getSupplierSearchPlugins(): array
+    {
+        return [
+            SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE => [
+                new SupplierWritePublisherPlugin(),
+            ],
         ];
     }
 }
