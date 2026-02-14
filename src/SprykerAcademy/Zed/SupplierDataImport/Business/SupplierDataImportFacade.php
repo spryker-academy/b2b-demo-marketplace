@@ -5,11 +5,12 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\SupplierDataImport\Business;
 
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
 use Generated\Shared\Transfer\DataImporterReportTransfer;
-use Override;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -23,10 +24,8 @@ class SupplierDataImportFacade extends AbstractFacade implements SupplierDataImp
      * @api
      *
      * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
-     *
-     * @return \Generated\Shared\Transfer\DataImporterReportTransfer
      */
-    #[Override]
+    #[\Override]
     public function importSupplier(
         ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
     ): DataImporterReportTransfer {
@@ -41,10 +40,8 @@ class SupplierDataImportFacade extends AbstractFacade implements SupplierDataImp
      * @api
      *
      * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
-     *
-     * @return \Generated\Shared\Transfer\DataImporterReportTransfer
      */
-    #[Override]
+    #[\Override]
     public function importSupplierLocation(
         ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
     ): DataImporterReportTransfer {

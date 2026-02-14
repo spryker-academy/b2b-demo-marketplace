@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Yves\HelloWorldPage;
 
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
@@ -18,7 +25,8 @@ class HelloWorldPageDependencyProvider extends AbstractBundleDependencyProvider
 
     protected function addHelloWorldClient(Container $container): Container
     {
-        $container->set(static::CLIENT_HELLO_WORLD, fn() => $container->getLocator()->helloWorld()->client());
+        $container->set(static::CLIENT_HELLO_WORLD, fn () => $container->getLocator()->helloWorld()->client());
+
         return $container;
     }
 }

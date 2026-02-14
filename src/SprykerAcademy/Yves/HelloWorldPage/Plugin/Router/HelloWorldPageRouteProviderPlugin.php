@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Yves\HelloWorldPage\Plugin\Router;
 
 use Spryker\Yves\Router\Plugin\RouteProvider\AbstractRouteProviderPlugin;
@@ -18,8 +25,6 @@ class HelloWorldPageRouteProviderPlugin extends AbstractRouteProviderPlugin
 
     private function addHelloWorldMessageGetRoute(RouteCollection $routeCollection): RouteCollection
     {
-        // TODO: Replace the placeholders for module and controller name with the right naming
-        // based on src/SprykerAcademy/Yves/HelloWorldPage/Controller/MessageController.php::getAction()
         $route = $this->buildRoute('hello-world/message/{idMessage}', 'HelloWorldPage', 'Message', 'getAction');
         $route = $route->setMethods(['GET']);
         $routeCollection->add(static::ROUTE_NAME_HELLO_WORLD_MESSAGE_NAME, $route);

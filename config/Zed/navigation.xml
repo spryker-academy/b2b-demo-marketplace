@@ -17,6 +17,48 @@
         <action>index</action>
         <icon>fa-chart-area</icon>
     </dashboard>
+    <supplier-gui>
+        <label>Suppliers</label>
+        <title>Suppliers</title>
+        <icon>fa-truck</icon>
+        <bundle>supplier-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <pages>
+            <supplier-gui-list>
+                <label>Overview</label>
+                <title>Overview</title>
+                <bundle>supplier-gui</bundle>
+                <controller>index</controller>
+                <action>index</action>
+                <visible>1</visible>
+            </supplier-gui-list>
+            <supplier-gui-create>
+                <label>Create Supplier</label>
+                <title>Create Supplier</title>
+                <bundle>supplier-gui</bundle>
+                <controller>create</controller>
+                <action>index</action>
+                <visible>0</visible>
+            </supplier-gui-create>
+            <supplier-gui-edit>
+                <label>Edit Supplier</label>
+                <title>Edit Supplier</title>
+                <bundle>supplier-gui</bundle>
+                <controller>edit</controller>
+                <action>index</action>
+                <visible>0</visible>
+            </supplier-gui-edit>
+            <supplier-gui-delete>
+                <label>Delete Supplier</label>
+                <title>Delete Supplier</title>
+                <bundle>supplier-gui</bundle>
+                <controller>delete</controller>
+                <action>index</action>
+                <visible>0</visible>
+            </supplier-gui-delete>
+        </pages>
+    </supplier-gui>
     <sales>
         <label>Sales</label>
         <uri>/sales</uri>

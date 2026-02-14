@@ -1,10 +1,16 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Yves\HelloWorldPage\Controller;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
 use Spryker\Yves\Kernel\View\View;
-use SprykerAcademy\Client\HelloWorld\HelloWorldClientInterface;
 use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
 
 /**
@@ -12,26 +18,16 @@ use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
  */
 class MessageController extends AbstractController
 {
-    public function __construct(protected ?HelloWorldClientInterface $helloWorldClient = null)
-    {
-        $this->helloWorldClient = $helloWorldClient ?? $this->getFactory()->getHelloWorldClient();
-    }
-
     public function getAction(int $idMessage): View
     {
         $messageCriteriaTransfer = new MessageCriteriaTransfer();
         $messageCriteriaTransfer->setIdMessage($idMessage);
-
-        // TODO: Instantiate MessageCriteriaTransfer and set the message name
-
-        $messageResponseTransfer = $this->helloWorldClient->findMessage($messageCriteriaTransfer);
-        // TODO: Use the HelloWorldClient which is accessible by using `$this->getFactory()`
-        // to find a message by a MessageCriteriaTransfer
+        $messageResponseTransfer = $this->getFactory()->getHelloWorldClient()->findMessage($messageCriteriaTransfer);
 
         return $this->view(
             ['message' => $messageResponseTransfer->getMessage()],
             [],
-            '@HelloWorldPage/views/message/get.twig'
+            '@HelloWorldPage/views/message/get.twig',
         );
     }
 }

@@ -8,7 +8,7 @@
  * You can also write your custom solution as it is explained in the Symfony documentation.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Spryker\Service\Container\ProxyFactory;
 use Spryker\Zed\ModuleFinder\Business\ModuleFinderFacade;
@@ -58,7 +58,9 @@ return static function (ContainerConfigurator $configurator): void {
         /**
          * Skip excluded modules entirely when configured in the `$excludedModuleConfiguration`.
          */
-        if (isset($excludedModuleConfiguration[$moduleTransfer->getName()]) && !is_array($excludedModuleConfiguration[$moduleTransfer->getName()])) {
+        if (isset($excludedModuleConfiguration[$moduleTransfer->getName()]) && !is_array(
+                $excludedModuleConfiguration[$moduleTransfer->getName()]
+            )) {
             continue;
         }
 
@@ -66,11 +68,17 @@ return static function (ContainerConfigurator $configurator): void {
         $organization = $moduleTransfer->getOrganization()->getName();
 
         foreach ($moduleTransfer->getApplications() as $applicationTransfer) {
-            if ($applicationTransfer->getName() === 'Yves' || $applicationTransfer->getName() === 'Glue') {
+            if ($applicationTransfer->getName() === 'Yves' || $applicationTransfer->getName(
+                ) === 'Zed' || $applicationTransfer->getName() === 'Glue') {
                 continue;
             }
 
-            $namespace = sprintf('%s\\%s\\%s\\', $organization, $applicationTransfer->getName(), $moduleTransfer->getName());
+            $namespace = sprintf(
+                '%s\\%s\\%s\\',
+                $organization,
+                $applicationTransfer->getName(),
+                $moduleTransfer->getName()
+            );
 
             /**
              * Here is the path built to the services directory of the module for the specific application.

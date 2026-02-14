@@ -5,9 +5,12 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\Supplier\Business\Reader;
 
 use Generated\Shared\Transfer\SupplierCriteriaTransfer;
+use Generated\Shared\Transfer\SupplierTransfer;
 use SprykerAcademy\Zed\Supplier\Persistence\SupplierRepositoryInterface;
 
 readonly class SupplierReader
@@ -21,12 +24,18 @@ readonly class SupplierReader
 
     /**
      * @param \Generated\Shared\Transfer\SupplierCriteriaTransfer $supplierCriteriaTransfer
-     *
-     * @return array<\Generated\Shared\Transfer\SupplierTransfer>
      */
     public function getSuppliers(SupplierCriteriaTransfer $supplierCriteriaTransfer): array
     {
         return $this->supplierRepository
             ->getSuppliers($supplierCriteriaTransfer);
+    }
+
+    /**
+     * @param int $idSupplier
+     */
+    public function findSupplierById(int $idSupplier): ?SupplierTransfer
+    {
+        return $this->supplierRepository->findSupplierById($idSupplier);
     }
 }

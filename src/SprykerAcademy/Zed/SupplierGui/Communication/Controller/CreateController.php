@@ -5,77 +5,120 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\SupplierGui\Communication\Controller;
 
+use Generated\Shared\Transfer\SupplierCriteriaTransfer;
 use Generated\Shared\Transfer\SupplierTransfer;
 use Spryker\Service\UtilText\Model\Url\Url;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
-use SprykerAcademy\Zed\Supplier\Business\SupplierFacadeInterface;
+use SprykerAcademy\Zed\SupplierGui\Communication\Form\SupplierCreateForm;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Throwable;
 
 /**
  * @method \SprykerAcademy\Zed\SupplierGui\Communication\SupplierGuiCommunicationFactory getFactory()
  */
 class CreateController extends AbstractController
 {
-    protected const string URL_SUPPLIER_OVERVIEW = '/supplier-gui';
+    protected const URL_SUPPLIER_OVERVIEW = '/supplier-gui';
 
-    protected const string MESSAGE_SUPPLIER_CREATED_SUCCESS = 'Supplier was successfully created.';
+    protected const URL_SUPPLIER_CREATE = '/supplier-gui/create';
 
-    /**
-     * @param \SprykerAcademy\Zed\Supplier\Business\SupplierFacadeInterface $supplierFacade
-     */
-    public function __construct(protected SupplierFacadeInterface $supplierFacade)
-    {
-    }
+    protected const MESSAGE_SUPPLIER_CREATED_SUCCESS = 'Supplier was successfully created.';
+
+    protected const MESSAGE_SUPPLIER_EXISTS = 'Supplier with this name already exists.';
+
+    protected const MESSAGE_SUPPLIER_CREATE_FAILED = 'Supplier could not be created.';
+
+    protected const STATUS_ACTIVE = 1;
+
+    protected const STATUS_INACTIVE = 0;
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array
      */
     public function indexAction(Request $request): RedirectResponse|array
     {
-        // TODO-1: Get a SupplierCreateForm-instance through the factory
-        // Hint: Pass a new SupplierTransfer instance as an argument.
-        $supplierCreateForm = null;
+        $supplierCreateForm = $this->getFactory()->createSupplierCreateForm(
+            new SupplierTransfer(),
+            [SupplierCreateForm::FIELD_IS_ACTIVE => true],
+        );
 
         $supplierCreateForm->handleRequest($request);
 
         if ($supplierCreateForm->isSubmitted() && $supplierCreateForm->isValid()) {
+            /** @var \Generated\Shared\Transfer\SupplierTransfer|null $supplierTransfer */
+            $supplierTransfer = $supplierCreateForm->getData();
+
+            if ($supplierTransfer !== null && $this->isDuplicateSupplierName($supplierTransfer)) {
+                $supplierCreateForm->get(SupplierCreateForm::FIELD_NAME)->addError(new FormError(static::MESSAGE_SUPPLIER_EXISTS));
+
+                return $this->viewResponse([
+                    'supplierCreateForm' => $supplierCreateForm->createView(),
+                    'backUrl' => $this->getSupplierOverviewUrl(),
+                ]);
+            }
+
             return $this->createSupplier($supplierCreateForm);
         }
 
         return $this->viewResponse([
-            'supplierCreateForm' => '', // TODO-2: Pass the created view of the form
+            'supplierCreateForm' => $supplierCreateForm->createView(),
             'backUrl' => $this->getSupplierOverviewUrl(),
         ]);
     }
 
     /**
      * @param \Symfony\Component\Form\FormInterface $supplierCreateForm
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     protected function createSupplier(FormInterface $supplierCreateForm): RedirectResponse
     {
         /** @var \Generated\Shared\Transfer\SupplierTransfer|null $supplierTransfer */
-        // TODO-3: Get the supplier-data from the form
-        $supplierTransfer = null;
+        $supplierTransfer = $supplierCreateForm->getData();
 
-        // TODO-4: Persist the SupplierTransfer through the SupplierFacade
-        $supplierTransfer = null;
+        if ($supplierTransfer === null) {
+            return $this->redirectResponse($this->getSupplierOverviewUrl());
+        }
+
+        $supplierTransfer->setStatus(
+            $supplierCreateForm->get(SupplierCreateForm::FIELD_IS_ACTIVE)->getData() ? static::STATUS_ACTIVE : static::STATUS_INACTIVE,
+        );
+
+        try {
+            $this->getFactory()->getSupplierFacade()->createSupplier($supplierTransfer);
+        } catch (Throwable) {
+            $this->addErrorMessage(static::MESSAGE_SUPPLIER_CREATE_FAILED);
+
+            return $this->redirectResponse(static::URL_SUPPLIER_CREATE);
+        }
 
         $this->addSuccessMessage(static::MESSAGE_SUPPLIER_CREATED_SUCCESS);
 
-        // TODO-5: Return a redirect-response to the supplier overview (table-view)
+        return $this->redirectResponse($this->getSupplierOverviewUrl());
     }
 
     /**
-     * @return string
+     * @param \Generated\Shared\Transfer\SupplierTransfer $supplierTransfer
      */
+    protected function isDuplicateSupplierName(SupplierTransfer $supplierTransfer): bool
+    {
+        $supplierName = $supplierTransfer->getName();
+
+        if ($supplierName === null || $supplierName === '') {
+            return false;
+        }
+
+        $supplierCriteriaTransfer = (new SupplierCriteriaTransfer())
+            ->setName($supplierName);
+
+        return $this->getFactory()->getSupplierFacade()->getSuppliers($supplierCriteriaTransfer) !== [];
+    }
+
     protected function getSupplierOverviewUrl(): string
     {
         return (string)Url::generate(static::URL_SUPPLIER_OVERVIEW);

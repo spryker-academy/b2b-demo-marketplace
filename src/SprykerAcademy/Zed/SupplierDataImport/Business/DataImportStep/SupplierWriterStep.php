@@ -5,32 +5,34 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep;
 
 use Orm\Zed\Supplier\Persistence\Map\PyzMerchantToSupplierTableMap;
 use Orm\Zed\Supplier\Persistence\PyzMerchantToSupplier;
 use Orm\Zed\Supplier\Persistence\PyzMerchantToSupplierQuery;
 use Orm\Zed\Supplier\Persistence\PyzSupplierQuery;
-use Override;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\DataImportStepInterface;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\PublishAwareStep;
 use Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface;
-use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
 use SprykerAcademy\Zed\SupplierDataImport\Business\DataSet\SupplierDataSetInterface;
 
 class SupplierWriterStep extends PublishAwareStep implements DataImportStepInterface
 {
+    protected const int STATUS_ACTIVE = 1;
+
+    protected const int STATUS_INACTIVE = 0;
+
     /**
      * @param \Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface $dataSet
-     *
-     * @return void
      */
-    #[Override]
+    #[\Override]
     public function execute(DataSetInterface $dataSet): void
     {
         $name = $dataSet[SupplierDataSetInterface::COLUMN_NAME];
         $description = $dataSet[SupplierDataSetInterface::COLUMN_DESCRIPTION];
-        $status = $dataSet[SupplierDataSetInterface::COLUMN_STATUS] ?? 'active';
+        $status = $this->normalizeStatus($dataSet[SupplierDataSetInterface::COLUMN_STATUS] ?? null);
         $email = $dataSet[SupplierDataSetInterface::COLUMN_EMAIL] ?? null;
         $phone = $dataSet[SupplierDataSetInterface::COLUMN_PHONE] ?? null;
         $merchantIds = $dataSet[SupplierDataSetInterface::COLUMN_MERCHANT_IDS] ?? '';
@@ -46,23 +48,44 @@ class SupplierWriterStep extends PublishAwareStep implements DataImportStepInter
 
         if ($supplierEntity->isNew() || $supplierEntity->isModified()) {
             $supplierEntity->save();
-            $this->addPublishEvents(SupplierSearchConfig::SUPPLIER_PUBLISH, $supplierEntity->getIdSupplier());
         }
 
         $this->handleMerchantRelations($supplierEntity->getIdSupplier(), $merchantIds);
     }
 
     /**
+     * @param mixed $status
+     */
+    protected function normalizeStatus(mixed $status): int
+    {
+        if ($status === null || $status === '') {
+            return static::STATUS_ACTIVE;
+        }
+
+        if ((string)$status === '1') {
+            return static::STATUS_ACTIVE;
+        }
+
+        if ((string)$status === '0') {
+            return static::STATUS_INACTIVE;
+        }
+
+        if (mb_strtolower((string)$status) === 'active') {
+            return static::STATUS_ACTIVE;
+        }
+
+        return static::STATUS_INACTIVE;
+    }
+
+    /**
      * @param int $idSupplier
      * @param string $merchantIds
-     *
-     * @return void
      */
     protected function handleMerchantRelations(int $idSupplier, string $merchantIds): void
     {
         $merchantIdList = array_filter(array_map('intval', array_map('trim', explode(',', $merchantIds))));
 
-        if (!$merchantIdList) {
+        if ($merchantIdList === []) {
             return;
         }
 

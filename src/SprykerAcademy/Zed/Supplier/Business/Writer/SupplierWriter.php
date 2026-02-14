@@ -5,6 +5,8 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\Supplier\Business\Writer;
 
 use Generated\Shared\Transfer\SupplierTransfer;
@@ -21,11 +23,25 @@ readonly class SupplierWriter
 
     /**
      * @param \Generated\Shared\Transfer\SupplierTransfer $supplierTransfer
-     *
-     * @return \Generated\Shared\Transfer\SupplierTransfer
      */
     public function create(SupplierTransfer $supplierTransfer): SupplierTransfer
     {
         return $this->supplierEntityManager->createSupplier($supplierTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\SupplierTransfer $supplierTransfer
+     */
+    public function update(SupplierTransfer $supplierTransfer): SupplierTransfer
+    {
+        return $this->supplierEntityManager->updateSupplier($supplierTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\SupplierTransfer $supplierTransfer
+     */
+    public function delete(SupplierTransfer $supplierTransfer): void
+    {
+        $this->supplierEntityManager->deleteSupplier($supplierTransfer);
     }
 }

@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Pyz\Zed\Development;
 
+use Spryker\Shared\Kernel\KernelConstants;
 use Spryker\Zed\Development\DevelopmentConfig as SprykerDevelopmentConfig;
 
 class DevelopmentConfig extends SprykerDevelopmentConfig
@@ -31,5 +32,21 @@ class DevelopmentConfig extends SprykerDevelopmentConfig
             'SprykerFeature' => $this->getPathToFeature(),
             'SprykerEco' => $this->getPathToEco(),
         ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getIdeAutoCompletionSourceDirectoryGlobPatterns(): array
+    {
+        $patterns = [
+            APPLICATION_VENDOR_DIR . '/*/*/src/' => '*/*/',
+        ];
+
+        foreach ($this->get(KernelConstants::PROJECT_NAMESPACES, []) as $projectNamespace) {
+            $patterns[APPLICATION_SOURCE_DIR . '/' . $projectNamespace . '/'] = '*/';
+        }
+
+        return $patterns;
     }
 }

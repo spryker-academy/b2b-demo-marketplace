@@ -5,6 +5,8 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\SupplierDataImport\Business;
 
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
@@ -20,8 +22,6 @@ class SupplierDataImportBusinessFactory extends DataImportBusinessFactory
 {
     /**
      * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
-     *
-     * @return \Spryker\Zed\DataImport\Business\Model\DataImporterInterface
      */
     public function getSupplierDataImport(?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null): DataImporterInterface
     {
@@ -38,8 +38,6 @@ class SupplierDataImportBusinessFactory extends DataImportBusinessFactory
 
     /**
      * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
-     *
-     * @return \Spryker\Zed\DataImport\Business\Model\DataImporterInterface
      */
     public function getSupplierLocationDataImport(?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null): DataImporterInterface
     {
@@ -53,45 +51,30 @@ class SupplierDataImportBusinessFactory extends DataImportBusinessFactory
         return $dataImporter;
     }
 
-    /**
-     * @return \SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep\DescriptionToLowercaseStep
-     */
     public function createDescriptionToLowercaseStep(): DescriptionToLowercaseStep
     {
         return new DescriptionToLowercaseStep();
     }
 
-    /**
-     * @return \SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep\SupplierWriterStep
-     */
     public function createSupplierWriterStep(): SupplierWriterStep
     {
         return new SupplierWriterStep();
     }
 
-    /**
-     * @return \SprykerAcademy\Zed\SupplierDataImport\Business\DataImportStep\SupplierLocationWriterStep
-     */
     public function createSupplierLocationWriterStep(): SupplierLocationWriterStep
     {
         return new SupplierLocationWriterStep(
-            $this->createSupplierQuery(),
-            $this->createSupplierLocationQuery(),
+            $this->getSupplierQuery(),
+            $this->getSupplierLocationQuery(),
         );
     }
 
-    /**
-     * @return \Orm\Zed\Supplier\Persistence\PyzSupplierQuery
-     */
-    public function createSupplierQuery(): PyzSupplierQuery
+    public function getSupplierQuery(): PyzSupplierQuery
     {
         return PyzSupplierQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\SupplierLocation\Persistence\PyzSupplierLocationQuery
-     */
-    public function createSupplierLocationQuery(): PyzSupplierLocationQuery
+    public function getSupplierLocationQuery(): PyzSupplierLocationQuery
     {
         return PyzSupplierLocationQuery::create();
     }

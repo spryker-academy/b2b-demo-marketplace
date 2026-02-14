@@ -7,6 +7,9 @@
         <property name="idSupplier" type="int" />
         <property name="name" type="string" />
         <property name="description" type="string" />
+        <property name="status" type="int" />
+        <property name="email" type="string" />
+        <property name="phone" type="string" />
     </transfer>
 
     <transfer name="SupplierCriteria">

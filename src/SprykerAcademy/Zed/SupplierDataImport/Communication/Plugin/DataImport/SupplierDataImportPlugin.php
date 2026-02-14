@@ -5,11 +5,12 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\SupplierDataImport\Communication\Plugin\DataImport;
 
 use Generated\Shared\Transfer\DataImporterConfigurationTransfer;
 use Generated\Shared\Transfer\DataImporterReportTransfer;
-use Override;
 use Spryker\Zed\DataImport\Dependency\Plugin\DataImportPluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use SprykerAcademy\Zed\SupplierDataImport\SupplierDataImportConfig;
@@ -26,10 +27,8 @@ class SupplierDataImportPlugin extends AbstractPlugin implements DataImportPlugi
      * @api
      *
      * @param \Generated\Shared\Transfer\DataImporterConfigurationTransfer|null $dataImporterConfigurationTransfer
-     *
-     * @return \Generated\Shared\Transfer\DataImporterReportTransfer
      */
-    #[Override]
+    #[\Override]
     public function import(
         ?DataImporterConfigurationTransfer $dataImporterConfigurationTransfer = null,
     ): DataImporterReportTransfer {
@@ -40,10 +39,8 @@ class SupplierDataImportPlugin extends AbstractPlugin implements DataImportPlugi
      * {@inheritDoc}
      *
      * @api
-     *
-     * @return string
      */
-    #[Override]
+    #[\Override]
     public function getImportType(): string
     {
         return SupplierDataImportConfig::IMPORT_TYPE_SUPPLIER;

@@ -5,6 +5,8 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\HelloWorld\Business;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
@@ -23,8 +25,6 @@ class HelloWorldFacade extends AbstractFacade implements HelloWorldFacadeInterfa
      * @api
      *
      * @param \Generated\Shared\Transfer\MessageTransfer $messageTransfer
-     *
-     * @return \Generated\Shared\Transfer\MessageTransfer
      */
     public function createMessage(MessageTransfer $messageTransfer): MessageTransfer
     {
@@ -35,6 +35,8 @@ class HelloWorldFacade extends AbstractFacade implements HelloWorldFacadeInterfa
      * {@inheritDoc}
      *
      * @api
+     *
+     * @param \Generated\Shared\Transfer\MessageCriteriaTransfer $messageCriteria
      */
     public function findMessage(MessageCriteriaTransfer $messageCriteria): MessageResponseTransfer
     {

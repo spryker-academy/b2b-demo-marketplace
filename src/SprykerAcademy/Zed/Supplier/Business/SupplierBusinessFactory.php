@@ -5,6 +5,8 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\Supplier\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -17,9 +19,6 @@ use SprykerAcademy\Zed\Supplier\Business\Writer\SupplierWriter;
  */
 class SupplierBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \SprykerAcademy\Zed\Supplier\Business\Writer\SupplierWriter
-     */
     public function createSupplierWriter(): SupplierWriter
     {
         return new SupplierWriter(
@@ -27,9 +26,6 @@ class SupplierBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \SprykerAcademy\Zed\Supplier\Business\Reader\SupplierReader
-     */
     public function createSupplierReader(): SupplierReader
     {
         return new SupplierReader(

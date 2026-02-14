@@ -4,6 +4,7 @@
 
     {% embed '@Gui/Partials/widget.twig' with { widget_title: 'Suppliers' } %}
         {% block widget_content %}
+            <a class="btn btn-primary m-b-sm" href="/supplier-gui/create">Create Supplier</a>
             {{ supplierTable | raw }}
         {% endblock %}
     {% endembed %}

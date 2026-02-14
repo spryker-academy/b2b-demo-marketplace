@@ -5,16 +5,22 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\Supplier\Persistence;
 
 use Generated\Shared\Transfer\SupplierCriteriaTransfer;
+use Generated\Shared\Transfer\SupplierTransfer;
 
 interface SupplierRepositoryInterface
 {
     /**
      * @param \Generated\Shared\Transfer\SupplierCriteriaTransfer $supplierCriteriaTransfer
-     *
-     * @return array<\Generated\Shared\Transfer\SupplierTransfer>
      */
     public function getSuppliers(SupplierCriteriaTransfer $supplierCriteriaTransfer): array;
+
+    /**
+     * @param int $idSupplier
+     */
+    public function findSupplierById(int $idSupplier): ?SupplierTransfer;
 }

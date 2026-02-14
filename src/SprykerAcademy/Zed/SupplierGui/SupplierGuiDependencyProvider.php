@@ -5,10 +5,11 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\SupplierGui;
 
 use Orm\Zed\Supplier\Persistence\PyzSupplierQuery;
-use Override;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -20,10 +21,8 @@ class SupplierGuiDependencyProvider extends AbstractBundleDependencyProvider
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
      */
-    #[Override]
+    #[\Override]
     public function provideCommunicationLayerDependencies(Container $container): Container
     {
         $container = parent::provideCommunicationLayerDependencies($container);
@@ -36,28 +35,23 @@ class SupplierGuiDependencyProvider extends AbstractBundleDependencyProvider
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
      */
     protected function addSupplierPropelQuery(Container $container): Container
     {
-        $container->set(static::PROPEL_QUERY_SUPPLIER, $container->factory(function () {
-            return PyzSupplierQuery::create();
-        }));
+        $container->set(static::PROPEL_QUERY_SUPPLIER, $container->factory(fn () => PyzSupplierQuery::create()));
 
         return $container;
     }
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
      */
     protected function addSupplierFacade(Container $container): Container
     {
-        $container->set(static::FACADE_SUPPLIER, function (Container $container) {
-            return $container->getLocator()->supplier()->facade();
-        });
+        $container->set(
+            static::FACADE_SUPPLIER,
+            static fn (Container $container) => $container->getLocator()->supplier()->facade(),
+        );
 
         return $container;
     }
