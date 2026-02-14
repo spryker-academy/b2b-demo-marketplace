@@ -10,37 +10,38 @@ declare(strict_types = 1);
 namespace SprykerAcademy\Zed\SupplierGui\Communication;
 
 use Generated\Shared\Transfer\SupplierTransfer;
-use Orm\Zed\Supplier\Persistence\PyzSupplierQuery;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
-use SprykerAcademy\Zed\Supplier\Business\SupplierFacadeInterface;
 use SprykerAcademy\Zed\SupplierGui\Communication\Form\SupplierCreateForm;
-use SprykerAcademy\Zed\SupplierGui\Communication\Table\SupplierTable;
-use SprykerAcademy\Zed\SupplierGui\SupplierGuiDependencyProvider;
 use Symfony\Component\Form\FormInterface;
 
 class SupplierGuiCommunicationFactory extends AbstractCommunicationFactory
 {
-    public function getSupplierQuery(): PyzSupplierQuery
-    {
-        return $this->getProvidedDependency(SupplierGuiDependencyProvider::PROPEL_QUERY_SUPPLIER);
-    }
+    // (For the Table part of the exercise)
+    // TODO-1: Provide the PyzSupplierQuery from the SupplierGuiDependencyProvider
+    // Hint-1: Naming convention for methods getting things from somewhere else are prefixed by "get"
+    // i.e.: getMyClassName()
+    // Hint-2: Have a look at `src/Pyz/Zed/DataImport/Business/DataImportBusinessFactory.php::getCurrencyFacade()` for the right syntax
 
-    public function createSupplierTable(): SupplierTable
-    {
-        return new SupplierTable($this->getSupplierQuery());
-    }
+    // (For the Table part of the exercise)
+    // TODO-2: Instantiate the SupplierTable with the right dependency and return it
+    // Hint-1: Naming convention for methods instantiating classes would be the class name prefixed by "create"
+    // i.e.: createMyClassName()
 
     /**
      * @param \Generated\Shared\Transfer\SupplierTransfer|null $supplierTransfer
      * @param array $options
+     *
+     * @return \Symfony\Component\Form\FormInterface
      */
     public function createSupplierCreateForm(?SupplierTransfer $supplierTransfer = null, array $options = []): FormInterface
     {
         return $this->getFormFactory()->create(SupplierCreateForm::class, $supplierTransfer, $options);
     }
 
-    public function getSupplierFacade(): SupplierFacadeInterface
-    {
-        return $this->getProvidedDependency(SupplierGuiDependencyProvider::FACADE_SUPPLIER);
-    }
+    // (Later: For the Form part of the exercise)
+    // TODO-3: Provide the SupplierFacade from the SupplierGuiDependencyProvider
+    // Hint-1: Naming convention for methods getting things from somewhere else are prefixed by "get"
+    // i.e.: getMyClassName()
+    // Hint-2: Have a look at `src/Pyz/Zed/DataImport/Business/DataImportBusinessFactory.php::getCurrencyFacade()` for the right syntax
+    // Hint-3: Use the interface as return type
 }

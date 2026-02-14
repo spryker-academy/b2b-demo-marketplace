@@ -17,19 +17,28 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class IndexController extends AbstractController
 {
+    /**
+     * @return array
+     */
     public function indexAction(): array
     {
-        $table = $this->getFactory()->createSupplierTable();
+        // TODO-1: Get an instance of the SupplierTable by using the `getFactory()`-method
+        $table = null;
 
-        return $this->viewResponse([
-            'supplierTable' => $table->render(),
-        ]);
+        // TODO-2: Use the `viewResponse()`-method to return a rendered 'supplierTable'
+        // Hint-1: Use the string 'supplierTable' as key for the passed array
+        // Hint-2: The class AbstractTable provides a method `render()`
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
     public function tableAction(): JsonResponse
     {
-        $table = $this->getFactory()->createSupplierTable();
+        // TODO-3: Get an instance of the SupplierTable by using the `getFactory()`-method
+        $table = null;
 
-        return $this->jsonResponse($table->fetchData());
+        // TODO-4: Return a json-response with the table data
+        // Hint-1: The class AbstractTable provides a method `fetchData()`
     }
 }
