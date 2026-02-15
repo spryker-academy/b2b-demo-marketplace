@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace SprykerAcademy\Zed\SupplierSearch\Business;
 
+use Generated\Shared\Transfer\FilterTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -30,5 +31,22 @@ class SupplierSearchFacade extends AbstractFacade implements SupplierSearchFacad
         $this->getFactory()
             ->createSupplierSearchWriter()
             ->writeCollectionBySupplierEvents($eventTransfers);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\FilterTransfer $filterTransfer
+     * @param array<int> $supplierIds
+     *
+     * @return array<\Generated\Shared\Transfer\SynchronizationDataTransfer>
+     */
+    #[\Override]
+    public function getSynchronizationDataTransfersBySupplierIds(FilterTransfer $filterTransfer, array $supplierIds = []): array
+    {
+        return $this->getRepository()
+            ->getSynchronizationDataTransfersBySupplierIds($filterTransfer, $supplierIds);
     }
 }

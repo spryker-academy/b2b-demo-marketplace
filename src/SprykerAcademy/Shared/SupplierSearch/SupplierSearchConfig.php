@@ -15,6 +15,14 @@ class SupplierSearchConfig extends AbstractBundleConfig
 {
     /**
      * Specification:
+     * - Defines resource name, used for the synchronization data and generated synchronization behavior.
+     *
+     * @api
+     */
+    public const string SUPPLIER_RESOURCE_NAME = 'supplier';
+
+    /**
+     * Specification:
      * - Defines queue name as used for processing supplier publish messages.
      *
      * @api

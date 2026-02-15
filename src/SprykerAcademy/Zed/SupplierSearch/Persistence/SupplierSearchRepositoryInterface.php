@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace SprykerAcademy\Zed\SupplierSearch\Persistence;
 
+use Generated\Shared\Transfer\FilterTransfer;
 use Generated\Shared\Transfer\SupplierSearchCriteriaTransfer;
 
 interface SupplierSearchRepositoryInterface
@@ -19,4 +20,12 @@ interface SupplierSearchRepositoryInterface
      * @return array<\Generated\Shared\Transfer\SupplierSearchTransfer>
      */
     public function getSupplierSearches(SupplierSearchCriteriaTransfer $supplierSearchCriteriaTransfer): array;
+
+    /**
+     * @param \Generated\Shared\Transfer\FilterTransfer $filterTransfer
+     * @param array<int> $supplierIds
+     *
+     * @return array<\Generated\Shared\Transfer\SynchronizationDataTransfer>
+     */
+    public function getSynchronizationDataTransfersBySupplierIds(FilterTransfer $filterTransfer, array $supplierIds = []): array;
 }

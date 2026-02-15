@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace SprykerAcademy\Zed\SupplierSearch\Business\Writer;
 
@@ -17,16 +17,8 @@ use SprykerAcademy\Zed\Supplier\Business\SupplierFacadeInterface;
 use SprykerAcademy\Zed\SupplierSearch\Persistence\SupplierSearchEntityManagerInterface;
 use SprykerAcademy\Zed\SupplierSearch\Persistence\SupplierSearchRepositoryInterface;
 
-class SupplierSearchWriter
+readonly class SupplierSearchWriter
 {
-    protected EventBehaviorFacadeInterface $eventBehaviorFacade;
-
-    protected SupplierFacadeInterface $supplierFacade;
-
-    protected SupplierSearchRepositoryInterface $supplierSearchRepository;
-
-    protected SupplierSearchEntityManagerInterface $supplierSearchEntityManager;
-
     /**
      * @param \Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface $eventBehaviorFacade
      * @param \SprykerAcademy\Zed\Supplier\Business\SupplierFacadeInterface $supplierFacade
@@ -34,15 +26,11 @@ class SupplierSearchWriter
      * @param \SprykerAcademy\Zed\SupplierSearch\Persistence\SupplierSearchEntityManagerInterface $supplierSearchEntityManager
      */
     public function __construct(
-        EventBehaviorFacadeInterface $eventBehaviorFacade,
-        SupplierFacadeInterface $supplierFacade,
-        SupplierSearchRepositoryInterface $supplierSearchRepository,
-        SupplierSearchEntityManagerInterface $supplierSearchEntityManager,
+        protected EventBehaviorFacadeInterface $eventBehaviorFacade,
+        protected SupplierFacadeInterface $supplierFacade,
+        protected SupplierSearchRepositoryInterface $supplierSearchRepository,
+        protected SupplierSearchEntityManagerInterface $supplierSearchEntityManager,
     ) {
-        $this->eventBehaviorFacade = $eventBehaviorFacade;
-        $this->supplierFacade = $supplierFacade;
-        $this->supplierSearchRepository = $supplierSearchRepository;
-        $this->supplierSearchEntityManager = $supplierSearchEntityManager;
     }
 
     /**
@@ -50,7 +38,7 @@ class SupplierSearchWriter
      */
     public function writeCollectionBySupplierEvents(array $eventTransfers): void
     {
-        $supplierIds = $this->eventBehaviorFacade->getEventTransferIds($eventTransfers);
+        $supplierIds = array_values(array_unique($this->eventBehaviorFacade->getEventTransferIds($eventTransfers)));
 
         $this->writeCollectionBySupplierIds($supplierIds);
     }
@@ -60,7 +48,7 @@ class SupplierSearchWriter
      */
     protected function writeCollectionBySupplierIds(array $supplierIds): void
     {
-        if (!$supplierIds) {
+        if ($supplierIds === []) {
             return;
         }
 
@@ -95,6 +83,10 @@ class SupplierSearchWriter
      */
     protected function getSupplierTransfersIndexed(array $supplierIds): array
     {
+        if ($supplierIds === []) {
+            return [];
+        }
+
         $supplierCriteriaTransfer = (new SupplierCriteriaTransfer())
             ->setIdsSupplier($supplierIds);
         $supplierTransfers = $this->supplierFacade
@@ -102,7 +94,13 @@ class SupplierSearchWriter
 
         $supplierTransfersIndexed = [];
         foreach ($supplierTransfers as $supplierTransfer) {
-            $supplierTransfersIndexed[$supplierTransfer->getIdSupplier()] = $supplierTransfer;
+            $supplierId = $supplierTransfer->getIdSupplier();
+
+            if ($supplierId === null) {
+                continue;
+            }
+
+            $supplierTransfersIndexed[$supplierId] = $supplierTransfer;
         }
 
         return $supplierTransfersIndexed;
@@ -115,6 +113,10 @@ class SupplierSearchWriter
      */
     protected function getSupplierSearchTransfersIndexed(array $supplierIds): array
     {
+        if ($supplierIds === []) {
+            return [];
+        }
+
         $supplierSearchCriteriaTransfer = (new SupplierSearchCriteriaTransfer())
             ->setFksSupplier($supplierIds);
         $supplierSearchTransfers = $this->supplierSearchRepository
@@ -122,7 +124,13 @@ class SupplierSearchWriter
 
         $supplierSearchTransfersIndexed = [];
         foreach ($supplierSearchTransfers as $supplierSearchTransfer) {
-            $supplierSearchTransfersIndexed[$supplierSearchTransfer->getFkSupplier()] = $supplierSearchTransfer;
+            $supplierId = $supplierSearchTransfer->getFkSupplier();
+
+            if ($supplierId === null) {
+                continue;
+            }
+
+            $supplierSearchTransfersIndexed[$supplierId] = $supplierSearchTransfer;
         }
 
         return $supplierSearchTransfersIndexed;

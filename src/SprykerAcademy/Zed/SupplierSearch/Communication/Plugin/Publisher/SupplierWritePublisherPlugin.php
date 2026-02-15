@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher;
 
@@ -21,12 +21,16 @@ class SupplierWritePublisherPlugin extends AbstractPlugin implements PublisherPl
     /**
      * {@inheritDoc}
      *
-     * @api
-     *
      * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
      * @param string $eventName
+     * @api
+     *
      */
-    public function handleBulk(array $eventEntityTransfers, $eventName): void // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
+    #[\Override]
+    public function handleBulk(
+        array $eventEntityTransfers,
+        $eventName
+    ): void // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
     {
         $this->getFacade()->writeCollectionBySupplierEvents($eventEntityTransfers);
     }
@@ -34,9 +38,9 @@ class SupplierWritePublisherPlugin extends AbstractPlugin implements PublisherPl
     /**
      * {@inheritDoc}
      *
+     * @return array<string>
      * @api
      *
-     * @return array<string>
      */
     public function getSubscribedEvents(): array
     {
