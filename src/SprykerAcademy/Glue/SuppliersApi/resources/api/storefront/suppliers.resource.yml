@@ -1,0 +1,23 @@
+resource:
+    name: Suppliers
+    shortName: Supplier
+    description: Supplier management API for storefront operations
+
+    # TODO-1: Add the provider class.
+    # Hint-1: Use `SprykerAcademy\Glue\SuppliersApi\Api\Storefront\Provider\SuppliersStorefrontProvider`.
+
+    paginationEnabled: true
+    paginationItemsPerPage: 10
+
+    operations:
+        - type: Get
+        - type: GetCollection
+
+    properties:
+        idSupplier:
+            type: int
+            description: The unique supplier identifier
+            identifier: true
+        # TODO-2: Add properties for the Supplier API resource.
+        # Hint-1: Add `name`, `description`, `status`, `email`, and `phone`.
+        # Hint-2: Use `string` for text fields and `int` for `status`.

@@ -18,6 +18,8 @@ return static function (SprykerApiPlatformConfig $sprykerApiPlatform): void {
     // The following configuration is optional. By default, the source directories are set to 'src/Pyz'.
     $sprykerApiPlatform->sourceDirectories([
         'src/Pyz',
+        // TODO-1: Register SprykerAcademy as source directory for API Platform schemas.
+        // Hint-1: Add `src/SprykerAcademy` here.
         'vendor/spryker',
         'vendor/spryker-shop',
         'vendor/spryker-feature',
