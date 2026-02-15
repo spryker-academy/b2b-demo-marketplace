@@ -21,16 +21,13 @@ class SupplierWritePublisherPlugin extends AbstractPlugin implements PublisherPl
     /**
      * {@inheritDoc}
      *
-     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
-     * @param string $eventName
      * @api
      *
+     * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventEntityTransfers
+     * @param string $eventName
      */
     #[\Override]
-    public function handleBulk(
-        array $eventEntityTransfers,
-        $eventName
-    ): void // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
+    public function handleBulk(array $eventEntityTransfers, $eventName): void
     {
         $this->getFacade()->writeCollectionBySupplierEvents($eventEntityTransfers);
     }
@@ -38,9 +35,9 @@ class SupplierWritePublisherPlugin extends AbstractPlugin implements PublisherPl
     /**
      * {@inheritDoc}
      *
-     * @return array<string>
      * @api
      *
+     * @return array<string>
      */
     public function getSubscribedEvents(): array
     {
