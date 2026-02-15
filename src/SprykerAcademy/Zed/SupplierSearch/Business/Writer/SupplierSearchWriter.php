@@ -95,10 +95,13 @@ class SupplierSearchWriter
      */
     protected function getSupplierTransfersIndexed(array $supplierIds): array
     {
-        $supplierCriteriaTransfer = (new SupplierCriteriaTransfer())
-            ->setIdsSupplier($supplierIds);
-        $supplierTransfers = $this->supplierFacade
-            ->getSuppliers($supplierCriteriaTransfer);
+        // TODO-1: Create SupplierCriteriaTransfer and populate it with `$supplierIds`.
+        // Hint-1: Use `setIdsSupplier()`.
+        $supplierCriteriaTransfer = null;
+
+        // TODO-2: Use SupplierFacade to fetch suppliers by ids.
+        // Hint-1: Pass the criteria transfer created above.
+        $supplierTransfers = null;
 
         $supplierTransfersIndexed = [];
         foreach ($supplierTransfers as $supplierTransfer) {
@@ -115,10 +118,13 @@ class SupplierSearchWriter
      */
     protected function getSupplierSearchTransfersIndexed(array $supplierIds): array
     {
-        $supplierSearchCriteriaTransfer = (new SupplierSearchCriteriaTransfer())
-            ->setFksSupplier($supplierIds);
-        $supplierSearchTransfers = $this->supplierSearchRepository
-            ->getSupplierSearches($supplierSearchCriteriaTransfer);
+        // TODO-3: Create SupplierSearchCriteriaTransfer and populate it with `$supplierIds`.
+        // Hint-1: Use `setFksSupplier()`.
+        $supplierSearchCriteriaTransfer = null;
+
+        // TODO-4: Use SupplierSearchRepository to load SupplierSearch transfers.
+        // Hint-1: Pass the criteria transfer created above.
+        $supplierSearchTransfers = null;
 
         $supplierSearchTransfersIndexed = [];
         foreach ($supplierSearchTransfers as $supplierSearchTransfer) {

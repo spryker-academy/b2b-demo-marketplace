@@ -27,8 +27,7 @@ class SupplierSearchFacade extends AbstractFacade implements SupplierSearchFacad
      */
     public function writeCollectionBySupplierEvents(array $eventTransfers): void
     {
-        $this->getFactory()
-            ->createSupplierSearchWriter()
-            ->writeCollectionBySupplierEvents($eventTransfers);
+        // TODO-1: Use the SupplierSearchWriter logic `writeCollectionBySupplierEvents`.
+        // Hint-1: Access business factory via `$this->getFactory()`.
     }
 }

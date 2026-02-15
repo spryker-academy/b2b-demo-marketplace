@@ -259,9 +259,19 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             $this->getServicePointSearchPlugins(),
             $this->getProductOfferServicePointStoragePlugins(),
             $this->getProductOfferShipmentTypeStoragePlugins(),
-            $this->getSupplierSearchPlugins(),
+            // TODO-2: Add the method created at TODO-1 to the returned array: getSupplierSearchPlugins().
         );
     }
+
+    // TODO-1: Define a method called getSupplierSearchPlugins() and assign SupplierWritePublisherPlugin to the publish queue.
+    // Hint-1: Return an array where the key is SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE.
+    // Hint-2: The value for the key is an array containing new SupplierWritePublisherPlugin().
+    // Example:
+    // return [
+    //     SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE => [
+    //         new SupplierWritePublisherPlugin(),
+    //     ],
+    // ];
 
     /**
      * @return array<string, array<\Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface>>
@@ -869,15 +879,4 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
         ];
     }
 
-    /**
-     * @return array<string, list<\Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface>>
-     */
-    protected function getSupplierSearchPlugins(): array
-    {
-        return [
-            SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE => [
-                new SupplierWritePublisherPlugin(),
-            ],
-        ];
-    }
 }

@@ -62,6 +62,7 @@ use Spryker\Shared\TaxProductStorage\TaxProductStorageConfig;
 use Spryker\Shared\TaxStorage\TaxStorageConfig;
 use Spryker\Shared\UrlStorage\UrlStorageConfig;
 use Spryker\Shared\UrlStorage\UrlStorageConstants;
+use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -133,6 +134,8 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             ProductPageSearchConfig::PUBLISH_PRODUCT_CONCRETE_PAGE,
             ProductStorageConfig::PUBLISH_PRODUCT_ABSTRACT,
             ProductStorageConfig::PUBLISH_PRODUCT_CONCRETE,
+            // TODO-1: Add the supplier publish-search queue to this array.
+            // Hint-1: You can find the constant in `SupplierSearchConfig`.
             UrlStorageConfig::PUBLISH_URL => [
                 PublisherConfig::PUBLISH_ROUTING_KEY_RETRY => UrlStorageConfig::PUBLISH_URL_RETRY,
             ],
@@ -185,6 +188,7 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             ProductOfferShipmentTypeStorageConfig::PRODUCT_OFFER_SHIPMENT_TYPE_SYNC_STORAGE_QUEUE,
             ProductOfferStorageConfig::PRODUCT_OFFER_SYNC_STORAGE_QUEUE,
             ProductOfferAvailabilityStorageConfig::PRODUCT_OFFER_AVAILABILITY_SYNC_STORAGE_QUEUE,
+            SupplierSearchConfig::SUPPLIER_SYNC_SEARCH_QUEUE,
             SelfServicePortalConfig::QUEUE_NAME_SYNC_STORAGE_SSP_MODEL,
             SelfServicePortalConfig::QUEUE_NAME_SYNC_STORAGE_SSP_ASSET,
             SelfServicePortalConfig::QUEUE_NAME_SYNC_SEARCH_SSP_ASSET,

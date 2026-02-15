@@ -24,29 +24,18 @@ class SupplierSearchDependencyProvider extends AbstractBundleDependencyProvider
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
-        $container = $this->addEventBehaviorFacade($container);
-        $container = $this->addSupplierFacade($container);
+
+        // TODO-3: Make the EventBehaviorFacade and SupplierFacade available to the business layer.
+        // Hint-1: Call the addEventBehaviorFacade() and addSupplierFacade() methods.
 
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     */
-    protected function addEventBehaviorFacade(Container $container): Container
-    {
-        $container->set(static::FACADE_EVENT_BEHAVIOR, static fn (Container $container) => $container->getLocator()->eventBehavior()->facade());
+    // TODO-1: Create the addEventBehaviorFacade method.
+    // Hint-1: Call `$container->set()` with `FACADE_EVENT_BEHAVIOR` and a closure.
+    // Hint-2: Inside the closure resolve facade from locator: `$container->getLocator()->eventBehavior()->facade()`.
 
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     */
-    protected function addSupplierFacade(Container $container): Container
-    {
-        $container->set(static::FACADE_SUPPLIER, static fn (Container $container) => $container->getLocator()->supplier()->facade());
-
-        return $container;
-    }
+    // TODO-2: Create the addSupplierFacade method.
+    // Hint-1: Call `$container->set()` with `FACADE_SUPPLIER` and a closure.
+    // Hint-2: Inside the closure resolve facade from locator: `$container->getLocator()->supplier()->facade()`.
 }

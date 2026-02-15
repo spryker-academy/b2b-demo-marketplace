@@ -26,27 +26,15 @@ class SupplierSearchBusinessFactory extends AbstractBusinessFactory
      */
     public function createSupplierSearchWriter(): SupplierSearchWriter
     {
-        return new SupplierSearchWriter(
-            $this->getEventBehaviorFacade(),
-            $this->getSupplierFacade(),
-            $this->getRepository(),
-            $this->getEntityManager(),
-        );
+        // TODO-3: Provide all dependencies to the SupplierSearchWriter constructor.
+        // Hint-1: getRepository() returns the persistence repository.
+        // Hint-2: getEntityManager() returns the persistence entity manager.
+        return new SupplierSearchWriter();
     }
 
-    /**
-     * @return \Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface
-     */
-    public function getEventBehaviorFacade(): EventBehaviorFacadeInterface
-    {
-        return $this->getProvidedDependency(SupplierSearchDependencyProvider::FACADE_EVENT_BEHAVIOR);
-    }
+    // TODO-1: Create getEventBehaviorFacade() and return EventBehaviorFacade.
+    // Hint-1: Use getProvidedDependency() with key `SupplierSearchDependencyProvider::FACADE_EVENT_BEHAVIOR`.
 
-    /**
-     * @return \SprykerAcademy\Zed\Supplier\Business\SupplierFacadeInterface
-     */
-    public function getSupplierFacade(): SupplierFacadeInterface
-    {
-        return $this->getProvidedDependency(SupplierSearchDependencyProvider::FACADE_SUPPLIER);
-    }
+    // TODO-2: Create getSupplierFacade() and return SupplierFacade.
+    // Hint-1: Use getProvidedDependency() with key `SupplierSearchDependencyProvider::FACADE_SUPPLIER`.
 }

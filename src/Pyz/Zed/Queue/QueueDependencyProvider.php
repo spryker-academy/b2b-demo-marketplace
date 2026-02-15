@@ -67,6 +67,7 @@ use Spryker\Zed\RabbitMq\Communication\Plugin\Queue\RabbitMqQueueMessageCheckerP
 use Spryker\Zed\RabbitMq\Communication\Plugin\Queue\RabbitMqQueueMetricsReaderPlugin;
 use Spryker\Zed\Synchronization\Communication\Plugin\Queue\SynchronizationSearchQueueMessageProcessorPlugin;
 use Spryker\Zed\Synchronization\Communication\Plugin\Queue\SynchronizationStorageQueueMessageProcessorPlugin;
+use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
 use SprykerEco\Zed\Loggly\Communication\Plugin\LogglyLoggerQueueMessageProcessorPlugin;
 
 class QueueDependencyProvider extends SprykerDependencyProvider
@@ -139,6 +140,14 @@ class QueueDependencyProvider extends SprykerDependencyProvider
             ShipmentTypeStorageConfig::QUEUE_NAME_SYNC_STORAGE_SHIPMENT_TYPE => new SynchronizationStorageQueueMessageProcessorPlugin(),
             ProductOfferServicePointStorageConfig::QUEUE_NAME_SYNC_STORAGE_PRODUCT_OFFER_SERVICE => new SynchronizationStorageQueueMessageProcessorPlugin(),
             ProductOfferShipmentTypeStorageConfig::PRODUCT_OFFER_SHIPMENT_TYPE_SYNC_STORAGE_QUEUE => new SynchronizationStorageQueueMessageProcessorPlugin(),
+
+            // TODO-1: Assign a QueueMessageProcessor for the supplier publish queue.
+            // Hint-1: Use a constant from SupplierSearchConfig for the queue name.
+            // Hint-2: Publish queues usually use EventQueueMessageProcessorPlugin.
+
+            // TODO-2: Assign a QueueMessageProcessor for the supplier synchronize queue.
+            // Hint-1: Use a constant from SupplierSearchConfig for the queue name.
+            // Hint-2: In this exercise we synchronize to search, so use SynchronizationSearchQueueMessageProcessorPlugin.
         ];
     }
 

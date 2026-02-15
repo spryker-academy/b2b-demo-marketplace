@@ -48,6 +48,9 @@ class SupplierWriterStep extends PublishAwareStep implements DataImportStepInter
 
         if ($supplierEntity->isNew() || $supplierEntity->isModified()) {
             $supplierEntity->save();
+            // TODO-1: Use the `addPublishEvents` method to trigger a change/publish event.
+            // Hint-1: The first parameter is the supplier publish event name in `SupplierSearchConfig::SUPPLIER_PUBLISH`.
+            // Hint-2: The second parameter is the supplier's ID from the entity `$supplierEntity`.
         }
 
         $this->handleMerchantRelations($supplierEntity->getIdSupplier(), $merchantIds);
