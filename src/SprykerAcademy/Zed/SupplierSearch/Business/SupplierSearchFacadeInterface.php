@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace SprykerAcademy\Zed\SupplierSearch\Business;
 
-use Generated\Shared\Transfer\FilterTransfer;
-
 interface SupplierSearchFacadeInterface
 {
     /**
@@ -24,18 +22,4 @@ interface SupplierSearchFacadeInterface
      * @param array<\Generated\Shared\Transfer\EventEntityTransfer> $eventTransfers
      */
     public function writeCollectionBySupplierEvents(array $eventTransfers): void;
-
-    /**
-     * Specification:
-     * - Reads entities from `pyz_supplier_search` based on criteria from FilterTransfer and supplier IDs.
-     * - Returns array of SynchronizationDataTransfer filled with data from search entities.
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\FilterTransfer $filterTransfer
-     * @param array<int> $supplierIds
-     *
-     * @return array<\Generated\Shared\Transfer\SynchronizationDataTransfer>
-     */
-    public function getSynchronizationDataTransfersBySupplierIds(FilterTransfer $filterTransfer, array $supplierIds = []): array;
 }

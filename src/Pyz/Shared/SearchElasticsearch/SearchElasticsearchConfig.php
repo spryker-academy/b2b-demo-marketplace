@@ -21,7 +21,6 @@ class SearchElasticsearchConfig extends SprykerSearchElasticsearchConfig
         'product-review',
         'return_reason',
         'merchant',
-        'supplier',
         'service_point',
         'ssp_asset',
     ];
