@@ -1,0 +1,76 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    },
+    "analysis": {
+      "analyzer": {
+        "supplier_name_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
+        },
+        "suggestion_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["lowercase"]
+        }
+      },
+      "normalizer": {
+        "lowercase_normalizer": {
+          "type": "custom",
+          "char_filter": [],
+          "filter": ["lowercase"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "supplier": {
+      "dynamic_templates": [
+        {
+          "search-result-data": {
+            "mapping": { "index": false },
+            "path_match": "search-result-data.*"
+          }
+        }
+      ],
+      "properties": {
+        "search-result-data": {
+          "type": "object"
+        },
+        "type": {
+          "type": "keyword"
+        },
+        "id_supplier": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "supplier_name_analyzer",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "normalizer": "lowercase_normalizer"
+            }
+          }
+        },
+        "full-text": {
+          "type": "text",
+          "analyzer": "supplier_name_analyzer"
+        },
+        "full-text-boosted": {
+          "type": "text",
+          "analyzer": "supplier_name_analyzer"
+        },
+        "completion-terms": {
+          "type": "keyword",
+          "normalizer": "lowercase_normalizer"
+        },
+        "suggestion-terms": {
+          "type": "text",
+          "analyzer": "suggestion_analyzer"
+        }
+      }
+    }
+  }
+}

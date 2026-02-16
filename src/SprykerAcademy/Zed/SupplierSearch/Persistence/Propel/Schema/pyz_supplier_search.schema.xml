@@ -14,7 +14,7 @@
             <parameter name="resource" value="supplier"/>
             <parameter name="key_suffix_column" value="fk_supplier"/>
             <parameter name="queue_group" value="sync.search.supplier"/>
-            <parameter name="params" value='{"type":"page"}'/>
+            <parameter name="params" value='{"type":"supplier"}'/>
         </behavior>
 
         <behavior name="timestampable"/>

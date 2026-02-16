@@ -68,4 +68,84 @@ class SupplierSearchConfig extends AbstractBundleConfig
      * @api
      */
     public const string SUPPLIER_UNPUBLISH = 'SupplierSearch.supplier.unpublish';
+
+    /**
+     * Specification:
+     * - Defines the resource type identifier used in search documents and queries.
+     *
+     * @api
+     */
+    public const string SUPPLIER_RESOURCE_TYPE = 'supplier';
+
+    /**
+     * Specification:
+     * - Defines the Elasticsearch source identifier (index name) for supplier search.
+     *
+     * @api
+     */
+    public const string SUPPLIER_SOURCE_IDENTIFIER = 'supplier';
+
+    /**
+     * Specification:
+     * - Key for the type field in search data.
+     *
+     * @api
+     */
+    public const string KEY_TYPE = 'type';
+
+    /**
+     * Specification:
+     * - Key for the id_supplier field in search data.
+     *
+     * @api
+     */
+    public const string KEY_ID_SUPPLIER = 'id_supplier';
+
+    /**
+     * Specification:
+     * - Key for the name field in search data.
+     *
+     * @api
+     */
+    public const string KEY_NAME = 'name';
+
+    /**
+     * Specification:
+     * - Key for the search-result-data field in search data.
+     *
+     * @api
+     */
+    public const string KEY_SEARCH_RESULT_DATA = 'search-result-data';
+
+    /**
+     * Specification:
+     * - Key for the full-text field in search data.
+     *
+     * @api
+     */
+    public const string KEY_FULL_TEXT = 'full-text';
+
+    /**
+     * Specification:
+     * - Key for the full-text-boosted field in search data.
+     *
+     * @api
+     */
+    public const string KEY_FULL_TEXT_BOOSTED = 'full-text-boosted';
+
+    /**
+     * Specification:
+     * - Key for the suggestion-terms field in search data.
+     *
+     * @api
+     */
+    public const string KEY_SUGGESTION_TERMS = 'suggestion-terms';
+
+    /**
+     * Specification:
+     * - Key for the completion-terms field in search data.
+     *
+     * @api
+     */
+    public const string KEY_COMPLETION_TERMS = 'completion-terms';
 }

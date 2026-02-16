@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\SupplierCriteriaTransfer;
 use Generated\Shared\Transfer\SupplierSearchCriteriaTransfer;
 use Generated\Shared\Transfer\SupplierSearchTransfer;
 use Spryker\Zed\EventBehavior\Business\EventBehaviorFacadeInterface;
+use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
 use SprykerAcademy\Zed\Supplier\Business\SupplierFacadeInterface;
 use SprykerAcademy\Zed\SupplierSearch\Persistence\SupplierSearchEntityManagerInterface;
 use SprykerAcademy\Zed\SupplierSearch\Persistence\SupplierSearchRepositoryInterface;
@@ -59,12 +60,14 @@ readonly class SupplierSearchWriter
 
         foreach ($supplierTransfersIndexed as $supplierId => $supplierTransfer) {
             $searchData = [
-                'type' => 'supplier',
-                'search-result-data' => $supplierTransfer->toArray(),
-                'full-text' => [$supplierTransfer->getName()],
-                'full-text-boosted' => [$supplierTransfer->getName()],
-                'suggestion-terms' => [$supplierTransfer->getName()],
-                'completion-terms' => [$supplierTransfer->getName()],
+                SupplierSearchConfig::KEY_TYPE => SupplierSearchConfig::SUPPLIER_RESOURCE_TYPE,
+                SupplierSearchConfig::KEY_ID_SUPPLIER => $supplierTransfer->getIdSupplier(),
+                SupplierSearchConfig::KEY_NAME => $supplierTransfer->getName(),
+                SupplierSearchConfig::KEY_SEARCH_RESULT_DATA => $supplierTransfer->toArray(),
+                SupplierSearchConfig::KEY_FULL_TEXT => [$supplierTransfer->getName()],
+                SupplierSearchConfig::KEY_FULL_TEXT_BOOSTED => [$supplierTransfer->getName()],
+                SupplierSearchConfig::KEY_SUGGESTION_TERMS => [$supplierTransfer->getName()],
+                SupplierSearchConfig::KEY_COMPLETION_TERMS => [$supplierTransfer->getName()],
             ];
 
             $supplierSearchTransfer = $supplierSearchTransfersIndexed[$supplierId] ?? new SupplierSearchTransfer();
@@ -94,7 +97,7 @@ readonly class SupplierSearchWriter
             return [];
         }
 
-        $supplierCriteriaTransfer = (new SupplierCriteriaTransfer())
+        $supplierCriteriaTransfer = new SupplierCriteriaTransfer()
             ->setIdsSupplier($supplierIds);
         $supplierTransfers = $this->supplierFacade
             ->getSuppliers($supplierCriteriaTransfer);
@@ -124,7 +127,7 @@ readonly class SupplierSearchWriter
             return [];
         }
 
-        $supplierSearchCriteriaTransfer = (new SupplierSearchCriteriaTransfer())
+        $supplierSearchCriteriaTransfer = new SupplierSearchCriteriaTransfer()
             ->setFksSupplier($supplierIds);
         $supplierSearchTransfers = $this->supplierSearchRepository
             ->getSupplierSearches($supplierSearchCriteriaTransfer);
