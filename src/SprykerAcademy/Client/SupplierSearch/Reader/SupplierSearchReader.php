@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace SprykerAcademy\Client\SupplierSearch\Reader;
 
 use Generated\Shared\Transfer\SupplierCollectionTransfer;
+use Generated\Shared\Transfer\SupplierTransfer;
 use Spryker\Client\Search\SearchClientInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
+use SprykerAcademy\Client\SupplierSearch\Plugin\Elasticsearch\Query\SupplierByIdSearchQueryPlugin;
 
 class SupplierSearchReader implements SupplierSearchReaderInterface
 {
@@ -44,5 +46,26 @@ class SupplierSearchReader implements SupplierSearchReaderInterface
 
         // When result formatters return keyed array
         return $result['SupplierSearchCollection'] ?? new SupplierCollectionTransfer();
+    }
+
+    public function findSupplierById(int $idSupplier): SupplierTransfer
+    {
+        $queryPlugin = new SupplierByIdSearchQueryPlugin($idSupplier);
+
+        $result = $this->searchClient->search(
+            $queryPlugin,
+            $this->resultFormatterPlugins,
+        );
+
+        if ($result instanceof SupplierCollectionTransfer) {
+            $suppliers = $result->getSuppliers();
+
+            return $suppliers->count() > 0 ? $suppliers->offsetGet(0) : new SupplierTransfer();
+        }
+
+        $collection = $result['SupplierSearchCollection'] ?? new SupplierCollectionTransfer();
+        $suppliers = $collection->getSuppliers();
+
+        return $suppliers->count() > 0 ? $suppliers->offsetGet(0) : new SupplierTransfer();
     }
 }

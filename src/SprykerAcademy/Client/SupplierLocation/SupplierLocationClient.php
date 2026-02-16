@@ -14,8 +14,8 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class SupplierLocationClient extends AbstractClient implements SupplierLocationClientInterface
 {
-    public function getSupplierLocations(SupplierLocationCriteriaTransfer $supplierLocationCriteriaTransfer): SupplierLocationCollectionTransfer
-    {
+    public function getSupplierLocations(SupplierLocationCriteriaTransfer $supplierLocationCriteriaTransfer
+    ): SupplierLocationCollectionTransfer {
         return $this->getFactory()
             ->createSupplierLocationStub()
             ->getSupplierLocations($supplierLocationCriteriaTransfer);
@@ -23,7 +23,7 @@ class SupplierLocationClient extends AbstractClient implements SupplierLocationC
 
     public function findSupplierLocationById(int $idSupplierLocation): SupplierLocationTransfer
     {
-        $supplierLocationCriteriaTransfer = (new SupplierLocationCriteriaTransfer())
+        $supplierLocationCriteriaTransfer = new SupplierLocationCriteriaTransfer()
             ->setIdSupplierLocation($idSupplierLocation);
 
         return $this->getFactory()

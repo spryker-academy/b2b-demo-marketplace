@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SprykerAcademy\Client\Supplier;
 
 use Generated\Shared\Transfer\SupplierCollectionTransfer;
-use Generated\Shared\Transfer\SupplierCriteriaTransfer;
 use Generated\Shared\Transfer\SupplierTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
@@ -23,11 +22,8 @@ class SupplierClient extends AbstractClient implements SupplierClientInterface
 
     public function findSupplierById(int $idSupplier): SupplierTransfer
     {
-        $supplierCriteriaTransfer = (new SupplierCriteriaTransfer())
-            ->setIdSupplier($idSupplier);
-
         return $this->getFactory()
-            ->createSupplierStub()
-            ->findSupplierById($supplierCriteriaTransfer);
+            ->getSupplierSearchClient()
+            ->findSupplierById($idSupplier);
     }
 }

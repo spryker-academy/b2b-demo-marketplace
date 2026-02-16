@@ -23,7 +23,7 @@ SupplierClient::getSuppliers()
 SupplierSearchClient::searchSuppliers()
     |  Reader -> QueryPlugin -> SearchClient -> ResultFormatter
     v
-Elasticsearch (supplier index)
+Elasticsearch (page index, type=supplier)
 ```
 
 ### Strategy 2: ZedRequest RPC (for single-record lookups or write operations)
@@ -141,13 +141,200 @@ class GatewayController extends AbstractGatewayController
 
 **Important**: Gateway actions must always return a Transfer object, never `null`. Return an empty transfer when the entity is not found.
 
-### 4. SupplierSearch Client Module (Elasticsearch reads)
+### 4. Elasticsearch Publish & Sync Setup
+
+Before the SupplierSearchClient can return data, you need the full publish & sync pipeline.
+
+#### 4a. Search Table Schema
+
+The `pyz_supplier_search` table stores the structured JSON data that gets synced to Elasticsearch. The `synchronization` behavior handles queue-based sync automatically.
+
+```xml
+<!-- src/SprykerAcademy/Zed/SupplierSearch/Persistence/Propel/Schema/pyz_supplier_search.schema.xml -->
+<table name="pyz_supplier_search" idMethod="native" allowPkInsert="true" identifierQuoting="true">
+    <column name="id_supplier_search" type="BIGINT" autoIncrement="true" primaryKey="true"/>
+    <column name="fk_supplier" type="INTEGER" required="true"/>
+
+    <behavior name="synchronization">
+        <parameter name="resource" value="supplier"/>
+        <parameter name="key_suffix_column" value="fk_supplier"/>
+        <parameter name="queue_group" value="sync.search.supplier"/>
+        <parameter name="params" value='{"type":"page"}'/>
+    </behavior>
+
+    <behavior name="timestampable"/>
+</table>
+```
+
+**Key points:**
+- `resource="supplier"` — the sync key prefix (e.g., `supplier:1`)
+- `params='{"type":"page"}'` — tells the sync consumer to write to the **page** ES index. The `type` param here is the **index name**, NOT the document's `type` field.
+
+#### 4b. SupplierSearchWriter (Data Mapper)
+
+The Writer is responsible for structuring the data correctly for the Elasticsearch page index schema. It must produce documents with:
+- `type` — a custom type value to distinguish supplier docs from other page-type docs (products, CMS, etc.)
+- `search-result-data` — nested object containing the actual supplier fields
+- `full-text`, `full-text-boosted`, etc. — standard page index fields for search features
+
+```php
+// src/SprykerAcademy/Zed/SupplierSearch/Business/Writer/SupplierSearchWriter.php (excerpt)
+foreach ($supplierTransfersIndexed as $supplierId => $supplierTransfer) {
+    $searchData = [
+        'type' => 'supplier',
+        'search-result-data' => $supplierTransfer->toArray(),
+        'full-text' => [$supplierTransfer->getName()],
+        'full-text-boosted' => [$supplierTransfer->getName()],
+        'suggestion-terms' => [$supplierTransfer->getName()],
+        'completion-terms' => [$supplierTransfer->getName()],
+    ];
+
+    $supplierSearchTransfer = $supplierSearchTransfersIndexed[$supplierId]
+        ?? new SupplierSearchTransfer();
+
+    $supplierSearchTransfer
+        ->setFkSupplier($supplierId)
+        ->setData($searchData);
+
+    // ... create or update entity
+}
+```
+
+**Critical distinction:**
+- The `params.type = "page"` in the schema XML tells the sync consumer which ES **index** to target.
+- The `'type' => 'supplier'` in the data payload becomes a **field in the ES document** used to filter supplier docs from other page-type docs (products, CMS pages, etc.).
+- Without the data mapper structuring data under `search-result-data`, the raw `toArray()` fields end up flat at the document root and the ResultFormatter cannot find them.
+
+#### 4c. Publisher Write Plugin
+
+Listens to supplier entity events and triggers the Writer.
+
+```php
+// src/SprykerAcademy/Zed/SupplierSearch/Communication/Plugin/Publisher/SupplierWritePublisherPlugin.php
+class SupplierWritePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
+{
+    public function handleBulk(array $eventEntityTransfers, $eventName): void
+    {
+        $this->getFacade()->writeCollectionBySupplierEvents($eventEntityTransfers);
+    }
+
+    public function getSubscribedEvents(): array
+    {
+        return [
+            SupplierSearchConfig::SUPPLIER_PUBLISH,
+            SupplierSearchConfig::ENTITY_PYZ_SUPPLIER_CREATE,
+            SupplierSearchConfig::ENTITY_PYZ_SUPPLIER_UPDATE,
+        ];
+    }
+}
+```
+
+Register in `Pyz\Zed\Publisher\PublisherDependencyProvider`:
+```php
+protected function getSupplierSearchPlugins(): array
+{
+    return [
+        SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE => [
+            new SupplierWritePublisherPlugin(),
+        ],
+    ];
+}
+```
+
+#### 4d. Publisher Trigger Plugin (for `publish:trigger-events`)
+
+Required to re-publish all supplier data on demand via `publish:trigger-events -r supplier`. Without this plugin, the `-r supplier` resource name is not recognized.
+
+```php
+// src/SprykerAcademy/Zed/SupplierSearch/Communication/Plugin/Publisher/SupplierPublisherTriggerPlugin.php
+namespace SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher;
+
+use Generated\Shared\Transfer\SupplierTransfer;
+use Orm\Zed\Supplier\Persistence\Map\PyzSupplierTableMap;
+use Orm\Zed\Supplier\Persistence\PyzSupplierQuery;
+use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherTriggerPluginInterface;
+use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
+
+class SupplierPublisherTriggerPlugin extends AbstractPlugin implements PublisherTriggerPluginInterface
+{
+    protected const string COL_ID_SUPPLIER = PyzSupplierTableMap::COL_ID_SUPPLIER;
+
+    public function getData(int $offset, int $limit): array
+    {
+        $supplierEntities = PyzSupplierQuery::create()
+            ->offset($offset)
+            ->limit($limit)
+            ->find();
+
+        $transfers = [];
+        foreach ($supplierEntities as $entity) {
+            $transfers[] = (new SupplierTransfer())->fromArray($entity->toArray(), true);
+        }
+
+        return $transfers;
+    }
+
+    public function getResourceName(): string
+    {
+        return 'supplier';
+    }
+
+    public function getEventName(): string
+    {
+        return SupplierSearchConfig::SUPPLIER_PUBLISH;
+    }
+
+    public function getIdColumnName(): ?string
+    {
+        return static::COL_ID_SUPPLIER;
+    }
+}
+```
+
+**Key points:**
+- `getData()` must return **Transfer objects** (not Propel entities). The publisher calls `modifiedToArray()` on each item, which only exists on `AbstractTransfer`.
+- `getIdColumnName()` returns the full Propel column name `pyz_supplier.id_supplier`. The publisher splits on `.` and uses the second part (`id_supplier`) as the array key to extract IDs from `modifiedToArray()` output.
+- `getResourceName()` returns the name used with `publish:trigger-events -r supplier`.
+
+Register in `Pyz\Zed\Publisher\PublisherDependencyProvider::getPublisherTriggerPlugins()`:
+```php
+protected function getPublisherTriggerPlugins(): array
+{
+    return [
+        // ... other trigger plugins
+        new SupplierPublisherTriggerPlugin(),
+    ];
+}
+```
+
+#### 4e. Re-publish and sync
+
+```bash
+# Trigger publish events for all suppliers (writes structured data to pyz_supplier_search)
+docker/sdk cli console publish:trigger-events -r supplier
+
+# Process the sync queue (pushes data from pyz_supplier_search to Elasticsearch)
+docker/sdk cli console queue:worker:start --stop-when-empty
+```
+
+The data flow:
+```
+publish:trigger-events -r supplier
+    -> SupplierPublisherTriggerPlugin::getData() (loads all suppliers)
+    -> SupplierWritePublisherPlugin::handleBulk() (structures data with DataMapper)
+    -> pyz_supplier_search.data column (structured JSON with type + search-result-data)
+    -> sync.search.supplier queue
+    -> Elasticsearch page index (document with type=supplier, search-result-data={...})
+```
+
+### 5. SupplierSearch Client Module (Elasticsearch reads)
 
 This module reads supplier data from Elasticsearch. It follows the standard Spryker Search Client pattern: QueryPlugin + ResultFormatterPlugin + Reader.
 
-#### 4a. Query Plugin
+#### 5a. Query Plugin
 
-The query plugin builds the Elastica query. It filters by the `type` field matching the resource name and returns only the `search-result-data` object from each document.
+The query plugin builds the Elastica query. It targets the **page** index (`SOURCE_IDENTIFIER = 'page'`) and filters by the custom `type=supplier` field that the Writer sets in the document data.
 
 ```php
 // src/SprykerAcademy/Client/SupplierSearch/Plugin/Elasticsearch/Query/SupplierSearchQueryPlugin.php
@@ -163,8 +350,12 @@ use Spryker\Client\SearchExtension\Dependency\Plugin\SearchContextAwareQueryInte
 
 class SupplierSearchQueryPlugin extends AbstractPlugin implements QueryInterface, SearchContextAwareQueryInterface
 {
-    protected const SOURCE_IDENTIFIER = 'supplier';
-    protected const RESOURCE_TYPE = 'supplier';
+    // The ES index name. Supplier data lives in the "page" index.
+    protected const string SOURCE_IDENTIFIER = 'page';
+
+    // The document "type" field value set by the SupplierSearchWriter.
+    // This distinguishes supplier docs from product/CMS/other page docs.
+    protected const string RESOURCE_TYPE = 'supplier';
 
     protected Query $query;
     protected ?SearchContextTransfer $searchContextTransfer = null;
@@ -172,6 +363,18 @@ class SupplierSearchQueryPlugin extends AbstractPlugin implements QueryInterface
     public function __construct()
     {
         $this->query = $this->createSearchQuery();
+    }
+
+    protected function createSearchQuery(): Query
+    {
+        $query = new Query();
+        $boolQuery = new BoolQuery();
+
+        $boolQuery->addMust(new MatchQuery('type', static::RESOURCE_TYPE));
+
+        $query->setQuery($boolQuery);
+
+        return $query;
     }
 
     public function getSearchQuery(): Query
@@ -193,29 +396,16 @@ class SupplierSearchQueryPlugin extends AbstractPlugin implements QueryInterface
     {
         $this->searchContextTransfer = $searchContextTransfer;
     }
-
-    protected function createSearchQuery(): Query
-    {
-        $query = new Query();
-        $boolQuery = new BoolQuery();
-
-        $typeFilter = (new MatchQuery())->setField('type', static::RESOURCE_TYPE);
-        $boolQuery->addMust($typeFilter);
-
-        $query->setQuery($boolQuery);
-        $query->setSource(['search-result-data']);
-
-        return $query;
-    }
 }
 ```
 
-**Key points:**
-- `SOURCE_IDENTIFIER` must match the `resource` value from the synchronization behavior in `pyz_supplier_search.schema.xml`
-- `RESOURCE_TYPE` must match the `type` value in the sync params (e.g., `{"type":"page"}` means type = the resource name used by the sync behavior)
-- `setSource(['search-result-data'])` — only return the data payload, not the full ES document
+**Critical distinction between `SOURCE_IDENTIFIER` and `RESOURCE_TYPE`:**
+- `SOURCE_IDENTIFIER = 'page'` — tells the Search Client which **Elasticsearch index** to query. Supplier data is stored in the default `page` index (configured via `params='{"type":"page"}'` in the sync behavior).
+- `RESOURCE_TYPE = 'supplier'` — filters for documents where the `type` **field** equals `supplier`. This is the custom type set by the `SupplierSearchWriter` in the document data, NOT the sync behavior param.
 
-#### 4b. Result Formatter Plugin
+If you set `SOURCE_IDENTIFIER = 'supplier'`, the Search Client would look for a dedicated `supplier` index which doesn't exist, resulting in an index-not-found error.
+
+#### 5b. Result Formatter Plugin
 
 Maps Elasticsearch hits to Transfer objects.
 
@@ -230,7 +420,7 @@ use Spryker\Client\SearchElasticsearch\Plugin\ResultFormatter\AbstractElasticsea
 
 class SupplierSearchResultFormatterPlugin extends AbstractElasticsearchResultFormatterPlugin
 {
-    protected const NAME = 'SupplierSearchCollection';
+    protected const string NAME = 'SupplierSearchCollection';
 
     public function getName(): string
     {
@@ -256,10 +446,11 @@ class SupplierSearchResultFormatterPlugin extends AbstractElasticsearchResultFor
 
 **Key points:**
 - Extends `AbstractElasticsearchResultFormatterPlugin` from `spryker/search-elasticsearch`
-- `fromArray($data, true)` — the `true` flag enables snake_case to camelCase mapping (ES stores data in snake_case)
+- Reads from `search-result-data` — the nested object where the Writer stores supplier fields
+- `fromArray($data, true)` — the `true` flag means "ignore missing keys" (no exception if a key doesn't match a transfer property). The data in `search-result-data` uses snake_case keys (from `toArray()`), which is the default expected by `fromArray()`.
 - The `NAME` constant is used as the key when multiple formatters return results in an array
 
-#### 4c. Reader
+#### 5c. Reader
 
 Orchestrates query expansion, search execution, and result formatting.
 
@@ -305,7 +496,7 @@ class SupplierSearchReader implements SupplierSearchReaderInterface
 }
 ```
 
-#### 4d. DependencyProvider, Factory, Client
+#### 5d. DependencyProvider, Factory, Client
 
 No bridge classes. Provide clients directly from the locator.
 
@@ -410,11 +601,11 @@ class SupplierSearchClient extends AbstractClient implements SupplierSearchClien
 }
 ```
 
-### 5. Supplier Client Module (facade for Glue)
+### 6. Supplier Client Module (facade for Glue)
 
 The `SupplierClient` is the single entry point used by the Glue provider. It delegates to `SupplierSearchClient` for collections (Elasticsearch) and to the `SupplierStub` for single-record lookups (ZedRequest RPC).
 
-#### 5a. Zed Stub (for RPC calls)
+#### 6a. Zed Stub (for RPC calls)
 
 ```php
 // src/SprykerAcademy/Client/Supplier/Zed/SupplierStub.php
@@ -446,7 +637,7 @@ class SupplierStub implements SupplierStubInterface
 
 **URL convention**: `/supplier/gateway/find-supplier-by-id` maps to `GatewayController::findSupplierByIdAction()`.
 
-#### 5b. DependencyProvider, Factory, Client
+#### 6b. DependencyProvider, Factory, Client
 
 ```php
 // src/SprykerAcademy/Client/Supplier/SupplierDependencyProvider.php
@@ -536,7 +727,7 @@ class SupplierClient extends AbstractClient implements SupplierClientInterface
 }
 ```
 
-### 6. API Platform Resource Definition (YAML)
+### 7. API Platform Resource Definition (YAML)
 
 ```yaml
 # src/SprykerAcademy/Glue/Supplier/resources/api/storefront/suppliers.resource.yml
@@ -571,7 +762,7 @@ After creating/modifying the YAML, regenerate the API resource class:
 docker/sdk cli console glue api:generate
 ```
 
-### 7. Glue Storefront Provider
+### 8. Glue Storefront Provider
 
 The provider handles incoming API requests. It receives dependencies via constructor injection from Symfony's DI container.
 
@@ -628,7 +819,7 @@ class SuppliersStorefrontProvider implements ProviderInterface
 }
 ```
 
-### 8. Glue Mapper
+### 9. Glue Mapper
 
 Maps Transfer objects to API Platform resource objects. **Never use Propel entities here.**
 
@@ -651,7 +842,7 @@ class SupplierMapper
 
 **Critical**: Use `toArray(false, true)` — the second parameter `true` produces **camelCased** keys (`idSupplier`). The default `toArray()` produces **snake_cased** keys (`id_supplier`) which won't match the resource class properties.
 
-### 9. Register Services in ApplicationServices.php
+### 10. Register Services in ApplicationServices.php
 
 The Glue Storefront uses Symfony DI. You must register your Client in `config/GlueStorefront/ApplicationServices.php`.
 
@@ -671,7 +862,7 @@ return static function (ContainerConfigurator $configurator): void {
 
 **Note**: Only register the Client interface/class. The Spryker kernel auto-resolves the Client's Factory and DependencyProvider internally. Mappers and other simple classes should be instantiated directly (e.g., `new SupplierMapper()`) rather than registered in the container.
 
-### 10. API Platform Config
+### 11. API Platform Config
 
 Ensure `config/GlueStorefront/packages/spryker_api_platform.php` includes your source directories:
 
@@ -685,7 +876,7 @@ $sprykerApiPlatform->sourceDirectories([
 ]);
 ```
 
-### 11. Build and Test
+### 12. Build and Test
 
 ```bash
 # Generate transfers (SupplierCollectionTransfer, etc.)
@@ -694,7 +885,10 @@ docker/sdk cli console transfer:generate
 # Generate API Platform resource classes from YAML
 docker/sdk cli console glue api:generate
 
-# Ensure data is synced to Elasticsearch
+# Re-publish supplier data (writes structured data to pyz_supplier_search)
+docker/sdk cli console publish:trigger-events -r supplier
+
+# Process the sync queue (pushes data to Elasticsearch)
 docker/sdk cli console queue:worker:start --stop-when-empty
 
 # Clear all caches (routing, DI container, etc.)
@@ -707,28 +901,6 @@ curl http://glue-storefront.eu.spryker.local/suppliers
 curl http://glue-storefront.eu.spryker.local/suppliers/1
 ```
 
-## Elasticsearch Publish & Sync Prerequisites
-
-For the SupplierSearchClient to return data, the publish & sync pipeline must be set up:
-
-1. **Search table** — `pyz_supplier_search` with the `synchronization` behavior in `pyz_supplier_search.schema.xml`:
-   ```xml
-   <behavior name="synchronization">
-       <parameter name="resource" value="supplier"/>
-       <parameter name="key_suffix_column" value="fk_supplier"/>
-       <parameter name="queue_group" value="sync.search.supplier"/>
-       <parameter name="params" value='{"type":"page"}'/>
-   </behavior>
-   ```
-
-2. **ES schema** — `src/SprykerAcademy/Shared/SupplierSearch/Schema/supplier.json` defines the index mappings.
-
-3. **Publisher plugin** — `SupplierWritePublisherPlugin` listens to supplier entity events and writes to `pyz_supplier_search`.
-
-4. **Queue worker** — Processes the `sync.search.supplier` queue to push data from `pyz_supplier_search.data` column into the Elasticsearch index.
-
-The data flow: `Supplier table change -> Event -> Publisher -> pyz_supplier_search -> Queue -> Elasticsearch`
-
 ## Common Pitfalls
 
 | Error | Cause | Fix |
@@ -739,8 +911,12 @@ The data flow: `Supplier table change -> Event -> Publisher -> pyz_supplier_sear
 | `Class not found` for generated resource | API resource class not generated after YAML change | Run `docker/sdk cli console glue api:generate` |
 | 404 Not Found | Route cache is stale | Run `docker/sdk cli console cache:empty-all` |
 | Empty response data from ZedRequest | Returning arrays instead of Collection transfer | Wrap arrays in a Collection transfer (`SupplierCollectionTransfer`) |
-| Empty collection from Elasticsearch | Data not synced or wrong `SOURCE_IDENTIFIER` | Run `queue:worker:start --stop-when-empty`; verify `SOURCE_IDENTIFIER` matches the sync behavior `resource` value |
-| ES returns hits but transfers are empty | Wrong `fromArray` mapping | Use `fromArray($data, true)` — the `true` enables snake_case to camelCase conversion |
+| Empty collection from Elasticsearch | Data not synced, wrong `SOURCE_IDENTIFIER`, or missing DataMapper | Run `publish:trigger-events -r supplier` then `queue:worker:start --stop-when-empty`; verify `SOURCE_IDENTIFIER = 'page'` (the index name, not the document type) |
+| ES returns all page docs (products, CMS, etc.) | QueryPlugin filters by wrong `type` | Set `RESOURCE_TYPE = 'supplier'` (the custom type field set by the Writer), NOT `'page'` |
+| ES returns hits but transfers are empty | Data stored flat instead of under `search-result-data` | Ensure `SupplierSearchWriter` structures data with `'search-result-data' => $transfer->toArray()` then re-publish |
+| `There is no resource with the name: supplier` on `publish:trigger-events` | Missing `PublisherTriggerPluginInterface` implementation | Create `SupplierPublisherTriggerPlugin` and register in `PublisherDependencyProvider::getPublisherTriggerPlugins()` |
+| `Call to undefined method: modifiedToArray` on trigger | `getData()` returns Propel entities instead of Transfer objects | Return `SupplierTransfer` objects from `getData()`, not raw Propel entities |
+| `Undefined array key "id_supplier"` on trigger | `getData()` returns `EventEntityTransfer` (has `id` key, not `id_supplier`) | Return domain Transfer objects (e.g., `SupplierTransfer`) whose `modifiedToArray()` contains the key matching `getIdColumnName()` |
 
 ## File Structure Reference
 
@@ -767,17 +943,18 @@ src/SprykerAcademy/
       Propel/Mapper/SupplierMapper.php
 
   Zed/SupplierSearch/
-    Business/Writer/SupplierSearchWriter.php      # Publish & sync writer
+    Business/Writer/SupplierSearchWriter.php      # Structures data for ES (DataMapper)
     Persistence/
       SupplierSearchEntityManager.php
       SupplierSearchRepository.php
       Propel/Schema/pyz_supplier_search.schema.xml
     Communication/Plugin/Publisher/
-      SupplierWritePublisherPlugin.php
+      SupplierWritePublisherPlugin.php            # Handles entity events
+      SupplierPublisherTriggerPlugin.php          # Enables publish:trigger-events -r supplier
 
   Client/SupplierSearch/                          # Reads from Elasticsearch
     Plugin/Elasticsearch/
-      Query/SupplierSearchQueryPlugin.php         # Elastica query builder
+      Query/SupplierSearchQueryPlugin.php         # Elastica query (page index, type=supplier)
       ResultFormatter/
         SupplierSearchResultFormatterPlugin.php   # ES hits -> Transfers
     Reader/
@@ -808,4 +985,7 @@ src/SprykerAcademy/
 config/GlueStorefront/
   ApplicationServices.php                         # Symfony DI registration
   packages/spryker_api_platform.php               # Source directories
+
+Pyz/Zed/Publisher/
+  PublisherDependencyProvider.php                  # Register Write + Trigger plugins
 ```

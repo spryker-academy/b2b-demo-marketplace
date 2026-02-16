@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SprykerAcademy\Client\SupplierSearch;
 
 use Generated\Shared\Transfer\SupplierCollectionTransfer;
+use Generated\Shared\Transfer\SupplierTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -17,5 +18,12 @@ class SupplierSearchClient extends AbstractClient implements SupplierSearchClien
         return $this->getFactory()
             ->createSupplierSearchReader()
             ->searchSuppliers($requestParameters);
+    }
+
+    public function findSupplierById(int $idSupplier): SupplierTransfer
+    {
+        return $this->getFactory()
+            ->createSupplierSearchReader()
+            ->findSupplierById($idSupplier);
     }
 }

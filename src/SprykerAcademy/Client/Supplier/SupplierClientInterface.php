@@ -23,7 +23,7 @@ interface SupplierClientInterface
 
     /**
      * Specification:
-     * - Finds a supplier by ID via RPC call to Zed.
+     * - Finds a supplier by ID from Elasticsearch via SupplierSearchClient.
      * - Returns an empty transfer when not found.
      *
      * @api
