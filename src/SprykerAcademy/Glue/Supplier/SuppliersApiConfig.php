@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace SprykerAcademy\Glue\SuppliersApi;
+namespace SprykerAcademy\Glue\Supplier;
 
 use Spryker\Glue\Kernel\AbstractBundleConfig;
 
@@ -13,5 +13,5 @@ class SuppliersApiConfig extends AbstractBundleConfig
      *
      * @var string
      */
-    public const RESOURCE_SUPPLIERS = 'suppliers';
+    public const string RESOURCE_SUPPLIERS = 'suppliers';
 }

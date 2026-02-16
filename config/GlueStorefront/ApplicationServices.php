@@ -8,9 +8,13 @@
  * You can also write your custom solution as it is explained in the Symfony documentation.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Spryker\Service\Container\ProxyFactory;
+use SprykerAcademy\Client\Supplier\SupplierClient;
+use SprykerAcademy\Client\Supplier\SupplierClientInterface;
+use SprykerAcademy\Client\SupplierLocation\SupplierLocationClient;
+use SprykerAcademy\Client\SupplierLocation\SupplierLocationClientInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $configurator): void {
@@ -26,4 +30,6 @@ return static function (ContainerConfigurator $configurator): void {
      * that are not included here will not be available at runtime unless they are proxied.
      */
     $services->set(ProxyFactory::class)->public();
+    $services->set(SupplierClientInterface::class, SupplierClient::class);
+    $services->set(SupplierLocationClientInterface::class, SupplierLocationClient::class);
 };

@@ -5,11 +5,12 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * @see config/README.md for more information about this configuration.
  */
+
 use Symfony\Config\ApiPlatformConfig;
 
 return static function (ApiPlatformConfig $apiPlatform, string $env): void {
@@ -32,10 +33,10 @@ return static function (ApiPlatformConfig $apiPlatform, string $env): void {
         ->order('ASC')
         ->orderParameterName('order')
         ->pagination()
-            ->pageParameterName('page')
-            ->enabledParameterName('pagination')
-            ->itemsPerPageParameterName('itemsPerPage')
-            ->partialParameterName('partial');
+        ->pageParameterName('page')
+        ->enabledParameterName('pagination')
+        ->itemsPerPageParameterName('itemsPerPage')
+        ->partialParameterName('partial');
 
     $apiPlatform->formats('jsonld', ['mime_types' => ['application/ld+json']]);
     $apiPlatform->formats('jsonapi', ['mime_types' => ['application/vnd.api+json']]);

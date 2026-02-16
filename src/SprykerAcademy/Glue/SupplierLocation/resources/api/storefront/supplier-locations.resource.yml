@@ -1,0 +1,39 @@
+resource:
+    name: SupplierLocations
+    shortName: SupplierLocation
+    description: Supplier location API for storefront operations
+
+    provider: SprykerAcademy\Glue\SupplierLocation\Api\Storefront\Provider\SupplierLocationsStorefrontProvider
+
+    paginationEnabled: true
+    paginationItemsPerPage: 10
+
+    operations:
+        - type: Get
+          uriTemplate: /supplier-locations/{idSupplierLocation}
+        - type: GetCollection
+          uriTemplate: /supplier-locations
+
+    properties:
+        idSupplierLocation:
+            type: int
+            description: The unique supplier location identifier
+            identifier: true
+        fkSupplier:
+            type: int
+            description: Related supplier identifier
+        city:
+            type: string
+            description: City
+        country:
+            type: string
+            description: Country
+        address:
+            type: string
+            description: Address
+        zipCode:
+            type: string
+            description: ZIP code
+        isDefault:
+            type: bool
+            description: Default supplier location flag

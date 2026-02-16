@@ -70,9 +70,6 @@ actions:
         source: data/import/common/DE/payment_method_store.csv
     -   data_entity: payment-method-store
         source: data/import/common/AT/payment_method_store.csv
-    -   data_entity: return-reason
-
-
     #2. Catalog Setup data import - Catalog Setup category includes sub-categories: Categories, Products,Pricing, Stocks
     -   data_entity: category-template
         source: data/import/common/common/category_template.csv
@@ -409,6 +406,7 @@ actions:
     -   data_entity: ssp-model-asset
         source: data/import/common/common/ssp_model_asset.csv
     -   data_entity: ssp-model-product-list
+        source: data/import/common/common/ssp_model_product_list.csv
 
     #9. Supplier import
     -   data_entity: supplier

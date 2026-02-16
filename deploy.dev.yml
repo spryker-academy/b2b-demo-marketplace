@@ -1,6 +1,6 @@
 version: '0.1'
 
-namespace: marketplace_backend
+namespace: b2b_marketplace_backend
 tag: 'dev'
 
 environment: docker.dev
@@ -195,7 +195,7 @@ services:
             username: 'root'
             password: 'secret'
         endpoints:
-            localhost:"3308:3306":
+            localhost:3308:
                 protocol: tcp
     broker:
         engine: rabbitmq

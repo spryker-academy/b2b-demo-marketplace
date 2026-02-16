@@ -12,11 +12,35 @@
         <property name="phone" type="string" />
     </transfer>
 
+    <transfer name="SupplierCollection">
+        <property name="suppliers" type="Supplier[]" singular="supplier" />
+    </transfer>
+
     <transfer name="SupplierCriteria">
         <property name="idsSupplier" singular="idSupplier" type="array"/>
-        <property name="idSupplier"  type="int"/>
-        <property name="name"  type="string"/>
-        <property name="description"  type="string"/>
+        <property name="idSupplier" type="int"/>
+        <property name="name" type="string"/>
+        <property name="description" type="string"/>
+    </transfer>
+
+    <transfer name="SupplierLocation">
+        <property name="idSupplierLocation" type="int" />
+        <property name="fkSupplier" type="int" />
+        <property name="city" type="string" />
+        <property name="country" type="string" />
+        <property name="address" type="string" />
+        <property name="zipCode" type="string" />
+        <property name="isDefault" type="bool" />
+    </transfer>
+
+    <transfer name="SupplierLocationCollection">
+        <property name="supplierLocations" type="SupplierLocation[]" singular="supplierLocation" />
+    </transfer>
+
+    <transfer name="SupplierLocationCriteria">
+        <property name="idSupplierLocation" type="int" />
+        <property name="fkSupplier" type="int" />
+        <property name="idsSupplierLocation" singular="idSupplierLocation" type="array"/>
     </transfer>
 
 </transfers>

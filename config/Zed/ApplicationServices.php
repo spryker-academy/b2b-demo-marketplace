@@ -68,8 +68,11 @@ return static function (ContainerConfigurator $configurator): void {
         $organization = $moduleTransfer->getOrganization()->getName();
 
         foreach ($moduleTransfer->getApplications() as $applicationTransfer) {
-            if ($applicationTransfer->getName() === 'Yves' || $applicationTransfer->getName(
-                ) === 'Zed' || $applicationTransfer->getName() === 'Glue') {
+            if ($applicationTransfer->getName() === 'Yves'
+                //  || $applicationTransfer->getName(
+                // ) === 'Zed'
+
+                || $applicationTransfer->getName() === 'Glue') {
                 continue;
             }
 
