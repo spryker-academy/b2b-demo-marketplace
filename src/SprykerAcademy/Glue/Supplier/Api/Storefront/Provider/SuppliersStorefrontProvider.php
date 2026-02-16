@@ -7,7 +7,6 @@ namespace SprykerAcademy\Glue\Supplier\Api\Storefront\Provider;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use Generated\Api\Storefront\SuppliersStorefrontResource;
-use Generated\Shared\Transfer\SupplierCriteriaTransfer;
 use Generated\Shared\Transfer\SupplierTransfer;
 use SprykerAcademy\Client\Supplier\SupplierClientInterface;
 use SprykerAcademy\Glue\Supplier\Processor\Mapper\SupplierMapper;
@@ -49,7 +48,7 @@ class SuppliersStorefrontProvider implements ProviderInterface
      */
     protected function provideCollection(): array
     {
-        $supplierCollectionTransfer = $this->supplierClient->getSuppliers(new SupplierCriteriaTransfer());
+        $supplierCollectionTransfer = $this->supplierClient->getSuppliers();
         $resources = [];
         $supplierMapper = new SupplierMapper();
         foreach ($supplierCollectionTransfer->getSuppliers() as $supplierTransfer) {

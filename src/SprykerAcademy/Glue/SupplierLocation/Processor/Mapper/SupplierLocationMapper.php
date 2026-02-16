@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SprykerAcademy\Glue\SupplierLocation\Processor\Mapper;
 
-use Generated\Api\Storefront\SupplierlocationsStorefrontResource;
+use Generated\Api\Storefront\SupplierLocationsStorefrontResource;
 use Generated\Shared\Transfer\SupplierLocationTransfer;
 
 class SupplierLocationMapper

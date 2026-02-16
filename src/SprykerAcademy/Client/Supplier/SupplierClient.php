@@ -14,11 +14,11 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class SupplierClient extends AbstractClient implements SupplierClientInterface
 {
-    public function getSuppliers(SupplierCriteriaTransfer $supplierCriteriaTransfer): SupplierCollectionTransfer
+    public function getSuppliers(array $requestParameters = []): SupplierCollectionTransfer
     {
         return $this->getFactory()
-            ->createSupplierStub()
-            ->getSuppliers($supplierCriteriaTransfer);
+            ->getSupplierSearchClient()
+            ->searchSuppliers($requestParameters);
     }
 
     public function findSupplierById(int $idSupplier): SupplierTransfer

@@ -7,12 +7,12 @@ namespace SprykerAcademy\Client\Supplier\Zed;
 use Generated\Shared\Transfer\SupplierCollectionTransfer;
 use Generated\Shared\Transfer\SupplierCriteriaTransfer;
 use Generated\Shared\Transfer\SupplierTransfer;
-use SprykerAcademy\Client\Supplier\Dependency\Client\SupplierToZedRequestClientInterface;
+use Spryker\Client\ZedRequest\ZedRequestClientInterface;
 
 class SupplierStub implements SupplierStubInterface
 {
     public function __construct(
-        protected SupplierToZedRequestClientInterface $zedRequestClient,
+        protected ZedRequestClientInterface $zedRequestClient,
     ) {
     }
 

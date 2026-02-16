@@ -193,6 +193,7 @@ use Spryker\Zed\TaxApp\Communication\Plugin\Publisher\Store\RefreshTaxAppStoreRe
 use Spryker\Zed\TaxProductStorage\Communication\Plugin\Publisher\TaxProductPublisherTriggerPlugin;
 use Spryker\Zed\TaxStorage\Communication\Plugin\Publisher\TaxSetPublisherTriggerPlugin;
 use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
+use SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher\SupplierPublisherTriggerPlugin;
 use SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher\SupplierWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetToCompanyBusinessUnitWritePublisherPlugin as SearchSspAssetToCompanyBusinessUnitWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetToModelWritePublisherPlugin as SearchSspAssetToModelWritePublisherPlugin;
@@ -323,6 +324,7 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             new ShipmentTypePublisherTriggerPlugin(),
             new ProductOfferServicePublisherTriggerPlugin(),
             new ProductOfferShipmentTypePublisherTriggerPlugin(),
+            new SupplierPublisherTriggerPlugin(),
         ];
     }
 

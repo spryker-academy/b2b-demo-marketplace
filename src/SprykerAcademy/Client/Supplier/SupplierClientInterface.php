@@ -5,22 +5,21 @@ declare(strict_types=1);
 namespace SprykerAcademy\Client\Supplier;
 
 use Generated\Shared\Transfer\SupplierCollectionTransfer;
-use Generated\Shared\Transfer\SupplierCriteriaTransfer;
 use Generated\Shared\Transfer\SupplierTransfer;
 
 interface SupplierClientInterface
 {
     /**
      * Specification:
-     * - Retrieves suppliers from Zed via RPC call.
+     * - Retrieves suppliers from Elasticsearch via SupplierSearchClient.
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\SupplierCriteriaTransfer $supplierCriteriaTransfer
+     * @param array<mixed> $requestParameters
      *
      * @return \Generated\Shared\Transfer\SupplierCollectionTransfer
      */
-    public function getSuppliers(SupplierCriteriaTransfer $supplierCriteriaTransfer): SupplierCollectionTransfer;
+    public function getSuppliers(array $requestParameters = []): SupplierCollectionTransfer;
 
     /**
      * Specification:

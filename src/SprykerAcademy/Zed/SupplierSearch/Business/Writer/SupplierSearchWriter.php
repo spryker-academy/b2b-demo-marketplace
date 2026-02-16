@@ -58,7 +58,14 @@ readonly class SupplierSearchWriter
         );
 
         foreach ($supplierTransfersIndexed as $supplierId => $supplierTransfer) {
-            $searchData = $supplierTransfer->toArray();
+            $searchData = [
+                'type' => 'supplier',
+                'search-result-data' => $supplierTransfer->toArray(),
+                'full-text' => [$supplierTransfer->getName()],
+                'full-text-boosted' => [$supplierTransfer->getName()],
+                'suggestion-terms' => [$supplierTransfer->getName()],
+                'completion-terms' => [$supplierTransfer->getName()],
+            ];
 
             $supplierSearchTransfer = $supplierSearchTransfersIndexed[$supplierId] ?? new SupplierSearchTransfer();
 
