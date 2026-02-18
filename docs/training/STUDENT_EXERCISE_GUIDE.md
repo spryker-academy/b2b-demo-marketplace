@@ -128,7 +128,7 @@ src/Pyz/Zed/HelloWorld/
 
 1. **Access the page:**
    ```
-   http://zed.mysprykershop.com/hello-world
+   http://backoffice.eu.spryker.local/hello-world
    ```
 
 2. **Expected result:**
@@ -265,7 +265,7 @@ $transfer = (new SomeTransfer())
 
 2. **Access the page:**
    ```
-   http://zed.mysprykershop.com/message
+   http://backoffice.eu.spryker.local/message
    ```
 
 3. **Expected result:**
@@ -899,7 +899,7 @@ public function createAction(Request $request)
 
 1. **List page:**
    ```
-   http://zed.mysprykershop.com/supplier
+   http://backoffice.eu.spryker.local/supplier
    ```
    - Should show table with data
    - Search should work
@@ -1630,19 +1630,19 @@ class SomeMapper
 
 2. **Test GET collection:**
    ```bash
-   curl -X GET "http://glue-backend.mysprykershop.com/suppliers"
+   curl -X GET "http://glue.eu.spryker.local/suppliers"
    ```
    Expected: JSON array with all suppliers
 
 3. **Test GET single:**
    ```bash
-   curl -X GET "http://glue-backend.mysprykershop.com/suppliers/1"
+   curl -X GET "http://glue.eu.spryker.local/suppliers/1"
    ```
    Expected: JSON object with supplier data
 
 4. **Test POST create:**
    ```bash
-   curl -X POST "http://glue-backend.mysprykershop.com/suppliers" \
+   curl -X POST "http://glue.eu.spryker.local/suppliers" \
      -H "Content-Type: application/json" \
      -d '{
        "data": {
@@ -1658,7 +1658,7 @@ class SomeMapper
 
 5. **Test with search:**
    ```bash
-   curl -X GET "http://glue-backend.mysprykershop.com/suppliers?q=acme"
+   curl -X GET "http://glue.eu.spryker.local/suppliers?q=acme"
    ```
    Expected: Filtered results
 

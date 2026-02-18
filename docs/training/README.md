@@ -37,6 +37,24 @@ Complete training program for Spryker backend development covering 11 modules fr
 
 5. Refer to manual for detailed explanations
 
+## 🌐 Environment URLs
+
+Once your Spryker environment is running, you can access:
+
+- **Back Office (Zed):** http://backoffice.eu.spryker.local/
+  - Admin interface for managing products, orders, content, and configurations
+  - Default credentials: admin@spryker.com / change123
+
+- **Storefront (Yves):** http://yves.eu.spryker.local/
+  - Customer-facing shop application
+  - Where your APIs and frontend integrations are visible
+
+- **Glue API:** http://glue.eu.spryker.local/
+  - REST API endpoints for storefront and backend integrations
+
+- **Elasticsearch:** http://localhost:9200
+  - Search and analytics engine (accessible from within Docker)
+
 ## 📋 Branch Naming Convention
 
 \`\`\`

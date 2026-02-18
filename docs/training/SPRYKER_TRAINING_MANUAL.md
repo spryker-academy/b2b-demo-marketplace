@@ -158,7 +158,7 @@ class IndexController extends AbstractController
 
 #### 4. Test Your Implementation
 
-**URL:** `http://zed.mysprykershop.com/hello-world`
+**URL:** `http://backoffice.eu.spryker.local/hello-world`
 
 **Expected Result:**
 - Back Office navigation and header
@@ -2500,7 +2500,7 @@ protected function getResourceProviders(): array
 
 **GET Collection:**
 ```bash
-curl -X GET "http://glue-backend.mysprykershop.com/suppliers?q=acme"
+curl -X GET "http://glue.eu.spryker.local/suppliers?q=acme"
 ```
 
 **Response:**
@@ -2523,12 +2523,12 @@ curl -X GET "http://glue-backend.mysprykershop.com/suppliers?q=acme"
 
 **GET Single:**
 ```bash
-curl -X GET "http://glue-backend.mysprykershop.com/suppliers/1"
+curl -X GET "http://glue.eu.spryker.local/suppliers/1"
 ```
 
 **POST Create:**
 ```bash
-curl -X POST "http://glue-backend.mysprykershop.com/suppliers" \
+curl -X POST "http://glue.eu.spryker.local/suppliers" \
   -H "Content-Type: application/json" \
   -d '{
     "data": {
