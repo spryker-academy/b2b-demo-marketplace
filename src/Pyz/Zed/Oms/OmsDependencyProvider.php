@@ -13,6 +13,8 @@ use Pyz\Zed\MerchantOms\Communication\Plugin\Oms\CloseMerchantOrderItemCommandPl
 use Pyz\Zed\MerchantOms\Communication\Plugin\Oms\ReturnMerchantOrderItemCommandPlugin;
 use Pyz\Zed\MerchantSalesOrder\Communication\Plugin\Oms\Condition\IsOrderPaidConditionPlugin;
 use Pyz\Zed\MerchantSalesOrder\Communication\Plugin\Oms\CreateMerchantOrdersCommandPlugin;
+use Pyz\Zed\Oms\Communication\Plugin\Oms\Command\PayCommandPlugin;
+use Pyz\Zed\Oms\Communication\Plugin\Oms\Condition\IsAuthorizedConditionPlugin;
 use Pyz\Zed\Oms\Communication\Plugin\Oms\InitiationTimeoutProcessorPlugin;
 use Spryker\Zed\Availability\Communication\Plugin\Oms\AvailabilityReservationPostSaveTerminationAwareStrategyPlugin;
 use Spryker\Zed\DummyPayment\Communication\Plugin\Oms\Command\RefundPlugin;
@@ -82,6 +84,9 @@ class OmsDependencyProvider extends SprykerOmsDependencyProvider
             $conditionCollection->add(new IsOrderPaidConditionPlugin(), 'MerchantSalesOrder/IsOrderPaid');
             $conditionCollection->add(new IsMerchantPaidOutConditionPlugin(), 'SalesPaymentMerchant/IsMerchantPaidOut');
             $conditionCollection->add(new IsMerchantPayoutReversedConditionPlugin(), 'SalesPaymentMerchant/IsMerchantPayoutReversed');
+
+            // TODO-2: Add the IsAuthorizedConditionPlugin to the condition collection
+            // Hint-1: Use the same exact same string, including the slash.
 
             return $conditionCollection;
         });
@@ -223,6 +228,9 @@ class OmsDependencyProvider extends SprykerOmsDependencyProvider
             $commandCollection->add(new MerchantPayoutReverseCommandByOrderPlugin(), 'SalesPaymentMerchant/ReversePayout');
             $commandCollection->add(new UpdateDeletedItemReservationCommandByOrderPlugin(), 'OrderAmendment/UnreserveDeletedItems');
             $commandCollection->add(new DeleteOrderAmendmentQuoteCommandByOrderPlugin(), 'OrderAmendment/StartGracePeriod');
+
+            // TODO-1: Add the PayCommandPlugin to the command collection
+            // Hint-1: Use the same exact same string, including the slash.
 
             return $commandCollection;
         });
