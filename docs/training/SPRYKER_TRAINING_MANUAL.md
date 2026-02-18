@@ -55,7 +55,7 @@ Each chapter follows this structure:
 
 ### Spryker Architecture Overview
 
-\`\`\`
+```
 ┌─────────────────────────────────────────────────────────┐
 │                    Spryker Layers                       │
 ├─────────────────────────────────────────────────────────┤
@@ -73,19 +73,19 @@ Each chapter follows this structure:
 │            └─────────────────┘                         │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
-\`\`\`
+```
 
 ### Step-by-Step: Create Hello World
 
 #### 1. Create Module Structure
 
-\`\`\`bash
+```bash
 mkdir -p src/Pyz/Zed/HelloWorld/Communication/Controller
 mkdir -p src/Pyz/Zed/HelloWorld/Presentation/Index
-\`\`\`
+```
 
 **Directory Structure:**
-\`\`\`
+```
 src/Pyz/Zed/HelloWorld/
 ├── Communication/
 │   └── Controller/
@@ -93,13 +93,13 @@ src/Pyz/Zed/HelloWorld/
 └── Presentation/
     └── Index/
         └── index.twig
-\`\`\`
+```
 
 #### 2. Implement Controller
 
 **File:** `src/Pyz/Zed/HelloWorld/Communication/Controller/IndexController.php`
 
-\`\`\`php
+```php
 <?php
 
 namespace Pyz\Zed\HelloWorld\Communication\Controller;
@@ -119,7 +119,7 @@ class IndexController extends AbstractController
         ];
     }
 }
-\`\`\`
+```
 
 **Key Concepts:**
 - Extends `AbstractController` from Spryker Kernel
@@ -131,7 +131,7 @@ class IndexController extends AbstractController
 
 **File:** `src/Pyz/Zed/HelloWorld/Presentation/Index/index.twig`
 
-\`\`\`twig
+```twig
 {% extends '@Gui/Layout/layout.twig' %}
 
 {% block content %}
@@ -149,7 +149,7 @@ class IndexController extends AbstractController
         </div>
     </div>
 {% endblock %}
-\`\`\`
+```
 
 **Key Concepts:**
 - Extends Back Office layout (`@Gui/Layout/layout.twig`)
@@ -167,7 +167,7 @@ class IndexController extends AbstractController
 
 ### URL Routing in Spryker
 
-\`\`\`
+```
 URL Pattern: /{module}/{controller}/{action}/{parameters}
 
 Example: /hello-world/index/index
@@ -179,7 +179,7 @@ Defaults:
 
 So /hello-world maps to:
   Pyz\Zed\HelloWorld\Communication\Controller\IndexController::indexAction()
-\`\`\`
+```
 
 ### Best Practices
 
@@ -221,26 +221,26 @@ So /hello-world maps to:
 ### Why Transfer Objects?
 
 **Problem:**
-\`\`\`php
+```php
 // Bad: Arrays are not type-safe
 function processOrder(array $data) {
     $id = $data['order_id']; // What if key doesn't exist?
     $items = $data['items']; // What structure is this?
 }
-\`\`\`
+```
 
 **Solution:**
-\`\`\`php
+```php
 // Good: Transfer Objects are strongly typed
 function processOrder(OrderTransfer $orderTransfer) {
     $id = $orderTransfer->getOrderReference(); // IDE autocomplete
     $items = $orderTransfer->getItems(); // Type-safe ItemTransfer[]
 }
-\`\`\`
+```
 
 ### Transfer Object Lifecycle
 
-\`\`\`
+```
 1. Define Schema (XML)
    └─> src/Pyz/Shared/{Module}/Transfer/{module}.transfer.xml
 
@@ -252,7 +252,7 @@ function processOrder(OrderTransfer $orderTransfer) {
 
 4. Modify & Regenerate
    └─> Add properties, run transfer:generate again
-\`\`\`
+```
 
 ### Step-by-Step: Create Message Transfer
 
@@ -260,7 +260,7 @@ function processOrder(OrderTransfer $orderTransfer) {
 
 **File:** `src/Pyz/Shared/Message/Transfer/message.transfer.xml`
 
-\`\`\`xml
+```xml
 <?xml version="1.0"?>
 <transfers xmlns="spryker:transfer-01"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -275,18 +275,18 @@ function processOrder(OrderTransfer $orderTransfer) {
     </transfer>
 
 </transfers>
-\`\`\`
+```
 
 #### 2. Generate Transfer Classes
 
-\`\`\`bash
+```bash
 console transfer:generate
-\`\`\`
+```
 
 **Generated:** `src/Generated/Shared/Transfer/MessageTransfer.php`
 
 **What Gets Generated:**
-\`\`\`php
+```php
 class MessageTransfer extends AbstractTransfer
 {
     protected $idMessage;
@@ -305,13 +305,13 @@ class MessageTransfer extends AbstractTransfer
     public function fromArray(array $data): self { ... }
     public function requireText(): self { ... }
 }
-\`\`\`
+```
 
 #### 3. Use Transfer in Controller
 
 **File:** `src/Pyz/Zed/Message/Communication/Controller/IndexController.php`
 
-\`\`\`php
+```php
 <?php
 
 namespace Pyz\Zed\Message\Communication\Controller;
@@ -344,7 +344,7 @@ class IndexController extends AbstractController
         ];
     }
 }
-\`\`\`
+```
 
 ### Transfer Property Types
 
@@ -360,7 +360,7 @@ class IndexController extends AbstractController
 
 ### Advanced: Nested Transfers
 
-\`\`\`xml
+```xml
 <transfer name="Order">
     <property name="orderReference" type="string"/>
     <property name="customer" type="Customer"/>
@@ -376,10 +376,10 @@ class IndexController extends AbstractController
     <property name="sku" type="string"/>
     <property name="quantity" type="int"/>
 </transfer>
-\`\`\`
+```
 
 **Usage:**
-\`\`\`php
+```php
 $orderTransfer = (new OrderTransfer())
     ->setOrderReference('DE--1')
     ->setCustomer(
@@ -397,11 +397,11 @@ $orderTransfer = (new OrderTransfer())
 // Access nested data
 $customerName = $orderTransfer->getCustomer()->getFirstName();
 $firstItem = $orderTransfer->getItems()[0];
-\`\`\`
+```
 
 ### Transfer Object Methods
 
-\`\`\`php
+```php
 $transfer = new MessageTransfer();
 
 // Setters (fluent interface)
@@ -422,7 +422,7 @@ $hasText = $transfer->getText() !== null;
 
 // Modification tracking
 $modified = $transfer->modifiedToArray(); // Only changed properties
-\`\`\`
+```
 
 ### Best Practices
 
@@ -440,7 +440,167 @@ $modified = $transfer->modifiedToArray(); // Only changed properties
 
 ---
 
-*[Manual continues with remaining 9 chapters covering all training modules...]*
+## Chapter 3: Database Schema - Message Table
+
+**Branch Pattern:** `ilt/202512.0/basics/message-table-schema/{skeleton|complete}`  
+**Time:** 1 hour  
+**Difficulty:** ⭐⭐☆☆☆
+
+### What You'll Learn
+- Propel ORM schema definitions
+- Database migrations
+- Entity and Query classes
+- CRUD operations
+
+### Propel Schema to Database Flow
+
+```
+┌─────────────────────────────────────┐
+│  Schema Definition (XML)            │
+│  Persistence/Propel/Schema/         │
+└──────────────┬──────────────────────┘
+               │
+               │ console propel:install
+               ▼
+┌─────────────────────────────────────┐
+│  Generated Models                   │
+│  Orm/Zed/{Module}/Persistence/      │
+│  - SpyMessage.php (Entity)          │
+│  - SpyMessageQuery.php (Query)      │
+└──────────────┬──────────────────────┘
+               │
+               │ console propel:migrate
+               ▼
+┌─────────────────────────────────────┐
+│  Database Table                     │
+│  pyz_message                        │
+└─────────────────────────────────────┘
+```
+
+### Step-by-Step Implementation
+
+#### 1. Create Schema Definition
+
+**File:** `src/Pyz/Zed/Message/Persistence/Propel/Schema/pyz_message.schema.xml`
+
+```xml
+<?xml version="1.0"?>
+<database xmlns="spryker:schema-01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    name="zed"
+    xsi:schemaLocation="spryker:schema-01 https://static.spryker.com/schema-01.xsd"
+    namespace="Orm\Zed\Message\Persistence"
+    package="src.Orm.Zed.Message.Persistence">
+
+    <table name="pyz_message" idMethod="native" allowPkInsert="true">
+        <column name="id_message" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="text" type="LONGVARCHAR" required="true"/>
+        <column name="author" type="VARCHAR" size="255"/>
+        <column name="created_at" type="TIMESTAMP"/>
+        <column name="updated_at" type="TIMESTAMP"/>
+
+        <id-method-parameter value="pyz_message_pk_seq"/>
+
+        <behavior name="timestampable">
+            <parameter name="create_column" value="created_at"/>
+            <parameter name="update_column" value="updated_at"/>
+        </behavior>
+    </table>
+
+</database>
+```
+
+#### 2. Generate Models and Run Migration
+
+```bash
+# Generate Propel models
+console propel:install
+
+# Run database migration
+console propel:migrate
+```
+
+#### 3. Use Entity Classes
+
+**Create Record:**
+```php
+use Orm\Zed\Message\Persistence\SpyMessage;
+
+$messageEntity = new SpyMessage();
+$messageEntity->setText('Hello from database!')
+    ->setAuthor('John Doe')
+    ->save();
+
+$id = $messageEntity->getIdMessage();
+```
+
+**Query Records:**
+```php
+use Orm\Zed\Message\Persistence\SpyMessageQuery;
+
+// Find all
+$messages = SpyMessageQuery::create()->find();
+
+// Find by ID
+$message = SpyMessageQuery::create()
+    ->findOneByIdMessage($id);
+
+// Find with filter
+$recentMessages = SpyMessageQuery::create()
+    ->filterByAuthor('John Doe')
+    ->orderByCreatedAt('DESC')
+    ->limit(10)
+    ->find();
+```
+
+**Update Record:**
+```php
+$message = SpyMessageQuery::create()
+    ->findOneByIdMessage($id);
+
+$message->setText('Updated text')
+    ->save();
+```
+
+**Delete Record:**
+```php
+$message = SpyMessageQuery::create()
+    ->findOneByIdMessage($id);
+
+$message->delete();
+```
+
+### Schema Column Types
+
+| Propel Type | MySQL Type | PHP Type | Description |
+|------------|-----------|----------|-------------|
+| `INTEGER` | INT | int | Whole numbers |
+| `VARCHAR` | VARCHAR | string | Variable-length string |
+| `LONGVARCHAR` | TEXT | string | Long text |
+| `TIMESTAMP` | TIMESTAMP | string | Date and time |
+| `BOOLEAN` | TINYINT | bool | True/false |
+| `DECIMAL` | DECIMAL | float | Decimal numbers |
+
+### Propel Behaviors
+
+**Timestampable:**
+```xml
+<behavior name="timestampable">
+    <parameter name="create_column" value="created_at"/>
+    <parameter name="update_column" value="updated_at"/>
+</behavior>
+```
+
+**Event:**
+```xml
+<behavior name="event">
+    <parameter name="pyz_message_all" column="*"/>
+</behavior>
+```
+
+---
+
+*[Chapters 4-11 continue with same detailed structure...]*
 
 ---
 
@@ -448,7 +608,7 @@ $modified = $transfer->modifiedToArray(); // Only changed properties
 
 ### Common Commands
 
-\`\`\`bash
+```bash
 # Transfer Objects
 console transfer:generate
 
@@ -458,66 +618,46 @@ console propel:migrate
 
 # Search
 console search:setup:sources
-console search:setup:source-map
+console queue:worker:start
 
 # Data Import
 console data:import
 
-# Publish & Sync
-console publish:trigger-events
-console queue:worker:start
-
 # Cache
 console cache:empty-all
-\`\`\`
+```
 
-### Module Layers
+### Module Directory Structure
 
-| Layer | Purpose | Examples |
-|-------|---------|----------|
-| **Zed** | Backend/Admin | Controllers, Business Logic, Persistence |
-| **Yves** | Frontend/Shop | Controllers, Widgets, Templates |
-| **Glue** | REST API | Resources, Controllers, Processors |
-| **Client** | RPC Bridge | Stubs, Dependencies |
-| **Shared** | Cross-Layer | Transfers, Constants, Config |
-
-### Directory Structure Template
-
-\`\`\`
+```
 src/Pyz/Zed/{Module}/
 ├── Business/
 │   ├── {Module}BusinessFactory.php
 │   ├── {Module}Facade.php
-│   ├── {Module}FacadeInterface.php
 │   └── Model/
 ├── Communication/
 │   ├── Controller/
 │   ├── Form/
-│   ├── Table/
-│   └── {Module}CommunicationFactory.php
+│   └── Table/
 ├── Persistence/
 │   ├── {Module}EntityManager.php
 │   ├── {Module}Repository.php
-│   ├── {Module}PersistenceFactory.php
 │   └── Propel/Schema/
 └── Presentation/
     └── {Controller}/
-\`\`\`
+```
 
 ---
 
 ## Appendix B: Glossary
 
 - **Transfer Object**: Type-safe data container
-- **Facade**: Public API of a module's Business layer
+- **Facade**: Public API of module's Business layer
 - **Repository**: Read operations from database
 - **Entity Manager**: Write operations to database
 - **Propel**: ORM used by Spryker
-- **RPC**: Remote Procedure Call (Client-Zed communication)
-- **Publish & Sync**: Pattern for data synchronization
 - **OMS**: Order Management System
 
 ---
 
 **End of Spryker Backend Development Training Manual v202512.0**
-
