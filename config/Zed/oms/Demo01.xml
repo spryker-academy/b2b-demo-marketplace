@@ -6,15 +6,47 @@
 
     <process name="Demo01" main="true">
         <states>
-            <!-- TODO-STATES: Place the states in here -->
+            <state name="new" reserved="true" display="oms.state.new"/>
+            <state name="payment pending" reserved="true" display="oms.state.payment-pending"/>
+            <state name="invalid" display="oms.state.invalid"/>
+            <state name="payment authorized" reserved="true" display="oms.state.payment-authorized"/>
+            <state name="paid" reserved="true" display="oms.state.paid"/>
+            <state name="closed" display="oms.state.closed"/>
         </states>
 
         <transitions>
-            <!-- TODO-TRANSITIONS: Place the transitions in here -->
+            <transition happy="true" condition="Demo/IsAuthorized">
+                <source>new</source>
+                <target>payment pending</target>
+                <event>authorize</event>
+            </transition>
+
+            <transition>
+                <source>new</source>
+                <target>invalid</target>
+                <event>authorize</event>
+            </transition>
+
+            <transition happy="true">
+                <source>payment pending</source>
+                <target>payment authorized</target>
+                <event>pay</event>
+            </transition>
+
+            <transition happy="true">
+                <source>payment authorized</source>
+                <target>paid</target>
+            </transition>
+
+            <transition happy="true">
+                <source>paid</source>
+                <target>closed</target>
+            </transition>
         </transitions>
 
         <events>
-            <!-- TODO-EVENTS: Place the events in here -->
+            <event name="authorize" onEnter="true" manual="true" command="Demo/Pay"/>
+            <event name="pay" onEnter="true" manual="true"/>
         </events>
     </process>
 </statemachine>
