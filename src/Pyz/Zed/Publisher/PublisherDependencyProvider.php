@@ -261,30 +261,34 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             $this->getServicePointSearchPlugins(),
             $this->getProductOfferServicePointStoragePlugins(),
             $this->getProductOfferShipmentTypeStoragePlugins(),
-            // TODO-3: Add getSupplierSearchPlugins() method to the returned array.
-            // TODO-4: Add getSupplierStoragePlugins() method to the returned array.
+            $this->getSupplierSearchPlugins(),
+            $this->getSupplierStoragePlugins(),
         );
     }
 
-    // TODO-1: Define getSupplierSearchPlugins() method and assign SupplierSearchWritePublisherPlugin to the publish queue.
-    // Hint-1: Return an array where the key is SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE.
-    // Hint-2: The value is an array containing new SupplierSearchWritePublisherPlugin().
-    // Example:
-    // return [
-    //     SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE => [
-    //         new SupplierSearchWritePublisherPlugin(),
-    //     ],
-    // ];
+    /**
+     * @return array<string, list<\Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface>>
+     */
+    protected function getSupplierSearchPlugins(): array
+    {
+        return [
+            SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE => [
+                new SupplierSearchWritePublisherPlugin(),
+            ],
+        ];
+    }
 
-    // TODO-2: Define getSupplierStoragePlugins() method and assign SupplierStorageWritePublisherPlugin to the publish queue.
-    // Hint-1: Return an array where the key is SupplierStorageConfig::SUPPLIER_PUBLISH.
-    // Hint-2: The value is an array containing new SupplierStorageWritePublisherPlugin().
-    // Example:
-    // return [
-    //     SupplierStorageConfig::SUPPLIER_PUBLISH => [
-    //         new SupplierStorageWritePublisherPlugin(),
-    //     ],
-    // ];
+    /**
+     * @return array<string, list<\Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface>>
+     */
+    protected function getSupplierStoragePlugins(): array
+    {
+        return [
+            SupplierStorageConfig::SUPPLIER_PUBLISH_STORAGE_QUEUE => [
+                new SupplierStorageWritePublisherPlugin(),
+            ],
+        ];
+    }
 
     /**
      * @return array<string, array<\Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface>>
