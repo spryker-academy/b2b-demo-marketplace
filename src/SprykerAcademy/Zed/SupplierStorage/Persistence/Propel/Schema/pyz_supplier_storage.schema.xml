@@ -10,7 +10,12 @@
             <index-column name="fk_supplier"/>
         </index>
 
-        <!-- TODO: Add the synchronization-behavior -->
+        <behavior name="synchronization">
+            <parameter name="resource" value="supplier"/>
+            <parameter name="store" required="false"/>
+            <parameter name="key_suffix_column" value="fk_supplier"/>
+            <parameter name="queue_group" value="sync.storage.supplier"/>
+        </behavior>
 
         <behavior name="timestampable"/>
         <id-method-parameter value="pyz_supplier_storage_pk_seq"/>
