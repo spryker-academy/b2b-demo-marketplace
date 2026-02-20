@@ -11,7 +11,7 @@ namespace SprykerAcademy\Zed\SupplierStorage\Communication\Plugin\Publisher;
 
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface;
-use SprykerAcademy\Shared\Supplier\SupplierConfig;
+use SprykerAcademy\Shared\SupplierStorage\SupplierStorageConfig;
 
 /**
  * @method \SprykerAcademy\Zed\SupplierStorage\Business\SupplierStorageFacadeInterface getFacade()
@@ -45,8 +45,9 @@ class SupplierWritePublisherPlugin extends AbstractPlugin implements PublisherPl
     public function getSubscribedEvents(): array
     {
         return [
-            SupplierConfig::ENTITY_SPY_SUPPLIER_CREATE,
-            SupplierConfig::ENTITY_SPY_SUPPLIER_UPDATE,
+            SupplierStorageConfig::SUPPLIER_PUBLISH,
+            SupplierStorageConfig::ENTITY_PYZ_SUPPLIER_CREATE,
+            SupplierStorageConfig::ENTITY_PYZ_SUPPLIER_UPDATE,
         ];
     }
 }
