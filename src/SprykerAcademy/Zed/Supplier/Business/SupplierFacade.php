@@ -55,6 +55,19 @@ class SupplierFacade extends AbstractFacade implements SupplierFacadeInterface
      *
      * @api
      *
+     * @param \Generated\Shared\Transfer\SupplierCriteriaTransfer $supplierCriteriaTransfer
+     */
+    #[\Override]
+    public function getSupplierCollection(SupplierCriteriaTransfer $supplierCriteriaTransfer): array
+    {
+        return $this->getSuppliers($supplierCriteriaTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
      * @param int $idSupplier
      */
     #[\Override]
