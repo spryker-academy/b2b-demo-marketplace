@@ -262,6 +262,7 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             $this->getProductOfferServicePointStoragePlugins(),
             $this->getProductOfferShipmentTypeStoragePlugins(),
             $this->getSupplierSearchPlugins(),
+            $this->getSupplierStoragePlugins(),
         );
     }
 
