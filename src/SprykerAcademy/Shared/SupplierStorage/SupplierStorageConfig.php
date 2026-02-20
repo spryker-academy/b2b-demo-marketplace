@@ -30,4 +30,44 @@ interface SupplierStorageConfig
      * @var string
      */
     public const SUPPLIER_RESOURCE_NAME = 'supplier';
+
+    /**
+     * Specification:
+     * - This event is used for supplier publishing to storage.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const SUPPLIER_PUBLISH = 'SupplierStorage.supplier.publish';
+
+    /**
+     * Specification:
+     * - Represents pyz_supplier entity creation event.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const ENTITY_PYZ_SUPPLIER_CREATE = 'Entity.pyz_supplier.create';
+
+    /**
+     * Specification:
+     * - Represents pyz_supplier entity change event.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const ENTITY_PYZ_SUPPLIER_UPDATE = 'Entity.pyz_supplier.update';
+
+    /**
+     * Specification:
+     * - Represents pyz_supplier entity deletion event.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const ENTITY_PYZ_SUPPLIER_DELETE = 'Entity.pyz_supplier.delete';
 }
