@@ -136,6 +136,7 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             ProductStorageConfig::PUBLISH_PRODUCT_ABSTRACT,
             ProductStorageConfig::PUBLISH_PRODUCT_CONCRETE,
             SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE,
+            SupplierStorageConfig::SUPPLIER_PUBLISH_STORAGE_QUEUE,
             UrlStorageConfig::PUBLISH_URL => [
                 PublisherConfig::PUBLISH_ROUTING_KEY_RETRY => UrlStorageConfig::PUBLISH_URL_RETRY,
             ],

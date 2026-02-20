@@ -13,7 +13,17 @@ interface SupplierStorageConfig
 {
     /**
      * Specification:
-     * - Queue name as used for processing supplier messages
+     * - Queue name as used for processing supplier publish messages
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const SUPPLIER_PUBLISH_STORAGE_QUEUE = 'publish.storage.supplier';
+
+    /**
+     * Specification:
+     * - Queue name as used for processing supplier sync messages
      *
      * @api
      *
