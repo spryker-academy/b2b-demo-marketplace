@@ -27,8 +27,23 @@ interface SupplierFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\SupplierCriteriaTransfer $supplierCriteriaTransfer
+     *
+     * @return array<\Generated\Shared\Transfer\SupplierTransfer>
      */
     public function getSuppliers(SupplierCriteriaTransfer $supplierCriteriaTransfer): array;
+
+    /**
+     * Specification:
+     * - Retrieves supplier collection by criteria.
+     * - Returns array of SupplierTransfer objects.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\SupplierCriteriaTransfer $supplierCriteriaTransfer
+     *
+     * @return array<\Generated\Shared\Transfer\SupplierTransfer>
+     */
+    public function getSupplierCollection(SupplierCriteriaTransfer $supplierCriteriaTransfer): array;
 
     /**
      * - Finds a supplier by id.
