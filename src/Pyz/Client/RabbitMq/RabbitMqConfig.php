@@ -135,8 +135,8 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             ProductPageSearchConfig::PUBLISH_PRODUCT_CONCRETE_PAGE,
             ProductStorageConfig::PUBLISH_PRODUCT_ABSTRACT,
             ProductStorageConfig::PUBLISH_PRODUCT_CONCRETE,
-            // TODO-1: Add the supplier publish-search queue to this array.
-            // Hint-1: You can find the constant in `SupplierSearchConfig`.
+            SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE,
+            SupplierStorageConfig::SUPPLIER_PUBLISH_STORAGE_QUEUE,
             UrlStorageConfig::PUBLISH_URL => [
                 PublisherConfig::PUBLISH_ROUTING_KEY_RETRY => UrlStorageConfig::PUBLISH_URL_RETRY,
             ],
