@@ -63,6 +63,7 @@ use Spryker\Shared\TaxStorage\TaxStorageConfig;
 use Spryker\Shared\UrlStorage\UrlStorageConfig;
 use Spryker\Shared\UrlStorage\UrlStorageConstants;
 use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
+use SprykerAcademy\Shared\SupplierStorage\SupplierStorageConfig;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -189,6 +190,7 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             ProductOfferStorageConfig::PRODUCT_OFFER_SYNC_STORAGE_QUEUE,
             ProductOfferAvailabilityStorageConfig::PRODUCT_OFFER_AVAILABILITY_SYNC_STORAGE_QUEUE,
             SupplierSearchConfig::SUPPLIER_SYNC_SEARCH_QUEUE,
+            SupplierStorageConfig::SUPPLIER_SYNC_STORAGE_QUEUE,
             SelfServicePortalConfig::QUEUE_NAME_SYNC_STORAGE_SSP_MODEL,
             SelfServicePortalConfig::QUEUE_NAME_SYNC_STORAGE_SSP_ASSET,
             SelfServicePortalConfig::QUEUE_NAME_SYNC_SEARCH_SSP_ASSET,
