@@ -892,7 +892,7 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
     protected function getSupplierStoragePlugins(): array
     {
         return [
-            SupplierStorageConfig::SUPPLIER_PUBLISH => [
+            SupplierStorageConfig::SUPPLIER_PUBLISH_STORAGE_QUEUE => [
                 new SupplierStorageWritePublisherPlugin(),
             ],
         ];
