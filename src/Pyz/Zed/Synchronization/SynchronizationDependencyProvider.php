@@ -93,6 +93,7 @@ use Spryker\Zed\UrlStorage\Communication\Plugin\Synchronization\UrlSynchronizati
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Synchronization\SspAsset\Search\SspAssetListSynchronizationDataBulkRepositoryPlugin as SearchSspAssetListSynchronizationDataBulkRepositoryPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Synchronization\Storage\SspAssetListSynchronizationDataBulkRepositoryPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Synchronization\Storage\SspModelListSynchronizationDataBulkRepositoryPlugin;
+use SprykerAcademy\Zed\SupplierStorage\Communication\Plugin\Synchronization\SupplierStorageSynchronizationDataPlugin;
 
 class SynchronizationDependencyProvider extends SprykerSynchronizationDependencyProvider
 {
@@ -184,6 +185,7 @@ class SynchronizationDependencyProvider extends SprykerSynchronizationDependency
             new ShipmentTypeSynchronizationDataBulkRepositoryPlugin(),
             new ProductOfferServiceSynchronizationDataBulkRepositoryPlugin(),
             new ProductOfferShipmentTypeSynchronizationDataBulkRepositoryPlugin(),
+            new SupplierStorageSynchronizationDataPlugin(),
         ];
     }
 

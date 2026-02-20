@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace SprykerAcademy\Zed\SupplierStorage\Persistence;
 
+use Generated\Shared\Transfer\FilterTransfer;
 use Generated\Shared\Transfer\SupplierStorageCriteriaTransfer;
 
 interface SupplierStorageRepositoryInterface
@@ -20,5 +21,16 @@ interface SupplierStorageRepositoryInterface
      */
     public function getSupplierStorageCollection(
         SupplierStorageCriteriaTransfer $supplierStorageCriteriaTransfer,
+    ): array;
+
+    /**
+     * @param \Generated\Shared\Transfer\FilterTransfer $filterTransfer
+     * @param array<int> $supplierStorageIds
+     *
+     * @return array<\Generated\Shared\Transfer\SynchronizationDataTransfer>
+     */
+    public function getSupplierStorageSynchronizationDataTransfers(
+        FilterTransfer $filterTransfer,
+        array $supplierStorageIds = [],
     ): array;
 }
