@@ -2,3 +2,4 @@ name,description,status,email,phone,merchant_ids
 "Supplier A","Description for Supplier A","active","supplier.a@example.com","123456789","1,2"
 "Supplier B","Description for Supplier B","active","supplier.b@example.com","987654321","3,4,5"
 "Supplier C","Description for Supplier C","active","supplier.c@example.com","555666777","1,10"
+"Supplier D","Description for Supplier C","active","supplier.c@example.com","555666777","1,10"

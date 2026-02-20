@@ -193,8 +193,10 @@ use Spryker\Zed\TaxApp\Communication\Plugin\Publisher\Store\RefreshTaxAppStoreRe
 use Spryker\Zed\TaxProductStorage\Communication\Plugin\Publisher\TaxProductPublisherTriggerPlugin;
 use Spryker\Zed\TaxStorage\Communication\Plugin\Publisher\TaxSetPublisherTriggerPlugin;
 use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
+use SprykerAcademy\Shared\SupplierStorage\SupplierStorageConfig;
 use SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher\SupplierPublisherTriggerPlugin;
-use SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher\SupplierWritePublisherPlugin;
+use SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher\SupplierSearchWritePublisherPlugin;
+use SprykerAcademy\Zed\SupplierStorage\Communication\Plugin\Publisher\SupplierStorageWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetToCompanyBusinessUnitWritePublisherPlugin as SearchSspAssetToCompanyBusinessUnitWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetToModelWritePublisherPlugin as SearchSspAssetToModelWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetWritePublisherPlugin as SearchSspAssetWritePublisherPlugin;
@@ -261,6 +263,7 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             $this->getProductOfferServicePointStoragePlugins(),
             $this->getProductOfferShipmentTypeStoragePlugins(),
             $this->getSupplierSearchPlugins(),
+            $this->getSupplierStoragePlugins(),
         );
     }
 
@@ -878,7 +881,19 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
     {
         return [
             SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE => [
-                new SupplierWritePublisherPlugin(),
+                new SupplierSearchWritePublisherPlugin(),
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, list<\Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface>>
+     */
+    protected function getSupplierStoragePlugins(): array
+    {
+        return [
+            SupplierStorageConfig::SUPPLIER_PUBLISH => [
+                new SupplierStorageWritePublisherPlugin(),
             ],
         ];
     }
