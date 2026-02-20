@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(src/SprykerAcademy/Shared/SupplierStorage/SupplierStorageConfig.php:*)",
+      "Bash(src/SprykerAcademy/Zed/SupplierDataImport/Business/DataImportStep/SupplierWriterStep.php:*)"
+    ]
+  }
+}
