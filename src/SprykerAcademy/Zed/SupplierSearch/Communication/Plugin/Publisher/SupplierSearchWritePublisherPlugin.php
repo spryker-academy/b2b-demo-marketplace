@@ -16,7 +16,7 @@ use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
 /**
  * @method \SprykerAcademy\Zed\SupplierSearch\Business\SupplierSearchFacadeInterface getFacade()
  */
-class SupplierWritePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
+class SupplierSearchWritePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
 {
     /**
      * {@inheritDoc}

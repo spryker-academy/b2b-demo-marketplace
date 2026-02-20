@@ -17,7 +17,7 @@ use SprykerAcademy\Shared\SupplierStorage\SupplierStorageConfig;
  * @method \SprykerAcademy\Zed\SupplierStorage\Business\SupplierStorageFacadeInterface getFacade()
  * @method \SprykerAcademy\Zed\SupplierStorage\SupplierStorageDependencyProvider getDependencyProvider()
  */
-class SupplierWritePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
+class SupplierStorageWritePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
 {
     /**
      * {@inheritDoc}

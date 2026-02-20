@@ -193,7 +193,9 @@ use Spryker\Zed\TaxApp\Communication\Plugin\Publisher\Store\RefreshTaxAppStoreRe
 use Spryker\Zed\TaxProductStorage\Communication\Plugin\Publisher\TaxProductPublisherTriggerPlugin;
 use Spryker\Zed\TaxStorage\Communication\Plugin\Publisher\TaxSetPublisherTriggerPlugin;
 use SprykerAcademy\Shared\SupplierSearch\SupplierSearchConfig;
-use SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher\SupplierWritePublisherPlugin;
+use SprykerAcademy\Shared\SupplierStorage\SupplierStorageConfig;
+use SprykerAcademy\Zed\SupplierSearch\Communication\Plugin\Publisher\SupplierSearchWritePublisherPlugin;
+use SprykerAcademy\Zed\SupplierStorage\Communication\Plugin\Publisher\SupplierStorageWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetToCompanyBusinessUnitWritePublisherPlugin as SearchSspAssetToCompanyBusinessUnitWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetToModelWritePublisherPlugin as SearchSspAssetToModelWritePublisherPlugin;
 use SprykerFeature\Zed\SelfServicePortal\Communication\Plugin\Publisher\SspAsset\Search\SspAssetWritePublisherPlugin as SearchSspAssetWritePublisherPlugin;
@@ -259,17 +261,28 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             $this->getServicePointSearchPlugins(),
             $this->getProductOfferServicePointStoragePlugins(),
             $this->getProductOfferShipmentTypeStoragePlugins(),
-            // TODO-2: Add the method created at TODO-1 to the returned array: getSupplierSearchPlugins().
+            // TODO-3: Add getSupplierSearchPlugins() method to the returned array.
+            // TODO-4: Add getSupplierStoragePlugins() method to the returned array.
         );
     }
 
-    // TODO-1: Define a method called getSupplierSearchPlugins() and assign SupplierWritePublisherPlugin to the publish queue.
+    // TODO-1: Define getSupplierSearchPlugins() method and assign SupplierSearchWritePublisherPlugin to the publish queue.
     // Hint-1: Return an array where the key is SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE.
-    // Hint-2: The value for the key is an array containing new SupplierWritePublisherPlugin().
+    // Hint-2: The value is an array containing new SupplierSearchWritePublisherPlugin().
     // Example:
     // return [
     //     SupplierSearchConfig::SUPPLIER_PUBLISH_SEARCH_QUEUE => [
-    //         new SupplierWritePublisherPlugin(),
+    //         new SupplierSearchWritePublisherPlugin(),
+    //     ],
+    // ];
+
+    // TODO-2: Define getSupplierStoragePlugins() method and assign SupplierStorageWritePublisherPlugin to the publish queue.
+    // Hint-1: Return an array where the key is SupplierStorageConfig::SUPPLIER_PUBLISH.
+    // Hint-2: The value is an array containing new SupplierStorageWritePublisherPlugin().
+    // Example:
+    // return [
+    //     SupplierStorageConfig::SUPPLIER_PUBLISH => [
+    //         new SupplierStorageWritePublisherPlugin(),
     //     ],
     // ];
 
