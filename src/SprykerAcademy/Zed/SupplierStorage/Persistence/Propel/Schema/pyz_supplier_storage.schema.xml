@@ -11,7 +11,9 @@
         </index>
 
         <behavior name="synchronization">
-            <parameter name="queue_pool" value="synchronizationPool"/>
+            <parameter name="resource" value="supplier"/>
+            <parameter name="key_suffix_column" value="fk_supplier"/>
+            <parameter name="queue_group" value="sync.storage.supplier"/>
         </behavior>
 
         <behavior name="timestampable"/>
