@@ -28,11 +28,10 @@ class ViewController extends SprykerViewController
         $messageCriteriaTransfer = new MessageCriteriaTransfer();
         $messageCriteriaTransfer->setIdMessage($response['customer']->getFkMessage());
 
-        // TODO: Fetch and assign a message to the response array which gets passed to the template
-        // Hint-1: Use the factory which has access to the HelloWorldFacade which offers the method
-        // to find a message which returns a MessageResponseTransfer
-        // Hint-2: Make sure to return the message object from the MessageResponseTransfer
-        $response['helloWorldMessage'] = null;
+        $response['helloWorldMessage'] = $this->getFactory()
+            ->getHelloWorldFacade()
+            ->findMessage($messageCriteriaTransfer)
+            ->getMessage();
 
         return $response;
     }

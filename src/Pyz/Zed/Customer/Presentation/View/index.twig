@@ -17,7 +17,7 @@
                             {{ 'Message' | trans }}</th>
                         <td>
                             {% if helloWorldMessage is defined %}
-                                {# TODO: Display the message text #}
+                                {{ helloWorldMessage.message }}
                             {% endif %}
                         </td>
                     </tr>

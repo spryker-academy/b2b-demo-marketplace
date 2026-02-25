@@ -56,13 +56,24 @@ class CustomerDependencyProvider extends SprykerCustomerDependencyProvider
         $container = parent::provideCommunicationLayerDependencies($container);
         $container = $this->addFacadeSales($container);
         $container = $this->addFacadeNewsletter($container);
+        $container = $this->addHelloWorldFacade($container);
 
         return $container;
     }
 
-    // TODO: Add the method `addHelloWorldFacade` and call it in the `provideCommunicationLayerDependencies()`
-    // Hint-1: For the right syntax have a look at `addFacadeSales()`
-    // Hint-2: Use the constant `FACADE_HELLO_WORLD`
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addHelloWorldFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_HELLO_WORLD, function (Container $container) {
+            return $container->getLocator()->helloWorld()->facade();
+        });
+
+        return $container;
+    }
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
