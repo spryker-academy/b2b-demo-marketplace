@@ -42,6 +42,7 @@ use Generated\Shared\Transfer\UpdatePaymentMethodTransfer;
 use Monolog\Logger;
 use Pyz\Shared\Console\ConsoleConstants;
 use Pyz\Shared\Scheduler\SchedulerConfig;
+use SprykerAcademy\Shared\HelloWorld\HelloWorldConstants;
 use Pyz\Yves\ShopApplication\YvesBootstrap;
 use Pyz\Zed\Application\Communication\ZedBootstrap;
 use Spryker\Client\RabbitMq\Model\RabbitMqAdapter;
@@ -1155,6 +1156,12 @@ $config[SelfServicePortalConstants::DEFAULT_TOTAL_FILE_MAX_SIZE] = getenv(
 ) ?: '100M';
 $config[SelfServicePortalConstants::DEFAULT_FILE_MAX_SIZE] = getenv('SPRYKER_SSP_DEFAULT_FILE_MAX_SIZE') ?: '10M';
 $config[SelfServicePortalConstants::GOOGLE_MAPS_API_KEY] = getenv('SPRYKER_GOOGLE_MAPS_API_KEY') ?: '';
+
+// ----------------------------------------------------------------------------
+// ------------------------------ HELLO WORLD ---------------------------------
+// ----------------------------------------------------------------------------
+
+$config[HelloWorldConstants::MY_CONFIG_VALUE] = 'This is my config value.';
 
 if (file_exists(__DIR__ . '/config_ai.php')) {
     require __DIR__ . '/config_ai.php';
