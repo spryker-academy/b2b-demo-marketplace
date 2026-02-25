@@ -38,6 +38,8 @@ class CustomerPageDependencyProvider extends SprykerShopCustomerPageDependencyPr
      */
     public const CLIENT_PYZ_SESSION = 'CLIENT_PYZ_SESSION';
 
+    public const CLIENT_HELLO_WORLD = 'CLIENT_HELLO_WORLD';
+
     /**
      * @param \Spryker\Yves\Kernel\Container $container
      *
@@ -48,12 +50,19 @@ class CustomerPageDependencyProvider extends SprykerShopCustomerPageDependencyPr
         $container = parent::provideDependencies($container);
 
         $container = $this->addPyzSessionClient($container);
+        $container = $this->addHelloWorldClient($container);
 
         return $container;
     }
 
-    // TODO: Add the method `addHelloWorldClient` and call it in the `provideDependencies()`
-    // Hint: The same was already done for another module here: `src/SprykerAcademy/Yves/HelloWorldPage/HelloWorldPageDependencyProvider.php`
+    protected function addHelloWorldClient(Container $container): Container
+    {
+        $container->set(static::CLIENT_HELLO_WORLD, function (Container $container) {
+            return $container->getLocator()->helloWorld()->client();
+        });
+
+        return $container;
+    }
 
     /**
      * @return array<\SprykerShop\Yves\CustomerPageExtension\Dependency\Plugin\PreRegistrationCustomerTransferExpanderPluginInterface>

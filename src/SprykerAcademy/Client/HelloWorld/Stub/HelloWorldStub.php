@@ -30,8 +30,6 @@ class HelloWorldStub
     public function findMessage(MessageCriteriaTransfer $messageCriteria): MessageResponseTransfer
     {
         /** @var MessageResponseTransfer $messageResponseTransfer */
-
-
         $messageResponseTransfer = $this->zedRequestClient->call('/hello-world/gateway/find-message', $messageCriteria);
 
         return $messageResponseTransfer;
@@ -40,8 +38,8 @@ class HelloWorldStub
     public function createMessage(MessageTransfer $messageTransfer): MessageTransfer
     {
         /** @var \Generated\Shared\Transfer\MessageTransfer $messageTransfer */
+        $messageTransfer = $this->zedRequestClient->call('/hello-world/gateway/create-message', $messageTransfer);
 
-        // TODO: Call the Backend-Gateway to create a message and return it
-        // Hint: We want to call the src/SprykerAcademy/Zed/HelloWorld/Communication/Controller/GatewayController.php::createMessageAction()
+        return $messageTransfer;
     }
 }

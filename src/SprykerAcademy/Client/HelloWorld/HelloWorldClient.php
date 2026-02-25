@@ -9,6 +9,7 @@ namespace SprykerAcademy\Client\HelloWorld;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
 use Generated\Shared\Transfer\MessageResponseTransfer;
+use Generated\Shared\Transfer\MessageTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -20,13 +21,15 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class HelloWorldClient extends AbstractClient implements HelloWorldClientInterface
 {
-
-
     public function findMessage(MessageCriteriaTransfer $messageCriteria): MessageResponseTransfer
     {
         return $this->getFactory()->createHelloWorldStub()->findMessage($messageCriteria);
     }
 
-    // TODO: Add method for creating a message by using the HelloWorldStub
-    // Hint: See HelloWorldClientInterface for the right method signature and specification
+    public function createMessage(MessageTransfer $messageTransfer): MessageTransfer
+    {
+        return $this->getFactory()
+            ->createHelloWorldStub()
+            ->createMessage($messageTransfer);
+    }
 }

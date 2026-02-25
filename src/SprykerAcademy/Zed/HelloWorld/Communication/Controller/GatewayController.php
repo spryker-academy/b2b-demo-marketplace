@@ -17,13 +17,13 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
  */
 class GatewayController extends AbstractGatewayController
 {
-
-
     public function findMessageAction(MessageCriteriaTransfer $messageCriteria): MessageResponseTransfer
     {
         return $this->getFacade()->findMessage($messageCriteria);
     }
 
-    // TODO: Add method for creating a message by using the facade
-    // Hint: The method should accept a MessageTransfer for the needed message data as parameter
+    public function createMessageAction(MessageTransfer $messageTransfer): MessageTransfer
+    {
+        return $this->getFacade()->createMessage($messageTransfer);
+    }
 }

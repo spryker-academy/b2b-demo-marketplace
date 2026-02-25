@@ -32,7 +32,7 @@ class ProfileForm extends SprykerProfileForm
         ]);
 
         $builder->get(self::FIELD_MESSAGE)->addModelTransformer(
-            // TODO: Use the factory to pass the MessageTransformer as parameter
+            $this->getFactory()->createMessageTransformer(),
         );
 
         return $this;
