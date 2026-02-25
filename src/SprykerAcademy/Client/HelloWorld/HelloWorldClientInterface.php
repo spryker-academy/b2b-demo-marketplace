@@ -9,6 +9,7 @@ namespace SprykerAcademy\Client\HelloWorld;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
 use Generated\Shared\Transfer\MessageResponseTransfer;
+use Generated\Shared\Transfer\MessageTransfer;
 
 interface HelloWorldClientInterface
 {
@@ -24,4 +25,17 @@ interface HelloWorldClientInterface
      * @return \Generated\Shared\Transfer\MessageResponseTransfer
      */
     public function findMessage(MessageCriteriaTransfer $messageCriteria): MessageResponseTransfer;
+
+    /**
+     * Specification:
+     * - Creates a message by message-transfer
+     * - Returns a message-transfer with the created message-data
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\MessageTransfer $messageTransfer
+     *
+     * @return \Generated\Shared\Transfer\MessageTransfer
+     */
+    public function createMessage(MessageTransfer $messageTransfer): MessageTransfer;
 }

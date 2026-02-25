@@ -9,6 +9,7 @@ namespace SprykerAcademy\Zed\HelloWorld\Communication\Controller;
 
 use Generated\Shared\Transfer\MessageCriteriaTransfer;
 use Generated\Shared\Transfer\MessageResponseTransfer;
+use Generated\Shared\Transfer\MessageTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
@@ -22,4 +23,7 @@ class GatewayController extends AbstractGatewayController
     {
         return $this->getFacade()->findMessage($messageCriteria);
     }
+
+    // TODO: Add method for creating a message by using the facade
+    // Hint: The method should accept a MessageTransfer for the needed message data as parameter
 }

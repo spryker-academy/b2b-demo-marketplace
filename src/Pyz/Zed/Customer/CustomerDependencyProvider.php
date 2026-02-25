@@ -44,6 +44,8 @@ class CustomerDependencyProvider extends SprykerCustomerDependencyProvider
      */
     public const FACADE_NEWSLETTER = 'newsletter facade';
 
+    public const FACADE_HELLO_WORLD = 'FACADE_HELLO_WORLD';
+
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
@@ -57,6 +59,10 @@ class CustomerDependencyProvider extends SprykerCustomerDependencyProvider
 
         return $container;
     }
+
+    // TODO: Add the method `addHelloWorldFacade` and call it in the `provideCommunicationLayerDependencies()`
+    // Hint-1: For the right syntax have a look at `addFacadeSales()`
+    // Hint-2: Use the constant `FACADE_HELLO_WORLD`
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container

@@ -26,4 +26,7 @@ class HelloWorldClient extends AbstractClient implements HelloWorldClientInterfa
     {
         return $this->getFactory()->createHelloWorldStub()->findMessage($messageCriteria);
     }
+
+    // TODO: Add method for creating a message by using the HelloWorldStub
+    // Hint: See HelloWorldClientInterface for the right method signature and specification
 }

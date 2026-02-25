@@ -52,6 +52,9 @@ class CustomerPageDependencyProvider extends SprykerShopCustomerPageDependencyPr
         return $container;
     }
 
+    // TODO: Add the method `addHelloWorldClient` and call it in the `provideDependencies()`
+    // Hint: The same was already done for another module here: `src/SprykerAcademy/Yves/HelloWorldPage/HelloWorldPageDependencyProvider.php`
+
     /**
      * @return array<\SprykerShop\Yves\CustomerPageExtension\Dependency\Plugin\PreRegistrationCustomerTransferExpanderPluginInterface>
      */
