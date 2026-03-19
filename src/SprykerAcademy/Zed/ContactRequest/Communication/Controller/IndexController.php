@@ -1,12 +1,5 @@
 <?php
 
-/**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
- */
-
-declare(strict_types=1);
-
 namespace SprykerAcademy\Zed\ContactRequest\Communication\Controller;
 
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
@@ -14,11 +7,14 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 class IndexController extends AbstractController
 {
     /**
-     * @return array<string, mixed>
+     * @return array
      */
     public function indexAction(): array
     {
+        // TODO: initialize the message DTO and set a name
+
         return $this->viewResponse([
+            // TODO: pass the DTO to the view
             'contactRequestText' => 'Contact Request!',
         ]);
     }
