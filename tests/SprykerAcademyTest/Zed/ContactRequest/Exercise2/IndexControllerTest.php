@@ -57,6 +57,18 @@ class IndexControllerTest extends Unit
         );
     }
 
+    public function testIndexControllerSetsMessageValueContactRequest(): void
+    {
+        $this->skipIfNoController();
+
+        $source = $this->getControllerSource();
+
+        $this->assertNotFalse(
+            stripos($source, 'contact request!'),
+            'indexAction() must set the message to "Contact Request!" (case insensitive).',
+        );
+    }
+
     public function testIndexControllerSetsIdContactRequestOnTransfer(): void
     {
         $this->skipIfNoController();
@@ -66,6 +78,18 @@ class IndexControllerTest extends Unit
         $this->assertNotFalse(
             strpos($source, 'setIdContactRequest'),
             'indexAction() must call setIdContactRequest() on the ContactRequestTransfer.',
+        );
+    }
+
+    public function testIndexControllerSetsIdContactRequestToOne(): void
+    {
+        $this->skipIfNoController();
+
+        $source = $this->getControllerSource();
+
+        $this->assertNotFalse(
+            strpos($source, 'setIdContactRequest(1)'),
+            'indexAction() must set idContactRequest to 1.',
         );
     }
 

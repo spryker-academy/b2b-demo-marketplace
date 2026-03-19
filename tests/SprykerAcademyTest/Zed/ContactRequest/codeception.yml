@@ -19,3 +19,9 @@ suites:
         modules:
             enabled:
                 - Asserts
+    Exercise3:
+        path: Exercise3
+        actor: ContactRequestBusinessTester
+        modules:
+            enabled:
+                - Asserts

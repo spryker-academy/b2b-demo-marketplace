@@ -5,26 +5,27 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-declare(strict_types=1);
-
 namespace SprykerAcademy\Zed\ContactRequest\Communication\Controller;
 
 use Generated\Shared\Transfer\ContactRequestTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class IndexController extends AbstractController
 {
     /**
      * @return array<string, ContactRequestTransfer>
      */
-    public function indexAction(): array
+    public function indexAction(Request $request): array
     {
+        $message = $request->get('message', 'Hello Spryker');
+        $id = $this->castId($request->get('id', 1));
         $contactRequestTransfer = new ContactRequestTransfer();
-        $contactRequestTransfer->setMessage('Contact Request!');
-        $contactRequestTransfer->setIdContactRequest(1);
+        $contactRequestTransfer->setMessage($message);
+        $contactRequestTransfer->setIdContactRequest($id);
 
         return $this->viewResponse([
-            'contactRequest' => $contactRequestTransfer,
+            'message' => $contactRequestTransfer,
         ]);
     }
 }
