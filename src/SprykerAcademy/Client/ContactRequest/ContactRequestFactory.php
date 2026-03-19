@@ -15,9 +15,7 @@ class ContactRequestFactory extends AbstractFactory
 {
     public function createContactRequestStub(): ContactRequestStub
     {
-        // TODO: Instantiate the ContactRequestStub with the right dependency
-        // Hint: You can see the needed parameter(s) for the constructor either through your IDE
-        // or by looking into the parent class of ContactRequestStub
+        return new ContactRequestStub($this->getZedRequestClient());
     }
 
     public function getZedRequestClient(): ZedRequestClientInterface

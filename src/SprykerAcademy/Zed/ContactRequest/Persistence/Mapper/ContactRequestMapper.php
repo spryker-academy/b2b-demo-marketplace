@@ -20,7 +20,7 @@ class ContactRequestMapper
      */
     public function mapEntityToContactRequestTransfer(
         PyzContactRequest $contactRequestEntity,
-        ContactRequestTransfer $contactRequestTransfer,
+        ContactRequestTransfer $contactRequestTransfer = new ContactRequestTransfer(),
     ): ContactRequestTransfer {
         return $contactRequestTransfer->fromArray($contactRequestEntity->toArray(), true);
     }
@@ -33,7 +33,7 @@ class ContactRequestMapper
      */
     public function mapContactRequestTransferToEntity(
         ContactRequestTransfer $contactRequestTransfer,
-        PyzContactRequest $contactRequestEntity,
+        PyzContactRequest $contactRequestEntity = new PyzContactRequest(),
     ): PyzContactRequest {
         $contactRequestEntity->fromArray($contactRequestTransfer->modifiedToArray());
         $contactRequestEntity->setNew($contactRequestTransfer->getIdContactRequest() === null);

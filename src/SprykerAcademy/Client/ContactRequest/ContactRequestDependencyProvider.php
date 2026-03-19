@@ -12,9 +12,9 @@ use Spryker\Client\Kernel\Container;
 
 class ContactRequestDependencyProvider extends AbstractDependencyProvider
 {
-    public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
+    public const string CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
 
-    public const CLIENT_STORE = 'CLIENT_STORE';
+    public const string CLIENT_STORE = 'CLIENT_STORE';
 
     public function provideServiceLayerDependencies(Container $container): Container
     {
@@ -26,9 +26,9 @@ class ContactRequestDependencyProvider extends AbstractDependencyProvider
 
     protected function addZedRequestClient(Container $container): Container
     {
-        // TODO: Make the ZedRequestClient available
-        // Hint: Take a look at the `addStoreClient()` method - The only things different are the constant
-        // and what you write after the `getLocator()`
+        $container->set(static::CLIENT_ZED_REQUEST, fn() => $container->getLocator()->zedRequest()->client());
+
+        return $container;
     }
 
     protected function addStoreClient(Container $container): Container

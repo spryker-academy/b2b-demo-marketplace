@@ -20,9 +20,10 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class ContactRequestClient extends AbstractClient implements ContactRequestClientInterface
 {
+
+
     public function findContactRequest(ContactRequestCriteriaTransfer $contactRequestCriteria): ContactRequestResponseTransfer
     {
-        // TODO: Use the factory to create a ContactRequestStub and use it to find a message
-        // Hint: You can access the ContactRequestFactory through $this->getFactory()
+        return $this->getFactory()->createContactRequestStub()->findContactRequest($contactRequestCriteria);
     }
 }

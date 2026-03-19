@@ -13,15 +13,22 @@ use SprykerAcademy\Zed\ContactRequest\Persistence\ContactRequestRepositoryInterf
 
 class ContactRequestReader
 {
-    protected ContactRequestRepositoryInterface $contactRequestRepository;
+    public function __construct(protected ContactRequestRepositoryInterface $contactRequestRepository)
+    {
+    }
 
     public function findContactRequest(ContactRequestCriteriaTransfer $contactRequestCriteria): ContactRequestResponseTransfer
     {
-        $contactRequestTransfer = null;// TODO: Use the ContactRequestRepository to find a message
+        $contactRequestTransfer = $this->contactRequestRepository->findContactRequest($contactRequestCriteria);
+        $contactRequestResponseTransfer = new ContactRequestResponseTransfer();
 
-        // TODO: Create and return ContactRequestResponseTransfer
-        // and set the properties `isSuccessful` and `message` based on
-        // the return value from the ContactRequestRepository
-        // Hint: If no message is returned from the repository `isSuccessful` must be false
+        if ($contactRequestTransfer === null) {
+            $contactRequestResponseTransfer->setIsSuccessful(false);
+        } else {
+            $contactRequestResponseTransfer->setIsSuccessful(true);
+            $contactRequestResponseTransfer->setContactRequest($contactRequestTransfer);
+        }
+
+        return $contactRequestResponseTransfer;
     }
 }

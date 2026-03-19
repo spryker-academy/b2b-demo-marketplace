@@ -9,6 +9,7 @@ namespace SprykerAcademy\Zed\ContactRequest\Persistence;
 
 use Generated\Shared\Transfer\ContactRequestCriteriaTransfer;
 use Generated\Shared\Transfer\ContactRequestTransfer;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -18,17 +19,17 @@ class ContactRequestRepository extends AbstractRepository implements ContactRequ
 {
     public function findContactRequest(ContactRequestCriteriaTransfer $contactRequestCriteria): ?ContactRequestTransfer
     {
+        $query = $this->getFactory()->createContactRequestQuery();
         $contactRequestEntity = null;
+        if ($contactRequestCriteria->getIdContactRequest()) {
+            $contactRequestEntity = $query->findOneByIdContactRequest($contactRequestCriteria->getIdContactRequest());
+        } elseif ($contactRequestCriteria->getMessage()) {
+            $contactRequestEntity = $query->filterByMessage('%' . $contactRequestCriteria->getMessage() . '%', Criteria::LIKE)->findOne();
+        }
+        if (!$contactRequestEntity) {
+            return null;
+        }
 
-        // TODO: Get the query from the factory
-        // TODO: If the criteria has an idMessage, use findOneBy<ColumnName>() to find by ID
-        // TODO: If the criteria has a message string, use filterBy<ColumnName>() with Criteria::LIKE as second parameter, then call findOne()
-        // Hint: You will need to import Propel\Runtime\ActiveQuery\Criteria
-
-        // TODO: Return null if no entity was found
-
-        // TODO: Use the ContactRequestMapper from the factory to map the entity to a transfer and return it
-
-        return null;
+        return $this->getFactory()->createContactRequestMapper()->mapEntityToContactRequestTransfer($contactRequestEntity, new ContactRequestTransfer());
     }
 }

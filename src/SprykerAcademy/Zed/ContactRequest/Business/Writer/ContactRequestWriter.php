@@ -12,10 +12,12 @@ use SprykerAcademy\Zed\ContactRequest\Persistence\ContactRequestEntityManagerInt
 
 class ContactRequestWriter
 {
-    protected ContactRequestEntityManagerInterface $contactRequestEntityManager;
+    public function __construct(protected ContactRequestEntityManagerInterface $contactRequestEntityManager)
+    {
+    }
 
     public function create(ContactRequestTransfer $contactRequestTransfer): ContactRequestTransfer
     {
-        // TODO: Use the contactRequestEntityManager to create an message
+        return $this->contactRequestEntityManager->createContactRequest($contactRequestTransfer);
     }
 }

@@ -25,7 +25,7 @@ class ContactRequestFacade extends AbstractFacade implements ContactRequestFacad
      */
     public function createContactRequest(ContactRequestTransfer $contactRequestTransfer): ContactRequestTransfer
     {
-        // TODO: Use getService(ContactRequestWriter::class) to get the writer and call create()
+        return $this->getService(ContactRequestWriter::class)->create($contactRequestTransfer);
     }
 
     /**
@@ -35,6 +35,6 @@ class ContactRequestFacade extends AbstractFacade implements ContactRequestFacad
      */
     public function findContactRequest(ContactRequestCriteriaTransfer $contactRequestCriteria): ContactRequestResponseTransfer
     {
-        // TODO: Use getService(ContactRequestReader::class) to get the reader and call findContactRequest()
+        return $this->getService(ContactRequestReader::class)->findContactRequest($contactRequestCriteria);
     }
 }

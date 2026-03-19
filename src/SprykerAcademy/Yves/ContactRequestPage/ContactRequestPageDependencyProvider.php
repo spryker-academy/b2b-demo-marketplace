@@ -7,7 +7,7 @@ use Spryker\Yves\Kernel\Container;
 
 class ContactRequestPageDependencyProvider extends AbstractBundleDependencyProvider
 {
-    public const CLIENT_CONTACT_REQUEST = 'CLIENT_CONTACT_REQUEST';
+    public const string CLIENT_CONTACT_REQUEST = 'CLIENT_CONTACT_REQUEST';
 
     public function provideDependencies(Container $container): Container
     {
@@ -18,7 +18,7 @@ class ContactRequestPageDependencyProvider extends AbstractBundleDependencyProvi
 
     protected function addContactRequestClient(Container $container): Container
     {
-        // TODO: Make the ContactRequestClient available
-        // Hint: It works exactly like shown in `src/SprykerAcademy/Client/ContactRequest/ContactRequestDependencyProvider.php`
+        $container->set(static::CLIENT_CONTACT_REQUEST, fn() => $container->getLocator()->contactRequest()->client());
+        return $container;
     }
 }

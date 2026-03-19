@@ -28,12 +28,10 @@ class ContactRequestStub
 
     public function findContactRequest(ContactRequestCriteriaTransfer $contactRequestCriteria): ContactRequestResponseTransfer
     {
-        /** @var \Generated\Shared\Transfer\ContactRequestResponseTransfer $contactRequestResponseTransfer */
+        /** @var ContactRequestResponseTransfer $contactRequestResponseTransfer */
 
-        // TODO: Fill in the right path for '/module-name/controller-name/action-name'
-        // Hint: We want to call the src/SprykerAcademy/Zed/ContactRequest/Communication/Controller/GatewayController.php::findMessageAction()
 
-        $contactRequestResponseTransfer = $this->zedRequestClient->call('/module-name/controller-name/action-name', $contactRequestCriteria);
+        $contactRequestResponseTransfer = $this->zedRequestClient->call('/contact-request/gateway/find-contact-request', $contactRequestCriteria);
 
         return $contactRequestResponseTransfer;
     }

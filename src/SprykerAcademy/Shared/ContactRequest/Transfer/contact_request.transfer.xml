@@ -7,5 +7,14 @@
         <property name="idContactRequest" type="int"/>
         <property name="message" type="string"/>
     </transfer>
+    <transfer name="ContactRequestCriteria">
+        <property name="idContactRequest" type="int"/>
+        <property name="message" type="string"/>
+    </transfer>
+
+    <transfer name="ContactRequestResponse">
+        <property name="contactRequest" type="ContactRequest"/>
+        <property name="isSuccessful" type="bool"/>
+    </transfer>
 
 </transfers>

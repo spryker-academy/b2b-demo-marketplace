@@ -3,6 +3,7 @@
 namespace SprykerAcademy\Yves\ContactRequestPage\Controller;
 
 use Generated\Shared\Transfer\ContactRequestCriteriaTransfer;
+use Spryker\Yves\Kernel\View\View;
 use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
 
 /**
@@ -10,14 +11,14 @@ use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
  */
 class ContactRequestController extends AbstractController
 {
-    public function getAction(string $name)
+    public function getAction(int $idMessage): View
     {
-        $contactRequestCriteriaTransfer = null;
-        // TODO: Instantiate ContactRequestCriteriaTransfer and set the message name
+        $contactRequestCriteriaTransfer = new ContactRequestCriteriaTransfer();
+        $contactRequestCriteriaTransfer->setIdContactRequest($idMessage);
 
-        $contactRequestResponseTransfer = null;
-        // TODO: Use the ContactRequestClient which is accessible by using `$this->getFactory()`
-        // to find a message by a ContactRequestCriteriaTransfer
+        $contactRequestResponseTransfer = $this->getFactory()
+            ->getContactRequestClient()
+            ->findContactRequest($contactRequestCriteriaTransfer);
 
         return $this->view(
             ['message' => $contactRequestResponseTransfer->getContactRequest()],

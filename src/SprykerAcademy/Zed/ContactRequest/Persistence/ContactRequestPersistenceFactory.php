@@ -15,7 +15,7 @@ class ContactRequestPersistenceFactory extends AbstractPersistenceFactory
 {
     public function createContactRequestQuery(): PyzContactRequestQuery
     {
-        // TODO
+        return PyzContactRequestQuery::create();
     }
 
     /**

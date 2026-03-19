@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace SprykerAcademy\Zed\ContactRequest\Communication\Controller;
 
+use Generated\Shared\Transfer\ContactRequestCriteriaTransfer;
 use Generated\Shared\Transfer\ContactRequestTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use SprykerAcademy\Zed\ContactRequest\Business\ContactRequestFacadeInterface;
@@ -42,16 +43,19 @@ class IndexController extends AbstractController
     {
         $message = $request->query->get('message', 'test');
 
-        $contactRequestCriteriaTransfer = null;
-        // TODO: Instantiate ContactRequestCriteriaTransfer and set the message
-        // Use $this->contactRequestFacade->findContactRequest() with the criteria transfer
-        // Assign the ContactRequestTransfer from the response to $contactRequestTransfer
-        $contactRequestTransfer = null;
+        $contactRequestCriteriaTransfer = new ContactRequestCriteriaTransfer();
+        $contactRequestCriteriaTransfer->setMessage($message);
+
+        $contactRequestResponseTransfer = $this->contactRequestFacade
+            ->findContactRequest($contactRequestCriteriaTransfer);
+
+        $contactRequestTransfer = $contactRequestResponseTransfer->getContactRequest();
 
         if (!$contactRequestTransfer) {
-            // TODO: If no contact request with that message exists,
-            // create a ContactRequestTransfer, set the message,
-            // and persist it with $this->contactRequestFacade->createContactRequest()
+            $contactRequestTransfer = new ContactRequestTransfer();
+            $contactRequestTransfer->setMessage($message);
+
+            $contactRequestTransfer = $this->contactRequestFacade->createContactRequest($contactRequestTransfer);
         }
 
         return $this->viewResponse([
