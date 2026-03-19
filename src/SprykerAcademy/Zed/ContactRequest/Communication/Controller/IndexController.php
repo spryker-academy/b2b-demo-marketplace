@@ -1,21 +1,30 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace SprykerAcademy\Zed\ContactRequest\Communication\Controller;
 
+use Generated\Shared\Transfer\ContactRequestTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
     /**
-     * @return array
+     * @return array<string, ContactRequestTransfer>
      */
     public function indexAction(): array
     {
-        // TODO: initialize the message DTO and set a name
+        $contactRequestTransfer = new ContactRequestTransfer();
+        $contactRequestTransfer->setMessage('Contact Request!');
+        $contactRequestTransfer->setIdContactRequest(1);
 
         return $this->viewResponse([
-            // TODO: pass the DTO to the view
-            'contactRequestText' => 'Contact Request!',
+            'contactRequest' => $contactRequestTransfer,
         ]);
     }
 }
