@@ -1,679 +1,686 @@
 <?xml version="1.0"?>
 <config>
-    <!-- You can control navigation order here and add your custom navigation entries -->
-    <analytics>
-        <label>Analytics</label>
-        <title>Analytics</title>
-        <icon>bar_chart_4_bars</icon>
-        <bundle>analytics-gui</bundle>
-        <controller>analytics</controller>
+  <contact-request>
+    <label>Hello World</label>
+    <title>Hello World</title>
+    <bundle>contact-request</bundle>
+    <controller>hello</controller>
+    <action>index</action>
+  </contact-request>
+  <!-- You can control navigation order here and add your custom navigation entries -->
+  <analytics>
+    <label>Analytics</label>
+    <title>Analytics</title>
+    <icon>bar_chart_4_bars</icon>
+    <bundle>analytics-gui</bundle>
+    <controller>analytics</controller>
+    <action>index</action>
+  </analytics>
+  <dashboard>
+    <label>Dashboard</label>
+    <title>Dashboard</title>
+    <bundle>dashboard</bundle>
+    <controller>index</controller>
+    <action>index</action>
+    <icon>grid_view</icon>
+  </dashboard>
+  <sales>
+    <label>Sales</label>
+    <uri>/sales</uri>
+    <title>Sales</title>
+    <icon>local_mall</icon>
+    <pages>
+      <order-matrix>
+        <label>Order Matrix</label>
+        <title>Order Matrix</title>
+        <bundle>order-matrix-gui</bundle>
+        <controller>matrix</controller>
         <action>index</action>
-    </analytics>
-    <dashboard>
-        <label>Dashboard</label>
-        <title>Dashboard</title>
-        <bundle>dashboard</bundle>
+        <visible>1</visible>
+      </order-matrix>
+      <order-list>
+        <label>Orders</label>
+        <title>Orders</title>
+        <bundle>sales</bundle>
         <controller>index</controller>
         <action>index</action>
-        <icon>grid_view</icon>
-    </dashboard>
-    <sales>
-        <label>Sales</label>
-        <uri>/sales</uri>
-        <title>Sales</title>
-        <icon>local_mall</icon>
-        <pages>
-            <order-matrix>
-                <label>Order Matrix</label>
-                <title>Order Matrix</title>
-                <bundle>order-matrix-gui</bundle>
-                <controller>matrix</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </order-matrix>
-            <order-list>
-                <label>Orders</label>
-                <title>Orders</title>
-                <bundle>sales</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </order-list>
-            <merchant-sales-order>
-                <label>My Orders</label>
-                <title>My Orders</title>
-                <bundle>merchant-sales-order-merchant-user-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </merchant-sales-order>
-            <sales-reclamations>
-                <label>Reclamations</label>
-                <title>Reclamations</title>
-                <bundle>sales-reclamation-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </sales-reclamations>
-            <returns>
-                <label>Returns</label>
-                <title>Returns</title>
-                <bundle>sales-return-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </returns>
-            <merchant-sales-return>
-                <label>My Returns</label>
-                <title>My Returns</title>
-                <bundle>merchant-sales-return-merchant-user-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </merchant-sales-return>
-            <table>
-                <label>Refunds</label>
-                <title>Refunds</title>
-                <bundle>refund</bundle>
-                <controller>table</controller>
-                <action>index</action>
-            </table>
-        </pages>
-    </sales>
-        <ssp>
-        <label>Customer Portal</label>
-        <title>Customer Portal</title>
-        <icon>interactive_space</icon>
-        <pages>
-            <self-service-portal-model>
-                <label>Models</label>
-                <title>Models</title>
-                <bundle>self-service-portal</bundle>
-                <controller>list-model</controller>
-                <action>index</action>
-            </self-service-portal-model>
-            <self-service-portal-asset>
-                <label>Assets</label>
-                <title>Assets</title>
-                <bundle>self-service-portal</bundle>
-                <controller>list-asset</controller>
-                <action>index</action>
-            </self-service-portal-asset>
-            <self-service-portal-company-file>
-                <label>File Attachments</label>
-                <title>File Attachments</title>
-                <bundle>self-service-portal</bundle>
-                <controller>list-file</controller>
-                <action>index</action>
-            </self-service-portal-company-file>
-            <self-service-portal-inquiries>
-                <label>Inquiries</label>
-                <title>Inquiries</title>
-                <bundle>self-service-portal</bundle>
-                <controller>list-inquiry</controller>
-                <action>index</action>
-            </self-service-portal-inquiries>
-            <self-service-portal-services>
-                <label>Booked Services</label>
-                <title>Booked Services</title>
-                <bundle>self-service-portal</bundle>
-                <controller>list-service</controller>
-                <action>index</action>
-            </self-service-portal-services>
-        </pages>
-    </ssp>
-    <customer>
+        <visible>1</visible>
+      </order-list>
+      <merchant-sales-order>
+        <label>My Orders</label>
+        <title>My Orders</title>
+        <bundle>merchant-sales-order-merchant-user-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </merchant-sales-order>
+      <sales-reclamations>
+        <label>Reclamations</label>
+        <title>Reclamations</title>
+        <bundle>sales-reclamation-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </sales-reclamations>
+      <returns>
+        <label>Returns</label>
+        <title>Returns</title>
+        <bundle>sales-return-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </returns>
+      <merchant-sales-return>
+        <label>My Returns</label>
+        <title>My Returns</title>
+        <bundle>merchant-sales-return-merchant-user-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </merchant-sales-return>
+      <table>
+        <label>Refunds</label>
+        <title>Refunds</title>
+        <bundle>refund</bundle>
+        <controller>table</controller>
+        <action>index</action>
+      </table>
+    </pages>
+  </sales>
+  <ssp>
+    <label>Customer Portal</label>
+    <title>Customer Portal</title>
+    <icon>interactive_space</icon>
+    <pages>
+      <self-service-portal-model>
+        <label>Models</label>
+        <title>Models</title>
+        <bundle>self-service-portal</bundle>
+        <controller>list-model</controller>
+        <action>index</action>
+      </self-service-portal-model>
+      <self-service-portal-asset>
+        <label>Assets</label>
+        <title>Assets</title>
+        <bundle>self-service-portal</bundle>
+        <controller>list-asset</controller>
+        <action>index</action>
+      </self-service-portal-asset>
+      <self-service-portal-company-file>
+        <label>File Attachments</label>
+        <title>File Attachments</title>
+        <bundle>self-service-portal</bundle>
+        <controller>list-file</controller>
+        <action>index</action>
+      </self-service-portal-company-file>
+      <self-service-portal-inquiries>
+        <label>Inquiries</label>
+        <title>Inquiries</title>
+        <bundle>self-service-portal</bundle>
+        <controller>list-inquiry</controller>
+        <action>index</action>
+      </self-service-portal-inquiries>
+      <self-service-portal-services>
+        <label>Booked Services</label>
+        <title>Booked Services</title>
+        <bundle>self-service-portal</bundle>
+        <controller>list-service</controller>
+        <action>index</action>
+      </self-service-portal-services>
+    </pages>
+  </ssp>
+  <customer>
+    <label>Customers</label>
+    <title>Customers</title>
+    <icon>account_circle</icon>
+    <pages>
+      <customer>
         <label>Customers</label>
         <title>Customers</title>
-        <icon>account_circle</icon>
-        <pages>
-            <customer>
-                <label>Customers</label>
-                <title>Customers</title>
-                <bundle>customer</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </customer>
-            <group>
-                <label>Customer Groups</label>
-                <title>Customer Groups</title>
-                <bundle>customer-group</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </group>
-            <customer-access>
-                <label>Customer Access</label>
-                <title>Customer Access</title>
-                <bundle>customer-access-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </customer-access>
-            <page>
-                <label>Companies</label>
-                <title>Companies</title>
-                <bundle>company-gui</bundle>
-                <controller>list-company</controller>
-                <action>index</action>
-            </page>
-            <company-business-unit-gui>
-                <label>Company Units</label>
-                <title>Company Units</title>
-                <bundle>company-business-unit-gui</bundle>
-                <controller>list-company-business-unit</controller>
-                <action>index</action>
-            </company-business-unit-gui>
-            <company-unit-address-gui>
-                <label>Company Unit Addresses</label>
-                <title>Company Unit Addresses</title>
-                <bundle>company-unit-address-gui</bundle>
-                <controller>list-company-unit-address</controller>
-                <action>index</action>
-            </company-unit-address-gui>
-            <company-user-gui>
-                <label>Company Users</label>
-                <title>Company Users</title>
-                <bundle>company-user-gui</bundle>
-                <controller>list-company-user</controller>
-                <action>index</action>
-            </company-user-gui>
-            <company-role-gui>
-                <label>Company Roles</label>
-                <title>Company Roles</title>
-                <bundle>company-role-gui</bundle>
-                <controller>list-company-role</controller>
-                <action>index</action>
-            </company-role-gui>
-        </pages>
-    </customer>
-    <catalog>
-        <label>Catalog</label>
-        <title>Catalog</title>
-        <icon>package_2</icon>
-        <uri>#</uri>
-        <pages>
-            <products>
-                <label>Products</label>
-                <title>Products</title>
-                <bundle>product-management</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </products>
-            <category>
-                <label>Categories</label>
-                <title>Categories</title>
-                <bundle>category-gui</bundle>
-                <controller>list</controller>
-                <action>index</action>
-            </category>
-            <attributes>
-                <label>Attributes</label>
-                <title>Attributes</title>
-                <bundle>product-attribute-gui</bundle>
-                <controller>attribute</controller>
-                <action>index</action>
-            </attributes>
-            <AvailabilityGui>
-                <label>Availability</label>
-                <title>Availability</title>
-                <bundle>availability-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </AvailabilityGui>
-            <reviews>
-                <label>Product Reviews</label>
-                <title>Product Reviews</title>
-                <bundle>product-review-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </reviews>
-            <product_options>
-                <label>Product Options</label>
-                <title>Product Options</title>
-                <bundle>product-option</bundle>
-                <controller>list</controller>
-                <action>index</action>
-                <visible>2</visible>
-            </product_options>
-            <product-list>
-                <label>Product Lists</label>
-                <title>Product Lists</title>
-                <bundle>product-list-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </product-list>
-            <product-barcode>
-                <label>Product Barcodes</label>
-                <title>Product Barcodes</title>
-                <bundle>product-barcode-gui</bundle>
-                <controller>product-barcode</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </product-barcode>
-            <price-product-schedule>
-                <label>Scheduled Prices</label>
-                <title>Scheduled Prices</title>
-                <bundle>price-product-schedule-gui</bundle>
-                <controller>import</controller>
-                <action>index</action>
-            </price-product-schedule>
-        </pages>
-    </catalog>
-    <content>
-        <label>Content</label>
-        <title>Content</title>
-        <icon>article</icon>
-        <uri>#</uri>
-        <pages>
-            <content-items>
-                <label>Content Items</label>
-                <title>Content Items</title>
-                <bundle>content-gui</bundle>
-                <controller>list-content</controller>
-                <action>index</action>
-            </content-items>
-            <block>
-                <label>Blocks</label>
-                <title>Blocks</title>
-                <bundle>cms-block-gui</bundle>
-                <controller>list-block</controller>
-                <action>index</action>
-            </block>
-            <page>
-                <label>Pages</label>
-                <title>Pages</title>
-                <bundle>cms-gui</bundle>
-                <controller>list-page</controller>
-                <action>index</action>
-            </page>
-            <slots>
-                <label>Slots</label>
-                <title>Slots</title>
-                <bundle>cms-slot-gui</bundle>
-                <controller>template-list</controller>
-                <action>index</action>
-            </slots>
-            <navigation>
-                <label>Navigation</label>
-                <title>Navigation</title>
-                <bundle>navigation-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </navigation>
-            <redirects>
-                <label>Redirects</label>
-                <title>Redirects</title>
-                <bundle>cms</bundle>
-                <controller>redirect</controller>
-                <action>index</action>
-            </redirects>
-            <list>
-                <label>File List</label>
-                <title>File List</title>
-                <bundle>file-manager-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </list>
-            <tree>
-                <label>File Tree</label>
-                <title>File Tree</title>
-                <bundle>file-manager-gui</bundle>
-                <controller>directories-tree</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </tree>
-        </pages>
-    </content>
-    <merchandising>
-        <label>Merchandising</label>
-        <title>Merchandising</title>
-        <icon>box</icon>
-        <uri>#</uri>
-        <pages>
-            <discount>
-                <label>Discount</label>
-                <title>Discount</title>
-                <bundle>discount</bundle>
-                <controller>index</controller>
-                <action>list</action>
-            </discount>
-            <product-label-gui>
-                <label>Product Labels</label>
-                <title>Product Labels</title>
-                <bundle>product-label-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </product-label-gui>
-            <product-relation-gui>
-                <label>Product Relations</label>
-                <title>Product Relations</title>
-                <bundle>product-relation-gui</bundle>
-                <controller>list</controller>
-                <action>index</action>
-                <visible>2</visible>
-            </product-relation-gui>
-            <sets>
-                <label>Product Sets</label>
-                <title>Product Sets</title>
-                <bundle>product-set-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </sets>
-            <configurable-bundle-templates>
-                <label>Configurable Bundle Templates</label>
-                <title>Configurable Bundle Templates</title>
-                <bundle>configurable-bundle-gui</bundle>
-                <controller>template</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </configurable-bundle-templates>
-            <search-preferences>
-                <label>Search Preferences</label>
-                <title>Search Preferences</title>
-                <bundle>product-search</bundle>
-                <controller>search-preferences</controller>
-                <action>index</action>
-            </search-preferences>
-            <filter-preferences>
-                <label>Filter Preferences</label>
-                <title>Filter Preferences</title>
-                <bundle>product-search</bundle>
-                <controller>filter-preferences</controller>
-                <action>index</action>
-            </filter-preferences>
-            <category-filters>
-                <label>Category Filters</label>
-                <title>Category Filters</title>
-                <bundle>product-category-filter-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </category-filters>
-        </pages>
-    </merchandising>
-    <marketplace>
-        <label>Marketplace</label>
-        <title>Marketplace</title>
-        <icon>local_convenience_store</icon>
-        <pages>
-            <product-offer-gui>
-                <label>Offers</label>
-                <title>Offers</title>
-                <bundle>product-offer-gui</bundle>
-                <controller>list</controller>
-                <action>index</action>
-            </product-offer-gui>
-            <merchant>
-                <label>Merchants</label>
-                <title>Merchants</title>
-                <bundle>merchant-gui</bundle>
-                <controller>list-merchant</controller>
-                <action>index</action>
-            </merchant>
-            <merchant-relationship>
-                <label>Merchant Relations</label>
-                <title>Merchant Relations</title>
-                <bundle>merchant-relationship-gui</bundle>
-                <controller>list-merchant-relationship</controller>
-                <action>index</action>
-            </merchant-relationship>
-            <merchant-relation-request-gui>
-                <label>navigation.merchant_relation_requests</label>
-                <title>navigation.merchant_relation_requests</title>
-                <bundle>merchant-relation-request-gui</bundle>
-                <controller>list</controller>
-                <action>index</action>
-            </merchant-relation-request-gui>
-            <merchant-registration-request>
-                <label>Merchant Registrations</label>
-                <title>Merchant Registrations</title>
-                <bundle>merchant-registration-request</bundle>
-                <controller>list</controller>
-                <action>index</action>
-            </merchant-registration-request>
-            <merchant-commission-gui>
-                <label>Merchant Commissions</label>
-                <title>Merchant Commissions</title>
-                <bundle>merchant-commission-gui</bundle>
-                <controller>list</controller>
-                <action>index</action>
-            </merchant-commission-gui>
-        </pages>
-    </marketplace>
-    <users>
-        <label>Users</label>
-        <title>Users</title>
-        <icon>background_replace</icon>
-        <pages>
-            <user>
-                <label>Users</label>
-                <title>Users</title>
-                <bundle>user</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </user>
-            <roles>
-                <label>User Roles</label>
-                <title>Roles</title>
-                <bundle>acl</bundle>
-                <controller>role</controller>
-                <action>index</action>
-            </roles>
-            <groups>
-                <label>User Groups</label>
-                <title>Groups</title>
-                <bundle>acl</bundle>
-                <controller>group</controller>
-                <action>index</action>
-            </groups>
-        </pages>
-    </users>
-    <app-catalog-gui>
-        <label>Apps</label>
-        <title>Apps</title>
-        <icon>add_to_queue</icon>
-        <bundle>app-catalog-gui</bundle>
+        <bundle>customer</bundle>
         <controller>index</controller>
         <action>index</action>
-    </app-catalog-gui>
-    <dynamic-entities-gui>
-        <label>Data Exchange API Configuration</label>
-        <title>Data Exchange API Configuration</title>
-        <icon>arrows_left_right_circle</icon>
-        <bundle>dynamic-entity-gui</bundle>
-        <controller>configuration-list</controller>
+        <visible>1</visible>
+      </customer>
+      <group>
+        <label>Customer Groups</label>
+        <title>Customer Groups</title>
+        <bundle>customer-group</bundle>
+        <controller>index</controller>
         <action>index</action>
-        <pages>
-            <dynamic-entity-create>
-                <label>Create new configuration</label>
-                <title>Create new configuration</title>
-                <bundle>dynamic-entity-gui</bundle>
-                <controller>configuration-create</controller>
-                <action>index</action>
-                <visible>0</visible>
-            </dynamic-entity-create>
-            <dynamic-entity-edit>
-                <label>Edit configuration</label>
-                <title>Edit configuration</title>
-                <bundle>dynamic-entity-gui</bundle>
-                <controller>configuration-edit</controller>
-                <action>index</action>
-                <visible>0</visible>
-            </dynamic-entity-edit>
-        </pages>
-    </dynamic-entities-gui>
-    <administration>
-        <label>Administration</label>
-        <title>Administration</title>
-        <icon>add_moderator</icon>
-        <pages>
-            <stores>
-                <label>Stores</label>
-                <title>Stores</title>
-                <bundle>store-gui</bundle>
-                <controller>list</controller>
-                <action>index</action>
-            </stores>
-            <product-measurement-units>
-                <label>Measurement Units</label>
-                <title>Measurement Units</title>
-                <bundle>product-measurement-unit-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </product-measurement-units>
-            <warehouses>
-                <label>Warehouses</label>
-                <title>Warehouses</title>
-                <bundle>stock-gui</bundle>
-                <controller>warehouse</controller>
-                <action>list</action>
-            </warehouses>
-            <payment-method>
-                <label>Payment Methods</label>
-                <title>Payment Methods</title>
-                <bundle>payment-gui</bundle>
-                <controller>payment-method</controller>
-                <action>index</action>
-            </payment-method>
-            <shipment-method>
-                <label>Delivery Methods</label>
-                <title>Delivery Methods</title>
-                <bundle>shipment-gui</bundle>
-                <controller>shipment-method</controller>
-                <action>index</action>
-            </shipment-method>
-            <glossary>
-                <label>Glossary</label>
-                <title>Glossary</title>
-                <bundle>glossary</bundle>
-                <uri>/glossary</uri>
-            </glossary>
-            <tax-rates>
-                <label>Tax Rates</label>
-                <title>Tax Rates</title>
-                <bundle>tax</bundle>
-                <controller>rate</controller>
-                <action>list</action>
-            </tax-rates>
-            <tax-sets>
-                <label>Tax Sets</label>
-                <title>Tax Sets</title>
-                <bundle>tax</bundle>
-                <controller>set</controller>
-                <action>list</action>
-            </tax-sets>
-            <sales-order-threshold-global>
-                <label>Global Threshold</label>
-                <title>Global Threshold</title>
-                <bundle>sales-order-threshold-gui</bundle>
-                <controller>global</controller>
-                <action>index</action>
-            </sales-order-threshold-global>
-            <sales-order-threshold-settings>
-                <label>Threshold Settings</label>
-                <title>Threshold Settings</title>
-                <bundle>sales-order-threshold-gui</bundle>
-                <controller>settings</controller>
-                <action>index</action>
-            </sales-order-threshold-settings>
-            <sales-order-threshold-merchant-relationship>
-                <label>Merchant Relationships Threshold</label>
-                <title>Merchant Relationships Threshold</title>
-                <uri>/merchant-relationship-sales-order-threshold-gui</uri>
-                <bundle>merchant-relationship-sales-order-threshold-gui</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </sales-order-threshold-merchant-relationship>
-            <sales-order-threshold-merchant-relationship-edit>
-                <label>Edit Merchant Relationship Threshold</label>
-                <title>Edit Merchant Relationship Threshold</title>
-                <uri>/merchant-relationship-sales-order-threshold-gui/edit</uri>
-                <bundle>merchant-relationship-sales-order-threshold-gui</bundle>
-                <controller>edit</controller>
-                <action>index</action>
-                <visible>0</visible>
-            </sales-order-threshold-merchant-relationship-edit>
-            <settings>
-                <label>MIME Type Settings</label>
-                <title>MIME Type Settings</title>
-                <bundle>file-manager-gui</bundle>
-                <controller>mime-type</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </settings>
-            <oms>
-                <label>OMS</label>
-                <title>Order Management System</title>
-                <bundle>oms</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </oms>
-            <statemachines-index>
-                <label>State Machine</label>
-                <title>State Machine</title>
-                <bundle>state-machine</bundle>
-                <controller>list</controller>
-                <action>index</action>
-            </statemachines-index>
-            <api-key>
-                <label>API Keys</label>
-                <title>API Keys</title>
-                <bundle>api-key-gui</bundle>
-                <controller>list</controller>
-                <action>index</action>
-            </api-key>
-        </pages>
-    </administration>
-    <maintenance>
-        <label>Maintenance</label>
+        <visible>1</visible>
+      </group>
+      <customer-access>
+        <label>Customer Access</label>
+        <title>Customer Access</title>
+        <bundle>customer-access-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </customer-access>
+      <page>
+        <label>Companies</label>
+        <title>Companies</title>
+        <bundle>company-gui</bundle>
+        <controller>list-company</controller>
+        <action>index</action>
+      </page>
+      <company-business-unit-gui>
+        <label>Company Units</label>
+        <title>Company Units</title>
+        <bundle>company-business-unit-gui</bundle>
+        <controller>list-company-business-unit</controller>
+        <action>index</action>
+      </company-business-unit-gui>
+      <company-unit-address-gui>
+        <label>Company Unit Addresses</label>
+        <title>Company Unit Addresses</title>
+        <bundle>company-unit-address-gui</bundle>
+        <controller>list-company-unit-address</controller>
+        <action>index</action>
+      </company-unit-address-gui>
+      <company-user-gui>
+        <label>Company Users</label>
+        <title>Company Users</title>
+        <bundle>company-user-gui</bundle>
+        <controller>list-company-user</controller>
+        <action>index</action>
+      </company-user-gui>
+      <company-role-gui>
+        <label>Company Roles</label>
+        <title>Company Roles</title>
+        <bundle>company-role-gui</bundle>
+        <controller>list-company-role</controller>
+        <action>index</action>
+      </company-role-gui>
+    </pages>
+  </customer>
+  <catalog>
+    <label>Catalog</label>
+    <title>Catalog</title>
+    <icon>package_2</icon>
+    <uri>#</uri>
+    <pages>
+      <products>
+        <label>Products</label>
+        <title>Products</title>
+        <bundle>product-management</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </products>
+      <category>
+        <label>Categories</label>
+        <title>Categories</title>
+        <bundle>category-gui</bundle>
+        <controller>list</controller>
+        <action>index</action>
+      </category>
+      <attributes>
+        <label>Attributes</label>
+        <title>Attributes</title>
+        <bundle>product-attribute-gui</bundle>
+        <controller>attribute</controller>
+        <action>index</action>
+      </attributes>
+      <AvailabilityGui>
+        <label>Availability</label>
+        <title>Availability</title>
+        <bundle>availability-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </AvailabilityGui>
+      <reviews>
+        <label>Product Reviews</label>
+        <title>Product Reviews</title>
+        <bundle>product-review-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </reviews>
+      <product_options>
+        <label>Product Options</label>
+        <title>Product Options</title>
+        <bundle>product-option</bundle>
+        <controller>list</controller>
+        <action>index</action>
+        <visible>2</visible>
+      </product_options>
+      <product-list>
+        <label>Product Lists</label>
+        <title>Product Lists</title>
+        <bundle>product-list-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </product-list>
+      <product-barcode>
+        <label>Product Barcodes</label>
+        <title>Product Barcodes</title>
+        <bundle>product-barcode-gui</bundle>
+        <controller>product-barcode</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </product-barcode>
+      <price-product-schedule>
+        <label>Scheduled Prices</label>
+        <title>Scheduled Prices</title>
+        <bundle>price-product-schedule-gui</bundle>
+        <controller>import</controller>
+        <action>index</action>
+      </price-product-schedule>
+    </pages>
+  </catalog>
+  <content>
+    <label>Content</label>
+    <title>Content</title>
+    <icon>article</icon>
+    <uri>#</uri>
+    <pages>
+      <content-items>
+        <label>Content Items</label>
+        <title>Content Items</title>
+        <bundle>content-gui</bundle>
+        <controller>list-content</controller>
+        <action>index</action>
+      </content-items>
+      <block>
+        <label>Blocks</label>
+        <title>Blocks</title>
+        <bundle>cms-block-gui</bundle>
+        <controller>list-block</controller>
+        <action>index</action>
+      </block>
+      <page>
+        <label>Pages</label>
+        <title>Pages</title>
+        <bundle>cms-gui</bundle>
+        <controller>list-page</controller>
+        <action>index</action>
+      </page>
+      <slots>
+        <label>Slots</label>
+        <title>Slots</title>
+        <bundle>cms-slot-gui</bundle>
+        <controller>template-list</controller>
+        <action>index</action>
+      </slots>
+      <navigation>
+        <label>Navigation</label>
+        <title>Navigation</title>
+        <bundle>navigation-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </navigation>
+      <redirects>
+        <label>Redirects</label>
+        <title>Redirects</title>
+        <bundle>cms</bundle>
+        <controller>redirect</controller>
+        <action>index</action>
+      </redirects>
+      <list>
+        <label>File List</label>
+        <title>File List</title>
+        <bundle>file-manager-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </list>
+      <tree>
+        <label>File Tree</label>
+        <title>File Tree</title>
+        <bundle>file-manager-gui</bundle>
+        <controller>directories-tree</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </tree>
+    </pages>
+  </content>
+  <merchandising>
+    <label>Merchandising</label>
+    <title>Merchandising</title>
+    <icon>box</icon>
+    <uri>#</uri>
+    <pages>
+      <discount>
+        <label>Discount</label>
+        <title>Discount</title>
+        <bundle>discount</bundle>
+        <controller>index</controller>
+        <action>list</action>
+      </discount>
+      <product-label-gui>
+        <label>Product Labels</label>
+        <title>Product Labels</title>
+        <bundle>product-label-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </product-label-gui>
+      <product-relation-gui>
+        <label>Product Relations</label>
+        <title>Product Relations</title>
+        <bundle>product-relation-gui</bundle>
+        <controller>list</controller>
+        <action>index</action>
+        <visible>2</visible>
+      </product-relation-gui>
+      <sets>
+        <label>Product Sets</label>
+        <title>Product Sets</title>
+        <bundle>product-set-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </sets>
+      <configurable-bundle-templates>
+        <label>Configurable Bundle Templates</label>
+        <title>Configurable Bundle Templates</title>
+        <bundle>configurable-bundle-gui</bundle>
+        <controller>template</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </configurable-bundle-templates>
+      <search-preferences>
+        <label>Search Preferences</label>
+        <title>Search Preferences</title>
+        <bundle>product-search</bundle>
+        <controller>search-preferences</controller>
+        <action>index</action>
+      </search-preferences>
+      <filter-preferences>
+        <label>Filter Preferences</label>
+        <title>Filter Preferences</title>
+        <bundle>product-search</bundle>
+        <controller>filter-preferences</controller>
+        <action>index</action>
+      </filter-preferences>
+      <category-filters>
+        <label>Category Filters</label>
+        <title>Category Filters</title>
+        <bundle>product-category-filter-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </category-filters>
+    </pages>
+  </merchandising>
+  <marketplace>
+    <label>Marketplace</label>
+    <title>Marketplace</title>
+    <icon>local_convenience_store</icon>
+    <pages>
+      <product-offer-gui>
+        <label>Offers</label>
+        <title>Offers</title>
+        <bundle>product-offer-gui</bundle>
+        <controller>list</controller>
+        <action>index</action>
+      </product-offer-gui>
+      <merchant>
+        <label>Merchants</label>
+        <title>Merchants</title>
+        <bundle>merchant-gui</bundle>
+        <controller>list-merchant</controller>
+        <action>index</action>
+      </merchant>
+      <merchant-relationship>
+        <label>Merchant Relations</label>
+        <title>Merchant Relations</title>
+        <bundle>merchant-relationship-gui</bundle>
+        <controller>list-merchant-relationship</controller>
+        <action>index</action>
+      </merchant-relationship>
+      <merchant-relation-request-gui>
+        <label>navigation.merchant_relation_requests</label>
+        <title>navigation.merchant_relation_requests</title>
+        <bundle>merchant-relation-request-gui</bundle>
+        <controller>list</controller>
+        <action>index</action>
+      </merchant-relation-request-gui>
+      <merchant-registration-request>
+        <label>Merchant Registrations</label>
+        <title>Merchant Registrations</title>
+        <bundle>merchant-registration-request</bundle>
+        <controller>list</controller>
+        <action>index</action>
+      </merchant-registration-request>
+      <merchant-commission-gui>
+        <label>Merchant Commissions</label>
+        <title>Merchant Commissions</title>
+        <bundle>merchant-commission-gui</bundle>
+        <controller>list</controller>
+        <action>index</action>
+      </merchant-commission-gui>
+    </pages>
+  </marketplace>
+  <users>
+    <label>Users</label>
+    <title>Users</title>
+    <icon>background_replace</icon>
+    <pages>
+      <user>
+        <label>Users</label>
+        <title>Users</title>
+        <bundle>user</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </user>
+      <roles>
+        <label>User Roles</label>
+        <title>Roles</title>
+        <bundle>acl</bundle>
+        <controller>role</controller>
+        <action>index</action>
+      </roles>
+      <groups>
+        <label>User Groups</label>
+        <title>Groups</title>
+        <bundle>acl</bundle>
+        <controller>group</controller>
+        <action>index</action>
+      </groups>
+    </pages>
+  </users>
+  <app-catalog-gui>
+    <label>Apps</label>
+    <title>Apps</title>
+    <icon>add_to_queue</icon>
+    <bundle>app-catalog-gui</bundle>
+    <controller>index</controller>
+    <action>index</action>
+  </app-catalog-gui>
+  <dynamic-entities-gui>
+    <label>Data Exchange API Configuration</label>
+    <title>Data Exchange API Configuration</title>
+    <icon>arrows_left_right_circle</icon>
+    <bundle>dynamic-entity-gui</bundle>
+    <controller>configuration-list</controller>
+    <action>index</action>
+    <pages>
+      <dynamic-entity-create>
+        <label>Create new configuration</label>
+        <title>Create new configuration</title>
+        <bundle>dynamic-entity-gui</bundle>
+        <controller>configuration-create</controller>
+        <action>index</action>
+        <visible>0</visible>
+      </dynamic-entity-create>
+      <dynamic-entity-edit>
+        <label>Edit configuration</label>
+        <title>Edit configuration</title>
+        <bundle>dynamic-entity-gui</bundle>
+        <controller>configuration-edit</controller>
+        <action>index</action>
+        <visible>0</visible>
+      </dynamic-entity-edit>
+    </pages>
+  </dynamic-entities-gui>
+  <administration>
+    <label>Administration</label>
+    <title>Administration</title>
+    <icon>add_moderator</icon>
+    <pages>
+      <stores>
+        <label>Stores</label>
+        <title>Stores</title>
+        <bundle>store-gui</bundle>
+        <controller>list</controller>
+        <action>index</action>
+      </stores>
+      <product-measurement-units>
+        <label>Measurement Units</label>
+        <title>Measurement Units</title>
+        <bundle>product-measurement-unit-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </product-measurement-units>
+      <warehouses>
+        <label>Warehouses</label>
+        <title>Warehouses</title>
+        <bundle>stock-gui</bundle>
+        <controller>warehouse</controller>
+        <action>list</action>
+      </warehouses>
+      <payment-method>
+        <label>Payment Methods</label>
+        <title>Payment Methods</title>
+        <bundle>payment-gui</bundle>
+        <controller>payment-method</controller>
+        <action>index</action>
+      </payment-method>
+      <shipment-method>
+        <label>Delivery Methods</label>
+        <title>Delivery Methods</title>
+        <bundle>shipment-gui</bundle>
+        <controller>shipment-method</controller>
+        <action>index</action>
+      </shipment-method>
+      <glossary>
+        <label>Glossary</label>
+        <title>Glossary</title>
+        <bundle>glossary</bundle>
+        <uri>/glossary</uri>
+      </glossary>
+      <tax-rates>
+        <label>Tax Rates</label>
+        <title>Tax Rates</title>
+        <bundle>tax</bundle>
+        <controller>rate</controller>
+        <action>list</action>
+      </tax-rates>
+      <tax-sets>
+        <label>Tax Sets</label>
+        <title>Tax Sets</title>
+        <bundle>tax</bundle>
+        <controller>set</controller>
+        <action>list</action>
+      </tax-sets>
+      <sales-order-threshold-global>
+        <label>Global Threshold</label>
+        <title>Global Threshold</title>
+        <bundle>sales-order-threshold-gui</bundle>
+        <controller>global</controller>
+        <action>index</action>
+      </sales-order-threshold-global>
+      <sales-order-threshold-settings>
+        <label>Threshold Settings</label>
+        <title>Threshold Settings</title>
+        <bundle>sales-order-threshold-gui</bundle>
+        <controller>settings</controller>
+        <action>index</action>
+      </sales-order-threshold-settings>
+      <sales-order-threshold-merchant-relationship>
+        <label>Merchant Relationships Threshold</label>
+        <title>Merchant Relationships Threshold</title>
+        <uri>/merchant-relationship-sales-order-threshold-gui</uri>
+        <bundle>merchant-relationship-sales-order-threshold-gui</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </sales-order-threshold-merchant-relationship>
+      <sales-order-threshold-merchant-relationship-edit>
+        <label>Edit Merchant Relationship Threshold</label>
+        <title>Edit Merchant Relationship Threshold</title>
+        <uri>/merchant-relationship-sales-order-threshold-gui/edit</uri>
+        <bundle>merchant-relationship-sales-order-threshold-gui</bundle>
+        <controller>edit</controller>
+        <action>index</action>
+        <visible>0</visible>
+      </sales-order-threshold-merchant-relationship-edit>
+      <settings>
+        <label>MIME Type Settings</label>
+        <title>MIME Type Settings</title>
+        <bundle>file-manager-gui</bundle>
+        <controller>mime-type</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </settings>
+      <oms>
+        <label>OMS</label>
+        <title>Order Management System</title>
+        <bundle>oms</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </oms>
+      <statemachines-index>
+        <label>State Machine</label>
+        <title>State Machine</title>
+        <bundle>state-machine</bundle>
+        <controller>list</controller>
+        <action>index</action>
+      </statemachines-index>
+      <api-key>
+        <label>API Keys</label>
+        <title>API Keys</title>
+        <bundle>api-key-gui</bundle>
+        <controller>list</controller>
+        <action>index</action>
+      </api-key>
+    </pages>
+  </administration>
+  <maintenance>
+    <label>Maintenance</label>
+    <title>Maintenance</title>
+    <icon>build</icon>
+    <pages>
+      <phpinfo>
+        <label>PHP Info</label>
+        <title>PHP Info</title>
+        <bundle>maintenance</bundle>
+        <controller>php-info</controller>
+        <action>index</action>
+      </phpinfo>
+      <permission>
+        <label>Sync Permissions</label>
+        <title>Sync Permissions</title>
+        <bundle>permission</bundle>
+        <controller>index</controller>
+        <action>sync</action>
+      </permission>
+      <index>
+        <label>System Info</label>
         <title>Maintenance</title>
-        <icon>build</icon>
-        <pages>
-            <phpinfo>
-                <label>PHP Info</label>
-                <title>PHP Info</title>
-                <bundle>maintenance</bundle>
-                <controller>php-info</controller>
-                <action>index</action>
-            </phpinfo>
-            <permission>
-                <label>Sync Permissions</label>
-                <title>Sync Permissions</title>
-                <bundle>permission</bundle>
-                <controller>index</controller>
-                <action>sync</action>
-            </permission>
-            <index>
-                <label>System Info</label>
-                <title>Maintenance</title>
-                <bundle>maintenance</bundle>
-                <controller>index</controller>
-                <action>index</action>
-            </index>
-            <elasticsearch>
-                <label>Elastic Search</label>
-                <title>Elastic Search</title>
-                <bundle>search-elasticsearch-gui</bundle>
-                <controller>maintenance</controller>
-                <action>list-indexes</action>
-            </elasticsearch>
-            <queue>
-                <label>Queue Processes</label>
-                <title>Queue Processes</title>
-                <bundle>queue</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </queue>
-            <storage-gui>
-                <label>Storage</label>
-                <title>Storage index</title>
-                <bundle>storage-gui</bundle>
-                <controller>maintenance</controller>
-                <action>index</action>
-            </storage-gui>
-        </pages>
-    </maintenance>
+        <bundle>maintenance</bundle>
+        <controller>index</controller>
+        <action>index</action>
+      </index>
+      <elasticsearch>
+        <label>Elastic Search</label>
+        <title>Elastic Search</title>
+        <bundle>search-elasticsearch-gui</bundle>
+        <controller>maintenance</controller>
+        <action>list-indexes</action>
+      </elasticsearch>
+      <queue>
+        <label>Queue Processes</label>
+        <title>Queue Processes</title>
+        <bundle>queue</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <visible>1</visible>
+      </queue>
+      <storage-gui>
+        <label>Storage</label>
+        <title>Storage index</title>
+        <bundle>storage-gui</bundle>
+        <controller>maintenance</controller>
+        <action>index</action>
+      </storage-gui>
+    </pages>
+  </maintenance>
 </config>
