@@ -1,18 +1,15 @@
 <?xml version="1.0"?>
 <database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
           xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
-          namespace="Orm\Zed\Message\Persistence" package="src.Orm.Zed.Message.Persistence">
+          namespace="Orm\Zed\ContactRequest\Persistence" package="src.Orm.Zed.ContactRequest.Persistence">
 
-    <table name="pyz_contact_request" idMethod="native" allowPkInsert="true">
-        <column name="id_contact_request" type="INTEGER" primaryKey="true" autoIncrement="true"/>
-        <column name="message" type="VARCHAR" size="255" required="true"/>
-
-        <unique name="pyz_contact_request_unique-message">
+    <table name="pyz_contact_request" idMethod="native" allowPkInsert="true" phpName="PyzContactRequest">
+        <column name="id_contact_request" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="message" required="true" type="VARCHAR" size="255"/>
+        <unique name="pyz_contact_request-message">
             <unique-column name="message"/>
         </unique>
-        <behavior name="timestampable"/>
-
-
+        <id-method-parameter value="pyz_contact_request_pk_seq"/>
     </table>
 
 </database>

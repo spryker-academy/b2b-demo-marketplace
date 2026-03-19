@@ -90,7 +90,10 @@ return static function (ContainerConfigurator $configurator): void {
              * You can also only use this line instead of the whole code in this file. But then you would have to make sure
              * that all modules you want to be available in the DIC are included manually here, which is not the preferred way.
              */
+
             $services->load($namespace, $path);
         }
+
     }
+
 };
