@@ -400,12 +400,14 @@
             "Generated\\": "src/Generated/",
             "Orm\\": "src/Orm/",
             "Pyz\\": "src/Pyz/",
-            "SprykerConfig\\": "src/SprykerConfig/"
+            "SprykerConfig\\": "src/SprykerConfig/",
+            "SprykerAcademy\\": "src/SprykerAcademy/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PyzTest\\": "tests/PyzTest/"
+            "PyzTest\\": "tests/PyzTest/",
+            "SprykerAcademyTest\\": "tests/SprykerAcademyTest/"
         },
         "files": [
             "test-autoload.php"

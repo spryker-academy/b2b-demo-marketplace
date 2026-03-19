@@ -1,0 +1,15 @@
+namespace: SprykerAcademyTest\Zed\ContactRequest
+
+paths:
+    tests: .
+    data: _data
+    support: _support
+    output: _output
+
+suites:
+    Exercise1:
+        path: Exercise1
+        actor: ContactRequestBusinessTester
+        modules:
+            enabled:
+                - Asserts
