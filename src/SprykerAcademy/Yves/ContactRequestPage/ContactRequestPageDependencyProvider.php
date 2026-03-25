@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Yves\ContactRequestPage;
 
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
@@ -18,7 +25,8 @@ class ContactRequestPageDependencyProvider extends AbstractBundleDependencyProvi
 
     protected function addContactRequestClient(Container $container): Container
     {
-        $container->set(static::CLIENT_CONTACT_REQUEST, fn() => $container->getLocator()->contactRequest()->client());
+        $container->set(static::CLIENT_CONTACT_REQUEST, fn () => $container->getLocator()->contactRequest()->client());
+
         return $container;
     }
 }

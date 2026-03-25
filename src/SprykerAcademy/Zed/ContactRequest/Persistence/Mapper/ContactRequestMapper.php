@@ -5,6 +5,8 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\ContactRequest\Persistence\Mapper;
 
 use Generated\Shared\Transfer\ContactRequestTransfer;
@@ -15,8 +17,6 @@ class ContactRequestMapper
     /**
      * @param \Orm\Zed\ContactRequest\Persistence\PyzContactRequest $contactRequestEntity
      * @param \Generated\Shared\Transfer\ContactRequestTransfer $contactRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\ContactRequestTransfer
      */
     public function mapEntityToContactRequestTransfer(
         PyzContactRequest $contactRequestEntity,
@@ -28,8 +28,6 @@ class ContactRequestMapper
     /**
      * @param \Generated\Shared\Transfer\ContactRequestTransfer $contactRequestTransfer
      * @param \Orm\Zed\ContactRequest\Persistence\PyzContactRequest $contactRequestEntity
-     *
-     * @return \Orm\Zed\ContactRequest\Persistence\PyzContactRequest
      */
     public function mapContactRequestTransferToEntity(
         ContactRequestTransfer $contactRequestTransfer,

@@ -5,11 +5,12 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types = 1);
+
 namespace SprykerAcademy\Zed\ContactRequest\Persistence;
 
 use Generated\Shared\Transfer\ContactRequestCriteriaTransfer;
 use Generated\Shared\Transfer\ContactRequestTransfer;
-use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -24,7 +25,7 @@ class ContactRequestRepository extends AbstractRepository implements ContactRequ
         if ($contactRequestCriteria->getIdContactRequest()) {
             $contactRequestEntity = $query->findOneByIdContactRequest($contactRequestCriteria->getIdContactRequest());
         } elseif ($contactRequestCriteria->getMessage()) {
-            $contactRequestEntity = $query->filterByMessage('%' . $contactRequestCriteria->getMessage() . '%', Criteria::LIKE)->findOne();
+            $contactRequestEntity = $query->findOneByMessage($contactRequestCriteria->getMessage());
         }
         if (!$contactRequestEntity) {
             return null;
